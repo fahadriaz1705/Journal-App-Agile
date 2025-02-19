@@ -1,0 +1,9 @@
+header,
+footer {
+    background-color: #384955;
+}
+
+footer #ftr-L a,
+footer #ftr-R a {
+    color: white;
+}
