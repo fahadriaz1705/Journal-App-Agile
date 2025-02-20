@@ -27,7 +27,11 @@
     <!-- clicking on each tag will display all entries with that tag -->
 
     <a href=""><button class="nav-bar-btn">Profile Settings</button></a>
+
+    {% if user.is_authenticated %}
     <a href=""><button class="nav-bar-btn">Log Out</button></a>
+    {% endif %}
+
   </div>
 
   <main id="main">
@@ -42,6 +46,12 @@
           </div>
         </div>
       </div>
+
+      <div id="quoteContainer">
+        <p class="quote" id="quote"></p>
+        <p class="author" id="author"></p>
+      </div>
+
     </div>
 
   </main>
@@ -90,6 +100,7 @@
         navopen = false;
       }
     }
+
   </script>
 
 </body>
