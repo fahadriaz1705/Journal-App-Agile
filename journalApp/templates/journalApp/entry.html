@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThoughtThread | Journal Entry</title>
+
+    <link rel="stylesheet" href="/journalApp/static/css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <img src="/journalApp/static/images/logo.png" alt="thoughtthread.">
+    </header>
+
+    <div id="mySidebar" class="sidebar">
+
+        <a id="nav-heading">Tags</a>
+        <!-- display all tags here with their icons -->
+        <!-- clicking on each tag will display all entries with that tag -->
+
+        <a href=""><button class="nav-bar-btn">Dashboard</button></a>
+        <a href=""><button class="nav-bar-btn">Profile Settings</button></a>
+        <a href=""><button class="nav-bar-btn">Log Out</button></a>
+    </div>
+
+    <main id="main">
+        <button class="openbtn" onclick="nav()">☰</button>
+
+        <div>
+            <form action="" id="journalEntry">
+
+            </form>
+        </div>
+    </main>
+
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+
+    <footer>
+        <div>
+            <img src="/journalApp/static/images/logo.png" alt="thoughtthread.">
+        </div>
+        <div id="ftr-box">
+            <div id="ftr-L">
+                <a>&#169;ThoughtThread 2025</a>
+            </div>
+            <div id="ftr-R">
+                <a>Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        var navopen = false;
+        function nav() {
+            if (!navopen) {
+                document.getElementById("mySidebar").style.width = "250px";
+                document.getElementById("main").style.marginLeft = "250px";
+                navopen = true;
+            }
+            else {
+                document.getElementById("mySidebar").style.width = "0";
+                document.getElementById("main").style.marginLeft = "0";
+                navopen = false;
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
