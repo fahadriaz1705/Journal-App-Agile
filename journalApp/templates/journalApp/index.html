@@ -12,12 +12,13 @@
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="{% static 'css/style-1.css' %}">
 
+  <!-- nav bar reference: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapse_sidebar -->
   <style>
     .sidebar a {
-      padding: 8px 8px 8px 32px;
+      padding: 8px 8px 8px 8px;
       text-decoration: none;
       font-size: 25px;
-      color: #818181;
+      color: white;
       display: block;
       transition: 0.3s;
     }
@@ -26,21 +27,17 @@
       color: #f1f1f1;
     }
 
-    .sidebar .closebtn {
-      position: absolute;
-      top: 0;
-      right: 25px;
-      font-size: 36px;
-      margin-left: 50px;
-    }
-
     .openbtn {
+      position: fixed;
+      z-index: 1;
       font-size: 20px;
       cursor: pointer;
       background-color: #111;
       color: white;
       padding: 10px 15px;
       border: none;
+      border-radius: 30px;
+      top: 80px;
     }
 
     .openbtn:hover {
@@ -74,14 +71,15 @@
   </header>
 
   <div id="mySidebar" class="sidebar">
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Clients</a>
-    <a href="#">Contact</a>
+
+    <a id="nav-heading">Tags</a>
+
+    <a href=""><button class="nav-bar-btn">Profile Settings</button></a>
+    <a href=""><button class="nav-bar-btn">Log Out</button></a>
   </div>
 
   <div id="main">
-    <button class="openbtn" onclick="nav()">☰ Open Sidebar</button>
+    <button class="openbtn" onclick="nav()">☰</button>
   </div>
 
   <br><br>
