@@ -168,7 +168,7 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 }
 
 .search-input:focus {
-    border-color: #007bff;
+    border-color: #A3CCEA;
     box-shadow: none;
 }
 
@@ -177,11 +177,11 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
-    color: #666;
+    color: #A3CCEA;
     transition: all 0.3s ease;
-    overflow: visible;
+    overflow: hidden;
 }
 
 .search-box:focus-within .search-icon {
-    color: #007bff;
+    color: #A3CCEA;
 }
