@@ -7,7 +7,75 @@
     <title>ThoughtThread | Journal Entry</title>
 
     <link rel="stylesheet" href="/journalApp/static/css/style.css">
+
 </head>
+
+<style>
+    #journalForm {
+        width: 90%;
+        margin: 0 auto;
+        padding: 5%;
+        padding-bottom: 0px;
+        padding-top: 20px;
+    }
+
+    .toolbar {
+        width: 80%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 5px;
+        background-color: #384955;
+        margin: 0px 10%;
+        border-radius: 30px;
+        margin-top: 8px;
+    }
+
+    #journalTitle {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 2px solid #A3CCEA;
+        border-radius: 20px;
+        margin-bottom: 8px;
+        resize: vertical;
+        min-height: 10px;
+    }
+
+    #journalEntry {
+        width: 100%;
+        padding: 10px;
+        font-size: 12px;
+        border: 2px solid #A3CCEA;
+        border-radius: 20px;
+        margin-bottom: 8px;
+        min-height: 250px;
+        resize: vertical;
+    }
+
+    /* input[type="file"] {
+        margin-top: 10px;
+    } */
+
+    .toolbar button img {
+        width: 70%;
+        height: 70%;
+    }
+
+    .toolbar button {
+        width: 4%;
+        height: 4%;
+        padding: 5px;
+        padding-top: 8px;
+        margin: 8px;
+        background-color: #384955;
+        border: none;
+        border-radius: 10px;
+    }
+
+    .toolbar button:hover {
+        background-color: #A3CCEA;
+    }
+</style>
 
 <body>
 
@@ -15,42 +83,65 @@
         <img src="/journalApp/static/images/logo.png" alt="thoughtthread.">
     </header>
 
-    <div id="mySidebar" class="sidebar">
-
-        <a id="nav-heading">Tags</a>
-        <!-- display all tags here with their icons -->
-        <!-- clicking on each tag will display all entries with that tag -->
-
-        <a href=""><button class="nav-bar-btn">Dashboard</button></a>
-        <a href=""><button class="nav-bar-btn">Profile Settings</button></a>
-        <a href=""><button class="nav-bar-btn">Log Out</button></a>
-    </div>
-
     <main id="main">
-        <button class="openbtn" onclick="nav()">☰</button>
 
-        <div>
-            <form action="" id="journalEntry">
+        <!-- Journal Entry Form -->
+        <form action="" id="journalForm">
 
-            </form>
+            <textarea id="journalTitle" placeholder="Journal Title" maxlength="100"></textarea>
+
+            <div id="journalEntry" contenteditable="true"></div>
+
+        </form>
+
+        <!-- <div>
+            <label for="attachment">Add an attachment: </label>
+            <input type="file" id="attachment">
+        </div> -->
+
+        <div class="toolbar">
+            <button onclick="changeSize('up')">
+                <img src="/journalApp/static/images/text-format-icons/font-size-up.png" alt="Increase Font Size">
+            </button>
+            <button onclick="changeSize('down')">
+                <img src="/journalApp/static/images/text-format-icons/font-size-down.png" alt="Decrease Font Size">
+            </button>
+            <button onclick="formatText('bold')" id="bold">
+                <img src="/journalApp/static/images/text-format-icons/bold.png" alt="Bold">
+            </button>
+            <button onclick="formatText('italic')">
+                <img src="/journalApp/static/images/text-format-icons/italic.png" alt="Italic">
+            </button>
+            <button onclick="formatText('underline')">
+                <img src="/journalApp/static/images/text-format-icons/underline.png" alt="Underline">
+            </button>
+            <button onclick="changeAlignment('left')">
+                <img src="/journalApp/static/images/text-format-icons/left-align.png" alt="Left-Align">
+            </button>
+            <button onclick="changeAlignment('center')">
+                <img src="/journalApp/static/images/text-format-icons/center.png" alt="Center-Align">
+            </button>
+            <button onclick="changeAlignment('right')">
+                <img src="/journalApp/static/images/text-format-icons/right-align.png" alt="Right-Align">
+            </button>
+            <button onclick="insertBulletList()">
+                <img src="/journalApp/static/images/text-format-icons/bullet-points.png" alt="Bullet-Points">
+            </button>
+            <button onclick="insertNumberedList()">
+                <img src="/journalApp/static/images/text-format-icons/numbered points.png" alt="Numbered-List">
+            </button>
+            <button>
+                <img src="/journalApp/static/images/text-format-icons/tags.png" alt="Add Tag">
+            </button>
+            <button onclick="downloadJournal()">
+                <img src="/journalApp/static/images/text-format-icons/download.png" alt="Download">
+            </button>
+            <button>
+                <img src="/journalApp/static/images/text-format-icons/save.png" alt="Save Entry">
+            </button>
         </div>
-    </main>
 
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
+    </main>
 
     <footer>
         <div>
@@ -67,18 +158,123 @@
     </footer>
 
     <script>
-        var navopen = false;
-        function nav() {
-            if (!navopen) {
-                document.getElementById("mySidebar").style.width = "250px";
-                document.getElementById("main").style.marginLeft = "250px";
-                navopen = true;
+
+        // Function to apply text formatting (Bold, Italic, Underline)
+        function formatText(command) {
+            document.execCommand(command, false, null);
+        }
+
+        // Function to change text alignment (Left, Center, Right)
+        function changeAlignment(alignment) {
+            document.getElementById("journalEntry").style.textAlign = alignment;
+        }
+
+        // Function to change font size
+        function changeSize(size) {
+
+            const text = document.getElementById("journalEntry");
+            let fontSize = window.getComputedStyle(text).fontSize;
+            fontSize = parseInt(fontSize);
+
+            if (size == 'up') {
+                fontSize += 2;
             }
             else {
-                document.getElementById("mySidebar").style.width = "0";
-                document.getElementById("main").style.marginLeft = "0";
-                navopen = false;
+                fontSize -= 2;
             }
+
+            fontSize = fontSize + 'px';
+            text.style.fontSize = fontSize;
+        }
+
+        // Function to download the journal entry as a text file
+        function downloadJournal() {
+            const entry = document.getElementById("journalEntry").innerText;
+            // convert the text from an array format to a text format
+            const blob = new Blob([entry], { type: "text/plain" });
+            //creating a link to represent the blob inorder to download it
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            // setting the file name as the name of the title of the entry
+            let filename = `${document.getElementById('journalTitle').value}.txt`;
+            link.download = filename;
+            link.click();
+        }
+
+        // Bullet Points function 
+        function insertBulletList() {
+
+            var journal = document.getElementById('journalEntry');
+
+            // get the current selection of text and its range
+            var selection = window.getSelection();
+            var range = selection.getRangeAt(0);
+
+            var selectedText = selection.toString(); // convert text to string
+
+            // If any text has been selected 
+            if (selectedText) {
+
+                // Split the selected text into lines and store as an array 
+                var lines = selectedText.split('\n');
+
+                // The strings are then changed to add bullet points
+                var newText = '';
+
+                // A loop iterates for each line
+                for (var i = 0; i < lines.length; i++) {
+
+                    // The temp variable changes the string by adding the bullet points and the <br> tag to ensure when its displayed in the <div> it is displayed as separate lines
+                    var temp = `• ` + lines[i] + '<br>';
+
+                    // Add the changed line to the newText string
+                    newText += temp;
+                }
+
+                // delete the contents inside the selected range
+                range.deleteContents();
+
+                // due to the formatting of the text, a new division is created, inside of which the new bullet point list is added
+                var bulletListElement = document.createElement("div");
+                bulletListElement.innerHTML = newText;
+                range.insertNode(bulletListElement);
+
+            }
+            // if there isn't any selected text, bullet points will be applied to the whole journal entry
+            else {
+                var lines = journal.innerText.split('\n');
+                var newText = '';
+                for (var i = 0; i < lines.length; i++) {
+                    var temp = `• ` + lines[i] + '<br>';
+                    newText += temp;
+                }
+                journal.innerHTML = newText;
+            }
+
+            journal.focus();
+        }
+
+
+        // Insert Numbered List at the cursor position
+        function insertNumberedList() {
+            const journal = document.getElementById('journalEntry');
+
+            // Get the current selection and the current cursor position
+            const selection = window.getSelection();
+            const range = selection.getRangeAt(0);
+            const selectedText = selection.toString();
+            const lines = (selectedText || journal.innerText).split('\n');
+            let newText = '';
+
+            // Add numbering to each line of the selected text or all text
+            lines.forEach((line, index) => {
+                newText += `<div>${index + 1}. ${line.trim()}</div>`;
+            });
+
+            // Clear the current selection and insert the numbered list
+            range.deleteContents();
+            range.insertNode(document.createRange().createContextualFragment(newText));
+            journal.focus();
         }
 
     </script>
