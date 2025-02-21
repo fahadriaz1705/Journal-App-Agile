@@ -185,3 +185,85 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 .search-box:focus-within .search-icon {
     color: #A3CCEA;
 }
+
+
+
+/* journal entry page */
+.journalentrypage {
+    background-image: url("/journalApp/static/images/background/bg.png");
+    background-repeat: repeat-y;
+    background-size: cover;
+    background-position: center;
+}
+
+#journalForm {
+    width: 90%;
+    margin: 0 auto;
+    padding: 5%;
+    padding-bottom: 0px;
+    padding-top: 20px;
+}
+
+.toolbar {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+    background-color: #384955;
+    margin: 0px 10%;
+    border-radius: 20px;
+    margin-top: 8px;
+}
+
+#journalTitle {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #A3CCEA;
+    border-radius: 20px;
+    margin-bottom: 8px;
+    resize: vertical;
+    min-height: 10px;
+    font-family: monospace;
+    background-color: white;
+    outline: none;
+}
+
+#journalEntry {
+    width: 100%;
+    padding: 10px;
+    font-size: 12px;
+    border: 2px solid #A3CCEA;
+    border-radius: 20px;
+    margin-bottom: 8px;
+    min-height: 300px;
+    resize: vertical;
+    font-family: monospace;
+    background-color: white;
+    outline: none;
+}
+
+#journalTitle:focus,
+#journalEntry:focus {
+    border: 2px solid #E5BAD3;
+}
+
+.toolbar button img {
+    width: 70%;
+    height: 70%;
+}
+
+.toolbar button {
+    width: 4%;
+    height: 4%;
+    padding: 5px;
+    padding-top: 8px;
+    margin: 8px;
+    background-color: #384955;
+    border: none;
+    border-radius: 12px;
+}
+
+.toolbar button:hover {
+    background-color: #E5BAD3;
+}
