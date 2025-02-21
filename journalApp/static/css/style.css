@@ -278,3 +278,35 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 .toolbar button:hover {
     background-color: #E5BAD3;
 }
+
+/* prompt */
+
+#prompt {
+    width: 79%;
+    margin: 0 auto;
+    padding: 5%;
+    padding-top: 20px;
+    border: 2px solid #504249;
+    text-align: center;
+    border-radius: 20px;
+    background-color: #e3d5dd;
+}
+
+.row {
+    width: 79%;
+    margin: 30px auto;
+    margin-bottom: 0px;
+    padding: 30px;
+    text-align: center;
+    display: flex;
+}
+
+.col {
+    width: 33.33%;
+    border: 2px solid #504249;
+    border-radius: 20px;
+    background-color: #e3d5dd;
+    padding: 20px;
+    margin: 0px 10px;
+    min-height: 150px;
+}
