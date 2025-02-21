@@ -12,44 +12,52 @@ function changeAlignment(alignment) {
 function changeSize(size) {
 
     const text = document.getElementById("journalEntry");
-    let fontSize = window.getComputedStyle(text).fontSize;
-    fontSize = parseInt(fontSize);
+    let fontSize = window.getComputedStyle(text).fontSize; // Get the font size of the document
+    fontSize = parseInt(fontSize); // Separate the integer part of the font size
 
-    if (size == 'up') {
-        fontSize += 2;
+    if (size == 'up') { // If the font increase button is pressed,
+        if (fontSize < 50) {
+            fontSize += 2; // The font size increases at an increment of 2
+        }
     }
-    else {
-        fontSize -= 2;
+    else { // Else, the font decrease button would've been pressed,
+        if (fontSize > 4) {
+            fontSize -= 2; // Decreasing the font size at an increment of 2
+        }
     }
 
-    fontSize = fontSize + 'px';
-    text.style.fontSize = fontSize;
+    fontSize = fontSize + 'px'; // Adding the font size unit to the string
+    text.style.fontSize = fontSize; // Applying the font size to the journal entry
 }
 
 // Function to download the journal entry as a text file
+// this function is inspired by: https://stackoverflow.com/questions/13685263/can-i-save-input-from-form-to-txt-in-html-using-javascript-jquery-and-then-us
 function downloadJournal() {
+
     const entry = document.getElementById("journalEntry").innerText;
-    // convert the text from an array format to a text format
-    const blob = new Blob([entry], { type: "text/plain" });
-    //creating a link to represent the blob inorder to download it
-    const link = document.createElement("a");
+
+    const blob = new Blob([entry], { type: "text/plain" }); // Convert the text from an array format to a plain text format
+
+    const link = document.createElement("a"); // Creat a link to represent the blob in order to download it
     link.href = URL.createObjectURL(blob);
-    // setting the file name as the name of the title of the entry
-    let filename = `${document.getElementById('journalTitle').value}.txt`;
+
+    let filename = 'ThoughtThread-Journal-' + `${document.getElementById('journalTitle').value}.txt`; // Setting the journal entry's title as the file name
+    filename = filename.replaceAll(' ', '_');
     link.download = filename;
-    link.click();
+    link.click(); // Saving the file on click of the button
 }
 
-// Bullet Points function 
-function insertBulletList() {
+// Function to add Bullet Points to the journal entry 
+function addLists(type) {
 
     var journal = document.getElementById('journalEntry');
 
-    // get the current selection of text and its range
+    // Access the user selected text and its range
     var selection = window.getSelection();
     var range = selection.getRangeAt(0);
 
-    var selectedText = selection.toString(); // convert text to string
+    // Convert the selected text into a string format for manipulating the data 
+    var selectedText = selection.toString();
 
     // If any text has been selected 
     if (selectedText) {
@@ -57,61 +65,108 @@ function insertBulletList() {
         // Split the selected text into lines and store as an array 
         var lines = selectedText.split('\n');
 
-        // The strings are then changed to add bullet points
-        var newText = '';
+        // If the content is a list, remove the list elements, else add the list elements
+        var newText = stringMani(lines, type);
 
-        // A loop iterates for each line
-        for (var i = 0; i < lines.length; i++) {
-
-            // The temp variable changes the string by adding the bullet points and the <br> tag to ensure when its displayed in the <div> it is displayed as separate lines
-            var temp = `• ` + lines[i] + '<br>';
-
-            // Add the changed line to the newText string
-            newText += temp;
-        }
-
-        // delete the contents inside the selected range
+        // Delete the contents inside the selected range
         range.deleteContents();
 
-        // due to the formatting of the text, a new division is created, inside of which the new bullet point list is added
+        // Due to the formatting of the text, a new division is created, inside of which the new list is added
         var bulletListElement = document.createElement("div");
         bulletListElement.innerHTML = newText;
         range.insertNode(bulletListElement);
-
     }
-    // if there isn't any selected text, bullet points will be applied to the whole journal entry
+
+    // If there isn't any selected text, list format will be applied to the whole journal entry
     else {
+
         var lines = journal.innerText.split('\n');
-        var newText = '';
-        for (var i = 0; i < lines.length; i++) {
-            var temp = `• ` + lines[i] + '<br>';
-            newText += temp;
-        }
+        var newText = stringMani(lines, type);
         journal.innerHTML = newText;
     }
 
     journal.focus();
 }
 
+// The following function manipulated the strings from the journal entries
+function stringMani(lines, prefix) {
 
-// Insert Numbered List at the cursor position
-function insertNumberedList() {
-    const journal = document.getElementById('journalEntry');
+    let changedText = '';
 
-    // Get the current selection and the current cursor position
-    const selection = window.getSelection();
-    const range = selection.getRangeAt(0);
-    const selectedText = selection.toString();
-    const lines = (selectedText || journal.innerText).split('\n');
-    let newText = '';
+    // A for loop iterates for all the lines of a journal entry
+    for (let i = 0; i < lines.length; i++) {
 
-    // Add numbering to each line of the selected text or all text
-    lines.forEach((line, index) => {
-        newText += `<div>${index + 1}. ${line.trim()}</div>`;
-    });
+        // The temp variable is an empty string upon each iteration
+        let temp = '';
 
-    // Clear the current selection and insert the numbered list
-    range.deleteContents();
-    range.insertNode(document.createRange().createContextualFragment(newText));
-    journal.focus();
+        // First check if there is bullet or numbered points
+        if (lines[i][0] == '•' || (lines[i][0] >= 0 && lines[i][0] <= 9)) {
+
+            // To get rid of the type of list, we count the number of characters to remove form the line
+            let count = 0;
+
+            // For a bullet point, the number of characters to remove is fixed
+            if (lines[i][0] == '•') {
+                count = 2;
+            }
+            // For numbered lists,
+            else {
+                count = parseInt(lines[i]); // Extract the number from the list
+                count = count.toString().length + 1; // Get the number of characters in that number and add one, which considers the number, the '.', and the space
+                count = parseInt(count); // Convert the value back to integer
+            }
+
+            // While the line is not the last line, 
+            if (i < lines.length - 1) {
+
+                // Remove the beginning characters from the string according to the count value, and add the break tag
+                temp = lines[i].substring(count, lines[i].length) + '<br>';
+            }
+            else {
+                // Remove the beginning characters from the string according to the count value
+                temp = lines[i].substring(count, lines[i].length);
+            }
+        }
+        else {
+
+            // If the user wants to add a bullet point to the list
+            if (prefix == 'bullet') {
+
+                // While it is not the last line, 
+                if (i < lines.length - 1) {
+                    // Add the bullet point and the break tag to the string
+                    temp = '• ' + lines[i] + '<br>';
+                }
+                // If it is the last line
+                else {
+                    // Only add the bullet point to the string
+                    temp = '• ' + lines[i];
+                }
+            }
+            // If the user wants to add a numbered list
+            else {
+
+                // Create a string with the index value of the line
+                let index = i + 1;
+                index = index.toString() + '. ';
+
+                // While it is not the last line, 
+                if (i < lines.length - 1) {
+
+                    // Add the number point and the break tag to the string
+                    temp = index + lines[i] + '<br>';
+                }
+                // If it is the last line
+                else {
+                    // Add the number point to the string
+                    temp = index + lines[i];
+                }
+            }
+        }
+
+        // Add the modified string to the variable.
+        changedText += temp;
+    }
+
+    return changedText;
 }
