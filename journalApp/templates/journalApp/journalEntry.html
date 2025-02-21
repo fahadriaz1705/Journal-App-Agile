@@ -7,8 +7,7 @@
     <title>ThoughtThread | Journal Entry</title>
 
     <link rel="stylesheet" href="/journalApp/static/css/style.css">
-    <link rel="icon" href="/journalApp/static/images/icon/icon.png">
-
+    <link rel="icon" href="/journalApp/static/images/icons/thoughtthread-icon.png">
 </head>
 
 <body>
@@ -17,7 +16,24 @@
         <img src="/journalApp/static/images/logo.png" alt="thoughtthread.">
     </header>
 
+    <!-- side nav bar -->
+    <div id="mySidebar" class="sidebar">
+        <!-- navigation buttons -->
+        <div class="side-nav-btns">
+            <a href=""><button><img src="/journalApp/static/images/icons/dashboard.png" alt="Dashboard"
+                        width="8%">Dashboard</button></a>
+            <a href=""><button><img src="/journalApp/static/images/icons/profile.png" alt="Profile" width="8%">Profile
+                    Settings</button></a>
+            <a href=""><button><img src="/journalApp/static/images/icons/logout.png" alt="Log Out" width="8%">Log
+                    Out</button></a>
+
+        </div>
+
+    </div>
+
     <main id="main" class="journalentrypage">
+
+        <button class="openbtn" onclick="nav()">☰</button>
 
         <!-- Journal Entry Form -->
         <form action="" id="journalForm">
@@ -109,17 +125,18 @@
         <div>
             <img src="/journalApp/static/images/logo.png" alt="thoughtthread.">
         </div>
-        <div id="ftr-box">
-            <div id="ftr-L">
-                <a>&#169;ThoughtThread 2025</a>
-            </div>
-            <div id="ftr-R">
-                <a>Contact Us</a>
-            </div>
+        <div id="ftr-nav">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+        <div id="ftr-cp">
+            <a>&#169;ThoughtThread 2025</a>
         </div>
     </footer>
 
     <script src="/journalApp/static/scripts/text-format.js"></script>
+    <script src="/journalApp/static/scripts/sidenav.js"></script>
 
 </body>
 

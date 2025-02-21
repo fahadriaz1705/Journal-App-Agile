@@ -1,4 +1,4 @@
-{% load static %}
+<!-- {% load static %} -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,31 +9,52 @@
   <title>ThoughtThread | Dashboard</title>
 
   <!-- stylesheets -->
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="/journalApp/static/css/style.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+  <!-- icon -->
+  <link rel="icon" href="/journalApp/static/images/icons/thoughtthread-icon.png">
 
 </head>
 
 <body>
 
   <header>
-    <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
+    <img src="/journalApp/static/images/logo.png" alt="thoughtthread.">
   </header>
 
+  <!-- side nav bar -->
   <div id="mySidebar" class="sidebar">
 
-    <a id="nav-heading">Tags</a>
-    <!-- display all tags here with their icons -->
-    <!-- clicking on each tag will display all entries with that tag -->
+    <!-- Tags -->
+    <div class="tags-list">
+      <a>-- Tags --</a>
 
-    <a href=""><button class="nav-bar-btn">Profile Settings</button></a>
+      <a href=""><button><img src="/journalApp/static/images/icons/tags.png" alt="Tag" width="8%">Tag Name</button></a>
+      <a href=""><button><img src="/journalApp/static/images/icons/tags.png" alt="Tag" width="8%">Tag Name</button></a>
+      <a href=""><button><img src="/journalApp/static/images/icons/tags.png" alt="Tag" width="8%">Tag Name</button></a>
+      <a href=""><button><img src="/journalApp/static/images/icons/tags.png" alt="Tag" width="8%">Tag Name</button></a>
 
-    {% if user.is_authenticated %}
-    <a href=""><button class="nav-bar-btn">Log Out</button></a>
-    {% endif %}
+    </div>
+
+    <br><br>
+
+    <!-- navigation buttons -->
+    <div class="side-nav-btns">
+      <a>-- Others --</a>
+
+      <a href=""><button><img src="/journalApp/static/images/icons/newentry.png" alt="New Entry" width="8%">New Journal
+          Entry</button></a>
+      <a href=""><button><img src="/journalApp/static/images/icons/profile.png" alt="Profile" width="8%">Profile
+          Settings</button></a>
+      <a href=""><button><img src="/journalApp/static/images/icons/logout.png" alt="Log Out" width="8%">Log
+          Out</button></a>
+
+    </div>
 
   </div>
 
+  <!-- main section of dashboard page -->
   <main id="main">
     <button class="openbtn" onclick="nav()">☰</button>
 
@@ -46,19 +67,16 @@
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="prompt">
+    <div class="prompt"></div>
 
+    <div class="row">
+      <div class="col">
+        <form action="" class="entries">
+          <button type="submit">New Entry</button>
+        </form>
       </div>
-
-      <div class="row">
-        <div class="col">
-          <form action="" class="entries">
-            <button type="submit">New Entry</button>
-          </form>
-        </div>
-      </div>
-
     </div>
 
   </main>
@@ -74,41 +92,22 @@
   <br><br>
   <br><br>
   <br><br>
-  <br><br>
-  <br><br>
-  <br><br>
-  <br><br>
 
   <footer>
     <div>
-      <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
+      <img src="/journalApp/static/images/logo.png" alt="thoughtthread.">
     </div>
-    <div id="ftr-box">
-      <div id="ftr-L">
-        <a>&#169;ThoughtThread 2025</a>
-      </div>
-      <div id="ftr-R">
-        <a>Contact Us</a>
-      </div>
+    <div id="ftr-nav">
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </div>
+    <div id="ftr-cp">
+      <a>&#169;ThoughtThread 2025</a>
     </div>
   </footer>
 
-  <script>
-    var navopen = false;
-    function nav() {
-      if (!navopen) {
-        document.getElementById("mySidebar").style.width = "250px";
-        document.getElementById("main").style.marginLeft = "250px";
-        navopen = true;
-      }
-      else {
-        document.getElementById("mySidebar").style.width = "0";
-        document.getElementById("main").style.marginLeft = "0";
-        navopen = false;
-      }
-    }
-
-  </script>
+  <script src="/journalApp/static/scripts/sidenav.js"></script>
 
 </body>
 
