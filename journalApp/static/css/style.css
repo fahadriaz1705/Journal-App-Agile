@@ -80,7 +80,7 @@ footer img {
     text-align: center;
     border: 4px solid #d7cbd2;
     overflow-y: scroll;
-    max-height: 450px;
+    max-height: 82%;
 }
 
 .tags-list,
@@ -175,6 +175,7 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
     padding-right: 50px;
     width: 100%;
     transition: all 0.3s ease;
+    outline: none;
 }
 
 .search-input:focus {
