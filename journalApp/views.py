@@ -6,9 +6,6 @@ from django.contrib import messages
 from .models import Tag
 from .models import JournalEntry
 
-
-
-
 # Create your views here.
 def index(request):
     if request.user.is_authenticated:
@@ -71,3 +68,25 @@ def newEntry(request):
     allTags = Tag.objects.filter(journalentry__user=request.user).distinct()
     params = {'allTags': allTags}
     return render(request,'journalApp/journalEntry.html',params)
+def createEntry(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        existTagId = request.POST.get('existingTag')
+        newTagName = request.POST.get('newTag')
+
+        # Decide whether to use existing tag or create a new one
+        if newTagName:
+            tag, created = Tag.objects.get_or_create(name=newTagName)
+        elif existTagId:
+            tag = Tag.objects.get(tag_id=existTagId)
+        else:
+            tag = None
+        # Create the journal entry
+        JournalEntry.objects.create(user=request.user,title=title,content=content,tag=tag)
+        # Redirect
+        return redirect('index')
+    else:
+        messages.error(request,'Sorry we encountered an error try again')
+        return redirect('newEntry')
+

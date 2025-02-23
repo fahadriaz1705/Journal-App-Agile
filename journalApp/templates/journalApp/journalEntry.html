@@ -31,21 +31,13 @@
     <main id="main" class="journalentrypage">
         <button class="openbtn" onclick="nav()">☰</button>
         <!-- Journal Entry Form -->
-        <form action="createEntry/" method="POST" id="journalForm">
+        <form action="{% url 'createEntry' %}" method="POST" id="journalForm">
             {% csrf_token %}
             <!-- Journal Title -->
             <div class="form-group">
                 <label for="journalTitle">Journal Title</label>
-                <input 
-                    type="text" 
-                    id="journalTitle" 
-                    name="title" 
-                    class="form-control" 
-                    placeholder="Enter your journal title"
-                    required
-                >
+                <input type="text" id="journalTitle" name="title" class="form-control" placeholder="Enter your journal title"required>
             </div>
-        
             <!-- Journal Content -->
             <div class="form-group">
                 <label for="journalContent">Journal Content</label>
@@ -64,7 +56,7 @@
                 <label for="existingTag">Choose an Existing Tag</label>
                 <select 
                     id="existingTag" 
-                    name="existing_tag" 
+                    name="existingTag" 
                     class="form-control"
                 >
                     <option value="">-- Select a tag --</option>
@@ -82,7 +74,7 @@
                 <input 
                     type="text" 
                     id="newTag" 
-                    name="new_tag" 
+                    name="newTag" 
                     class="form-control" 
                     placeholder="Enter a new tag name"
                 >
