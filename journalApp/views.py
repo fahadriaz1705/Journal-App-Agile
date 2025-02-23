@@ -67,3 +67,5 @@ def logOut(request):
     logout(request)
     messages.success(request,'You have successfully logged out')
     return redirect('home')
+def newEntry(request):
+    return render(request,'journalApp/journalEntry.html')
