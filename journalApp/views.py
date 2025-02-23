@@ -3,11 +3,20 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
+from .models import Tag
+from .models import JournalEntry
+
+
 
 
 # Create your views here.
 def index(request):
-    return render(request,'journalApp/index.html')
+    if request.user.is_authenticated:
+        userId = request.user.id
+        allJournals = JournalEntry.objects.filter(user=userId)
+        allTags = Tag.objects.filter(journalentry__user=request.user).distinct()
+        params = {'allJournals': allJournals,'allTags': allTags}
+        return render(request,'journalApp/index.html',params)
 def logIn(request):
     if request.method == 'POST':
         userName = request.POST.get('username')

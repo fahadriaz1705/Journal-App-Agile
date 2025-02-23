@@ -1,42 +1,29 @@
-<!-- {% load static %} -->
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ThoughtThread | Dashboard</title>
-
   <!-- stylesheets -->
-  <link rel="stylesheet" href="/journalApp/static/css/style.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-
   <!-- icon -->
-  <link rel="icon" href="/journalApp/static/images/icons/thoughtthread-icon.png">
-
+  <link rel="icon" href="{% static 'images/icons/thoughtthread-icon.png' %}">
 </head>
-
 <body>
-
+  {% load static %}
   <header>
-    <img src="/journalApp/static/images/logo.png" alt="thoughtthread.">
+    <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
   </header>
-
   <!-- side nav bar -->
   <div id="mySidebar" class="sidebar">
-
     <!-- Tags -->
     <div class="tags-list">
-      <a>-- Tags --</a>
-
-      <a href=""><button><img src="/journalApp/static/images/icons/tags.png" alt="Tag" width="8%">Tag Name</button></a>
-      <a href=""><button><img src="/journalApp/static/images/icons/tags.png" alt="Tag" width="8%">Tag Name</button></a>
-      <a href=""><button><img src="/journalApp/static/images/icons/tags.png" alt="Tag" width="8%">Tag Name</button></a>
-      <a href=""><button><img src="/journalApp/static/images/icons/tags.png" alt="Tag" width="8%">Tag Name</button></a>
-
+      {% for tag in allTags %}
+      <a href="/journal/">{{tag.name}}</a>
+      {% endfor %}
     </div>
-
     <br><br>
 
     <!-- navigation buttons -->
@@ -50,7 +37,6 @@
           Settings</button></a>
       <a href=""><button><img src="/journalApp/static/images/icons/logout.png" alt="Logout"
             width="8%">Logout</button></a>
-
     </div>
 
   </div>
@@ -81,33 +67,16 @@
 
     <!-- displaying all previous entries -->
     <div class="row">
+      {% for journal in allJournals %}
       <div class="col">
-        Entry 1
+        {{journal.title}}
       </div>
-      <div class="col">
-        Entry 2
-      </div>
-      <div class="col">
-        Entry 3
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        Entry 1
-      </div>
-      <div class="col">
-        Entry 2
-      </div>
-      <div class="col">
-        Entry 3
-      </div>
-    </div>
-
+      {% endfor %}
   </main>
 
   <footer>
     <div>
-      <img src="/journalApp/static/images/logo.png" alt="thoughtthread.">
+      <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
     </div>
     <div id="ftr-nav">
       <a href="#">Home</a>
@@ -118,11 +87,8 @@
       <a>&#169;ThoughtThread 2025</a>
     </div>
   </footer>
-
-  <script src="/journalApp/static/scripts/sidenav.js"></script>
-
+  <script src="{% static 'scripts/sidenav.js' %}"></script>
 </body>
-
 </html>
 
 
