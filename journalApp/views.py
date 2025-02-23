@@ -5,6 +5,7 @@ from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
 from .models import Tag
 from .models import JournalEntry
+from .models import Attachment
 
 # Create your views here.
 def index(request):
@@ -80,11 +81,27 @@ def createEntry(request):
             tag = Tag.objects.get(tag_id=existTagId)
         else:
             tag = None
+
         # Create the journal entry
-        JournalEntry.objects.create(user=request.user,title=title,content=content,tag=tag)
+        newEnt = JournalEntry.objects.create(
+            user=request.user,
+            title=title,
+            content=content,
+            tag=tag
+        )
+
+        # If a file was uploaded, create an Attachment object
+        if 'attachment' in request.FILES:
+            imgFile = request.FILES['attachment']
+            Attachment.objects.create(
+                journal_entry=newEnt,
+                image=imgFile
+            )
+
         # Redirect
         return redirect('index')
     else:
-        messages.error(request,'Sorry we encountered an error try again')
+        messages.error(request, 'Sorry we encountered an error. Try again.')
         return redirect('newEntry')
+
 

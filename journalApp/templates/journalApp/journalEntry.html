@@ -33,13 +33,26 @@
     <main id="main" class="journalentrypage">
         <button class="openbtn" onclick="nav()">☰</button>
         <!-- Journal Entry Form -->
-        <form action="{% url 'createEntry' %}" method="POST" id="journalForm">
+        <form 
+            action="{% url 'createEntry' %}" 
+            method="POST" 
+            id="journalForm" 
+            enctype="multipart/form-data"
+        >
             {% csrf_token %}
             <!-- Journal Title -->
             <div class="form-group">
                 <label for="journalTitle">Journal Title</label>
-                <input type="text" id="journalTitle" name="title" class="form-control" placeholder="Enter your journal title"required>
+                <input 
+                    type="text" 
+                    id="journalTitle" 
+                    name="title" 
+                    class="form-control" 
+                    placeholder="Enter your journal title"
+                    required
+                >
             </div>
+
             <!-- Journal Content -->
             <div class="form-group">
                 <label for="journalContent">Journal Content</label>
@@ -52,7 +65,7 @@
                     required
                 ></textarea>
             </div>
-        
+
             <!-- Existing Tag Selection -->
             <div class="form-group">
                 <label for="existingTag">Choose an Existing Tag</label>
@@ -67,9 +80,9 @@
                     {% endfor %}
                 </select>
             </div>
-        
+
             <hr><!-- Simple divider, optional -->
-        
+
             <!-- New Tag Creation -->
             <div class="form-group">
                 <label for="newTag">Or Create a New Tag</label>
@@ -81,17 +94,30 @@
                     placeholder="Enter a new tag name"
                 >
                 <small class="text-muted">
-                    If you want to create a brand new tag, enter it here. If you do, the existing tag selection above will be ignored.
+                    If you want to create a brand new tag, enter it here. 
+                    If you do, the existing tag selection above will be ignored.
                 </small>
             </div>
-        
+            
+            <!-- Attachment Upload -->
+            <div class="form-group">
+                <label for="attachment">Upload Attachment (optional)</label>
+                <!-- Use `multiple` if you want to allow multiple files -->
+                <input 
+                    type="file" 
+                    id="attachment" 
+                    name="attachment" 
+                    accept="image/*"
+                >
+            </div>
+
             <!-- Submit Button -->
             <div class="form-group mt-3">
                 <button type="submit" class="btn btn-primary">Create Journal</button>
             </div>
         </form>
-        
 
+    
         <!-- ToolBar -->
         <div class="toolbar">
 
