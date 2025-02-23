@@ -1,31 +1,27 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThoughtThread | Journal Entry</title>
-
-    <link rel="stylesheet" href="/journalApp/static/css/style.css">
-    <link rel="icon" href="/journalApp/static/images/icons/thoughtthread-icon.png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="{% static 'images/icons/thoughtthread-icon.png' %}">
 </head>
-
 <body>
-
     <header>
-        <img src="/journalApp/static/images/logo.png" alt="thoughtthread.">
+        <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
     </header>
-
     <!-- side nav bar -->
     <div id="mySidebar" class="sidebar">
         <!-- navigation buttons -->
         <div class="side-nav-btns">
             <a href="/journalApp/templates/journalApp/index.html"><button><img
-                        src="/journalApp/static/images/icons/dashboard.png" alt="Dashboard"
+                        src="{% static 'images/icons/dashboard.png' %}" alt="Dashboard"
                         width="8%">Dashboard</button></a>
-            <a href=""><button><img src="/journalApp/static/images/icons/profile.png" alt="Profile" width="8%">Profile
+            <a href=""><button><img src="{% static 'images/icons/profile.png' %}" alt="Profile" width="8%">Profile
                     Settings</button></a>
-            <a href=""><button><img src="/journalApp/static/images/icons/logout.png" alt="Logout"
+            <a href="logout/"><button><img src="{% static 'images/icons/logout.png' %}" alt="Logout"
                         width="8%">Logout</button></a>
 
         </div>
@@ -124,7 +120,7 @@
 
     <footer>
         <div>
-            <img src="/journalApp/static/images/logo.png" alt="thoughtthread.">
+            <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
         </div>
         <div id="ftr-nav">
             <a href="#">Home</a>
@@ -136,8 +132,8 @@
         </div>
     </footer>
 
-    <script src="/journalApp/static/scripts/text-format.js"></script>
-    <script src="/journalApp/static/scripts/sidenav.js"></script>
+    <script src="{% static 'scripts/text-format.js' %}"></script>
+    <script src="{% static 'scripts/sidenav.js' %}"></script>
 
 </body>
 
