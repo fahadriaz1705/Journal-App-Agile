@@ -53,8 +53,6 @@ def signUp(request):
             return redirect('home')
             
         user = User.objects.create_user(username=userName,email=userEmail,password=pass1)
-        # user.first_name = Fname
-        # user.last_name = Lname
         user.save()
         messages.success(request,'Your account has been successfully created')
         return redirect('home')
