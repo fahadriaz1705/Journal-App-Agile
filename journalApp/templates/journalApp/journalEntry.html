@@ -29,89 +29,146 @@
     </div>
 
     <main id="main" class="journalentrypage">
-
         <button class="openbtn" onclick="nav()">☰</button>
-
         <!-- Journal Entry Form -->
-        <form action="" id="journalForm">
-
-            <textarea id="journalTitle" placeholder="Journal Title" maxlength="100"></textarea>
-
-            <div id="journalEntry" contenteditable="true">Type your thoughts away...</div>
-
+        <form action="createEntry/" method="POST" id="journalForm">
+            {% csrf_token %}
+            <!-- Journal Title -->
+            <div class="form-group">
+                <label for="journalTitle">Journal Title</label>
+                <input 
+                    type="text" 
+                    id="journalTitle" 
+                    name="title" 
+                    class="form-control" 
+                    placeholder="Enter your journal title"
+                    required
+                >
+            </div>
+        
+            <!-- Journal Content -->
+            <div class="form-group">
+                <label for="journalContent">Journal Content</label>
+                <textarea 
+                    id="journalContent" 
+                    name="content" 
+                    class="form-control" 
+                    rows="5" 
+                    placeholder="Write your thoughts here..."
+                    required
+                ></textarea>
+            </div>
+        
+            <!-- Existing Tag Selection -->
+            <div class="form-group">
+                <label for="existingTag">Choose an Existing Tag</label>
+                <select 
+                    id="existingTag" 
+                    name="existing_tag" 
+                    class="form-control"
+                >
+                    <option value="">-- Select a tag --</option>
+                    {% for tag in allTags %}
+                        <option value="{{ tag.tag_id }}">{{ tag.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        
+            <hr><!-- Simple divider, optional -->
+        
+            <!-- New Tag Creation -->
+            <div class="form-group">
+                <label for="newTag">Or Create a New Tag</label>
+                <input 
+                    type="text" 
+                    id="newTag" 
+                    name="new_tag" 
+                    class="form-control" 
+                    placeholder="Enter a new tag name"
+                >
+                <small class="text-muted">
+                    If you want to create a brand new tag, enter it here. If you do, the existing tag selection above will be ignored.
+                </small>
+            </div>
+        
+            <!-- Submit Button -->
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">Create Journal</button>
+            </div>
         </form>
+        
 
         <!-- ToolBar -->
         <div class="toolbar">
 
             <!-- Increase font size button -->
             <button onclick="changeSize('up')">
-                <img src="/journalApp/static/images/text-format-icons/font-size-up.png" alt="Increase Font Size">
+                <img src="{% static 'images/text-format-icons/font-size-up.png' %}" alt="Increase Font Size">
             </button>
 
             <!-- Decrease font size button -->
             <button onclick="changeSize('down')">
-                <img src="/journalApp/static/images/text-format-icons/font-size-down.png" alt="Decrease Font Size">
+                <img src="{% static 'images/text-format-icons/font-size-down.png' %}" alt="Decrease Font Size">
             </button>
 
             <!-- Make text bold button -->
             <button onclick="formatText('bold')" id="bold">
-                <img src="/journalApp/static/images/text-format-icons/bold.png" alt="Bold">
+                <img src="{% static 'images/text-format-icons/bold.png' %}" alt="Bold">
             </button>
 
             <!-- Make text Italic button -->
             <button onclick="formatText('italic')">
-                <img src="/journalApp/static/images/text-format-icons/italic.png" alt="Italic">
+                <img src="{% static 'images/text-format-icons/italic.png' %}" alt="Italic">
             </button>
 
             <!-- Make text Underline button -->
             <button onclick="formatText('underline')">
-                <img src="/journalApp/static/images/text-format-icons/underline.png" alt="Underline">
+                <img src="{% static 'images/text-format-icons/underline.png' %}" alt="Underline">
             </button>
 
             <!-- Change text alignment button -->
             <button onclick="changeAlignment('left')">
-                <img src="/journalApp/static/images/text-format-icons/left-align.png" alt="Left-Align">
+                <img src="{% static 'images/text-format-icons/left-align.png' %}" alt="Left-Align">
             </button>
 
             <!-- Change text alignment button -->
             <button onclick="changeAlignment('center')">
-                <img src="/journalApp/static/images/text-format-icons/center.png" alt="Center-Align">
+                <img src="{% static 'images/text-format-icons/center.png' %}" alt="Center-Align">
             </button>
 
             <!-- Change text alignment button -->
             <button onclick="changeAlignment('right')">
-                <img src="/journalApp/static/images/text-format-icons/right-align.png" alt="Right-Align">
+                <img src="{% static 'images/text-format-icons/right-align.png' %}" alt="Right-Align">
             </button>
 
             <!-- Insert Bullet Points button -->
             <button onclick="addLists('bullet')">
-                <img src="/journalApp/static/images/text-format-icons/bullet-points.png" alt="Bullet-Points">
+                <img src="{% static 'images/text-format-icons/bullet-points.png' %}" alt="Bullet-Points">
             </button>
 
             <!-- Insert Numbered Points button -->
             <button onclick="addLists('numbered')">
-                <img src="/journalApp/static/images/text-format-icons/numbered points.png" alt="Numbered-List">
+                <img src="{% static 'images/text-format-icons/numbered points.png' %}" alt="Numbered-List">
             </button>
 
             <!-- Add a Tag button -->
             <button>
-                <img src="/journalApp/static/images/text-format-icons/tags.png" alt="Add Tag">
+                <img src="{% static 'images/text-format-icons/tags.png' %}" alt="Add Tag">
             </button>
 
             <!-- Add Attachments button -->
             <button>
-                <img src="/journalApp/static/images/text-format-icons/attachments.png" alt="Add Attachments">
+                <img src="{% static 'images/text-format-icons/attachments.png' %}" alt="Add Attachments">
             </button>
 
             <!-- Download the Journal Entry button -->
             <button onclick="downloadJournal()">
-                <img src="/journalApp/static/images/text-format-icons/download.png" alt="Download">
+                <img src="{% static 'images/text-format-icons/download.png' %}" alt="Download">
             </button>
 
             <!-- Save the Journal Entry button -->
             <button>
-                <img src="/journalApp/static/images/text-format-icons/save.png" alt="Save Entry">
+                <img src="{% static 'images/text-format-icons/save.png' %}" alt="Save Entry">
             </button>
 
         </div>

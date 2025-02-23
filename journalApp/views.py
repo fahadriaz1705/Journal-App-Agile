@@ -68,4 +68,6 @@ def logOut(request):
     messages.success(request,'You have successfully logged out')
     return redirect('home')
 def newEntry(request):
-    return render(request,'journalApp/journalEntry.html')
+    allTags = Tag.objects.filter(journalentry__user=request.user).distinct()
+    params = {'allTags': allTags}
+    return render(request,'journalApp/journalEntry.html',params)
