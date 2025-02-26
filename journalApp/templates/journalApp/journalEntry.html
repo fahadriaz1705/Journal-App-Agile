@@ -1,17 +1,21 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThoughtThread | Journal Entry</title>
+    <!-- <link rel="stylesheet" href="/journalApp/static/css/style.css"> -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="icon" href="{% static 'images/icons/thoughtthread-icon.png' %}">
 </head>
+
 <body>
     <header>
         <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
     </header>
+
     <!-- side nav bar -->
     <div id="mySidebar" class="sidebar">
         <!-- navigation buttons -->
@@ -27,156 +31,136 @@
             {% endif %}
 
         </div>
-
     </div>
 
     <main id="main" class="journalentrypage">
+
         <button class="openbtn" onclick="nav()">☰</button>
+
         <!-- Journal Entry Form -->
-        <form 
-            action="{% url 'createEntry' %}" 
-            method="POST" 
-            id="journalForm" 
-            enctype="multipart/form-data"
-        >
+        <form action="{% url 'createEntry' %}" method="POST" id="journalForm" enctype="multipart/form-data">
             {% csrf_token %}
             <!-- Journal Title -->
             <div class="form-group">
                 <label for="journalTitle">Journal Title</label>
-                <input 
-                    type="text" 
-                    id="journalTitle" 
-                    name="title" 
-                    class="form-control" 
-                    placeholder="Enter your journal title"
-                    required
-                >
+                <input type="text" id="journalTitle" name="title" class="form-control"
+                    placeholder="Enter your journal title" required>
             </div>
 
             <!-- Journal Content -->
             <div class="form-group">
                 <label for="journalContent">Journal Content</label>
-                <textarea 
-                    id="journalContent" 
-                    name="content" 
-                    class="form-control" 
-                    rows="5" 
-                    placeholder="Write your thoughts here..."
-                    required
-                ></textarea>
+                <div id="journalContent" contenteditable="true" name="content" class="form-control">Write your thoughts
+                    here...</div>
             </div>
 
             <!-- Existing Tag Selection -->
             <div class="form-group">
-                <label for="existingTag">Choose an Existing Tag</label>
-                <select 
-                    id="existingTag" 
-                    name="existingTag" 
-                    class="form-control"
-                >
-                    <option value="">-- Select a tag --</option>
+                <select id="existingTag" name="existingTag" class="form-control">
+                    <option value="">Select a Tag</option>
                     {% for tag in allTags %}
-                        <option value="{{ tag.tag_id }}">{{ tag.name }}</option>
+                    <option value="{{ tag.tag_id }}">{{ tag.name }}</option>
                     {% endfor %}
                 </select>
             </div>
 
-            <hr><!-- Simple divider, optional -->
-
             <!-- New Tag Creation -->
-            <div class="form-group">
-                <label for="newTag">Or Create a New Tag</label>
-                <input 
-                    type="text" 
-                    id="newTag" 
-                    name="newTag" 
-                    class="form-control" 
-                    placeholder="Enter a new tag name"
-                >
+            <div id="newtag">
+                <label for="newTag">Create a New Tag</label><br>
+                <input type="text" id="newTag" name="newTag" class="form-control"
+                    placeholder="Enter a new tag name"><br><br>
                 <small class="text-muted">
-                    If you want to create a brand new tag, enter it here. 
-                    If you do, the existing tag selection above will be ignored.
+                    By creating a new tag, the existing tag selection will be ignored.
                 </small>
             </div>
-            
+
             <!-- Attachment Upload -->
-            <div class="form-group">
-                <label for="attachment">Upload Attachment (optional)</label>
+            <div id="attachments-block">
                 <!-- Use `multiple` if you want to allow multiple files -->
-                <input 
-                    type="file" 
-                    id="attachment" 
-                    name="attachment" 
-                    accept="image/*"
-                >
+                <input type="file" id="attachment" name="attachment" accept="image/*">
             </div>
 
-            <!-- Submit Button -->
-            <div class="form-group mt-3">
-                <button type="submit" class="btn btn-primary">Create Journal</button>
+            <!-- ToolBar -->
+            <div class="toolbar">
+
+                <!-- Increase font size button -->
+                <button onclick="changeSize('up')" title="Increase font size">
+                    <img src="{% static 'images/text-format-icons/font-size-up.png' %}" alt="Increase Font Size">
+                </button>
+
+                <!-- Decrease font size button -->
+                <button onclick="changeSize('down')" title="Decrease font size">
+                    <img src="{% static 'images/text-format-icons/font-size-down.png' %}" alt="Decrease Font Size">
+                </button>
+
+                <!-- Make text bold button -->
+                <button onclick="formatText('bold')" id="bold" title="Bold Font">
+                    <img src="{% static 'images/text-format-icons/bold.png' %}" alt="Bold">
+                </button>
+
+                <!-- Make text Italic button -->
+                <button onclick="formatText('italic')" title="Italic Font">
+                    <img src="{% static 'images/text-format-icons/italic.png' %}" alt="Italic">
+                </button>
+
+                <!-- Make text Underline button -->
+                <button onclick="formatText('underline')" title="Underline Font">
+                    <img src="{% static 'images/text-format-icons/underline.png' %}" alt="Underline">
+                </button>
+
+                <!-- Change text alignment button -->
+                <button onclick="changeAlignment('left')" title="Left Align Text">
+                    <img src="{% static 'images/text-format-icons/left-align.png' %}" alt="Left-Align">
+                </button>
+
+                <!-- Change text alignment button -->
+                <button onclick="changeAlignment('center')" title="Center Align Text">
+                    <img src="{% static 'images/text-format-icons/center.png' %}" alt="Center-Align">
+                </button>
+
+                <!-- Change text alignment button -->
+                <button onclick="changeAlignment('right')" title="Right Align Text">
+                    <img src="{% static 'images/text-format-icons/right-align.png' %}" alt="Right-Align">
+                </button>
+
+                <!-- Insert Bullet Points button -->
+                <button onclick="addLists('bullet')" title="Bullet Points">
+                    <img src="{% static 'images/text-format-icons/bullet-points.png' %}" alt="Bullet-Points">
+                </button>
+
+                <!-- Insert Numbered Points button -->
+                <button onclick="addLists('numbered')" title="Numbered Points">
+                    <img src="{% static 'images/text-format-icons/numbered points.png' %}" alt="Numbered-List">
+                </button>
+
+                <!-- Add Attachments Button -->
+                <button onclick="addAttachments()" title="Add Attachment">
+                    <img src="{% static 'images/text-format-icons/attachments.png' %}" alt="Attachment">
+                </button>
+
+                <!-- Tags Option -->
+                <button onclick="showOptions()" title="Show Tags">
+                    <img src="{% static 'images/text-format-icons/tags.png' %}" alt="Tags">
+                </button>
+
+                <!-- Add Tag Option -->
+                <button onclick="addTag()" title="Add Tags">
+                    <img src="{% static 'images/text-format-icons/add-tag.png' %}" alt="Add Tag">
+                </button>
+
+                <!-- Download the Journal Entry button -->
+                <button onclick="downloadJournal()" title="Download Journal Entry">
+                    <img src="{% static 'images/text-format-icons/download.png' %}" alt="Download">
+                </button>
+
+                <!-- Save Entry BUtton -->
+                <button type="submit">
+                    <img src="{% static 'images/text-format-icons/save.png' %}" alt="Save">
+                </button>
+
             </div>
+
         </form>
-
-    
-        <!-- ToolBar -->
-        <div class="toolbar">
-
-            <!-- Increase font size button -->
-            <button onclick="changeSize('up')" title="Increase font size">
-                <img src="{% static 'images/text-format-icons/font-size-up.png' %}" alt="Increase Font Size">
-            </button>
-
-            <!-- Decrease font size button -->
-            <button onclick="changeSize('down')" title="Decrease font size">
-                <img src="{% static 'images/text-format-icons/font-size-down.png' %}" alt="Decrease Font Size">
-            </button>
-
-            <!-- Make text bold button -->
-            <button onclick="formatText('bold')" id="bold" title="Bold Font">
-                <img src="{% static 'images/text-format-icons/bold.png' %}" alt="Bold">
-            </button>
-
-            <!-- Make text Italic button -->
-            <button onclick="formatText('italic')" title="Italic Font">
-                <img src="{% static 'images/text-format-icons/italic.png' %}" alt="Italic">
-            </button>
-
-            <!-- Make text Underline button -->
-            <button onclick="formatText('underline')" title="Underline Font">
-                <img src="{% static 'images/text-format-icons/underline.png' %}" alt="Underline">
-            </button>
-
-            <!-- Change text alignment button -->
-            <button onclick="changeAlignment('left')" title="Left Align Text">
-                <img src="{% static 'images/text-format-icons/left-align.png' %}" alt="Left-Align">
-            </button>
-
-            <!-- Change text alignment button -->
-            <button onclick="changeAlignment('center')" title="Center Align Text">
-                <img src="{% static 'images/text-format-icons/center.png' %}" alt="Center-Align">
-            </button>
-
-            <!-- Change text alignment button -->
-            <button onclick="changeAlignment('right')" title="Right Align Text">
-                <img src="{% static 'images/text-format-icons/right-align.png' %}" alt="Right-Align">
-            </button>
-
-            <!-- Insert Bullet Points button -->
-            <button onclick="addLists('bullet')" title="Bullet Points">
-                <img src="{% static 'images/text-format-icons/bullet-points.png' %}" alt="Bullet-Points">
-            </button>
-
-            <!-- Insert Numbered Points button -->
-            <button onclick="addLists('numbered')" title="Numbered Points">
-                <img src="{% static 'images/text-format-icons/numbered points.png' %}" alt="Numbered-List">
-            </button>
-
-            <!-- Download the Journal Entry button -->
-            <button onclick="downloadJournal()" title="Download Journal Entry">
-                <img src="{% static 'images/text-format-icons/download.png' %}" alt="Download">
-            </button>
-
-        </div>
 
     </main>
 
@@ -196,6 +180,9 @@
 
     <script src="{% static 'scripts/text-format.js' %}"></script>
     <script src="{% static 'scripts/sidenav.js' %}"></script>
+
+    <!-- <script src="/journalApp/static/scripts/sidenav.js"></script>
+    <script src="/journalApp/static/scripts/text-format.js"></script> -->
 
 </body>
 

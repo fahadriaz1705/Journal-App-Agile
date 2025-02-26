@@ -5,13 +5,13 @@ function formatText(command) {
 
 // Function to change text alignment (Left, Center, Right)
 function changeAlignment(alignment) {
-    document.getElementById("journalEntry").style.textAlign = alignment;
+    document.getElementById("journalContent").style.textAlign = alignment;
 }
 
 // Function to change font size
 function changeSize(size) {
 
-    const text = document.getElementById("journalEntry");
+    const text = document.getElementById("journalContent");
     let fontSize = window.getComputedStyle(text).fontSize; // Get the font size of the document
     fontSize = parseInt(fontSize); // Separate the integer part of the font size
 
@@ -34,7 +34,7 @@ function changeSize(size) {
 // this function is inspired by: https://stackoverflow.com/questions/13685263/can-i-save-input-from-form-to-txt-in-html-using-javascript-jquery-and-then-us
 function downloadJournal() {
 
-    const entry = document.getElementById("journalEntry").innerText;
+    const entry = document.getElementById("journalContent").innerText;
 
     const blob = new Blob([entry], { type: "text/plain" }); // Convert the text from an array format to a plain text format
 
@@ -50,7 +50,7 @@ function downloadJournal() {
 // Function to add Bullet Points to the journal entry 
 function addLists(type) {
 
-    var journal = document.getElementById('journalEntry');
+    var journal = document.getElementById('journalContent');
 
     // Access the user selected text and its range
     var selection = window.getSelection();
@@ -169,4 +169,43 @@ function stringMani(lines, prefix) {
     }
 
     return changedText;
+}
+
+// Showing tag options
+let options = false;
+function showOptions() {
+    if (!options) {
+        document.getElementById('existingTag').style.display = 'block';
+        options = true;
+    }
+    else {
+        document.getElementById('existingTag').style.display = 'none';
+        options = false;
+    }
+}
+
+// Add new tag pop up
+let add = false;
+function addTag() {
+    if (!add) {
+        document.getElementById('newtag').style.display = 'block';
+        add = true;
+    }
+    else {
+        document.getElementById('newtag').style.display = 'none';
+        add = false;
+    }
+}
+
+// Add attachment
+let attachment = false;
+function addAttachments() {
+    if (!attachment) {
+        document.getElementById('attachments-block').style.display = 'block';
+        attachment = true;
+    }
+    else {
+        document.getElementById('attachments-block').style.display = 'none';
+        attachment = false;
+    }
 }
