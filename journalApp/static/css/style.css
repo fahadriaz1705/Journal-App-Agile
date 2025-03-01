@@ -378,8 +378,16 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
     padding: 12px 0px;
     margin: auto 0;
     text-align: center;
-    font-family: QuinfoNorm;
+    font-family: monospace;
     border: 2px solid #d7cbd2;
+}
+
+#login button {
+    font-family: QuinfoNorm;
+}
+
+#login input:active {
+    border: 2px solid #A3CCEA;
 }
 
 #login,
@@ -388,13 +396,14 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 }
 
 .col-lg-4 {
-    width: 45%;
+    width: 100%;
     letter-spacing: 1.2px;
 }
 
 .mb-3 {
     font-family: QuinfoBold;
     overflow: hidden;
+    color: #384955;
 }
 
 #login button,
@@ -487,4 +496,22 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 
 .col2 {
     width: 80%;
+}
+
+.auth-page-row {
+    display: flex;
+    padding: 6%;
+}
+
+.colL {
+    width: 50%;
+    text-align: right;
+    border-right: 2px solid #384955;
+    padding-right: 5%;
+}
+
+.colR {
+    width: 50%;
+    text-align: left;
+    padding-right: 5%;
 }
