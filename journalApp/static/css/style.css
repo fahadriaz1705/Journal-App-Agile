@@ -95,9 +95,7 @@ footer img {
     max-height: 82%;
 }
 
-.tags-list,
 .side-nav-btns,
-.tags-list button,
 .side-nav-btns button {
     font-family: 'Courier New';
     font-size: 14px;
@@ -105,14 +103,12 @@ footer img {
     font-weight: 700;
 }
 
-.tags-list,
 .side-nav-btns {
     font-size: 16px;
     font-weight: bolder;
     color: #504249;
 }
 
-.tags-list a button,
 .side-nav-btns a button {
     margin: 8px 30px;
     padding: 10px;
@@ -122,12 +118,10 @@ footer img {
     border-radius: 20px;
 }
 
-.tags-list a button img,
 .side-nav-btns a button img {
     margin-right: 10px;
 }
 
-.tags-list a button:hover,
 .side-nav-btns a button:hover {
     background-color: #E5BAD3;
 }
@@ -158,13 +152,47 @@ footer img {
     /* margin-left: 250px; */
 }
 
+/* new dashboard */
+#header-row {
+    display: flex;
+    padding: 8px;
+    margin: auto;
+}
+
+#header-logo {
+    width: 40%;
+    text-align: left;
+    padding: 5px;
+    padding-bottom: none;
+}
+
+#header-nav {
+    width: 25%;
+    text-align: right;
+    padding: 5px 10px;
+}
+
+#header-nav button {
+    margin: 0 10px;
+    padding: 3px;
+    background-color: #384955;
+    border: none;
+    border-radius: 35px;
+}
+
+#header-nav img {
+    max-width: 30px;
+}
+
+#header-search {
+    width: 35%;
+}
+
 /* 
 https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 .search-wrapper {
-    max-width: 80%;
-    margin: 0 auto;
-    padding: 15px 7px;
-    padding-top: 7px;
+    max-width: 100%;
+    padding: 7px;
 }
 
 .search-box {
@@ -183,8 +211,7 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 .search-input {
     border: 2px solid #eee;
     border-radius: 30px;
-    padding: 15px 25px;
-    padding-right: 50px;
+    padding: 8px 25px;
     width: 100%;
     transition: all 0.3s ease;
     outline: none;
@@ -209,7 +236,74 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
     color: #A3CCEA;
 }
 
+#dashboard-page {
+    display: flex;
+}
 
+#entries-side {
+    width: 27%;
+    background-color: #535e66;
+    color: white;
+}
+
+#entries-list {
+    margin: 20px 15px;
+    text-align: center;
+    max-height: 80%;
+    overflow-y: scroll;
+}
+
+#entries-list button {
+    margin: 6px 5px;
+    width: 90%;
+    border: none;
+    border-radius: 15px;
+    padding: 5px;
+}
+
+#button {
+    margin: 30px;
+    text-align: center;
+    max-height: 20%;
+}
+
+#button button {
+    width: 100%;
+    padding: 20px 10px;
+    border-radius: 30px;
+    border: none;
+}
+
+#dashboard-area {
+    width: 73%;
+    padding: 2% 5%;
+}
+
+#prompts .row {
+    width: 100%;
+    padding: 1%;
+    margin: 1%;
+}
+
+#activity {
+    background-color: #504249;
+    border-radius: 30px;
+    display: flex;
+    margin: 2%;
+}
+
+#greeting {
+    width: 40%;
+    padding: 5%;
+}
+
+#latest {
+    width: 60%;
+    padding: 5%;
+    border-radius: 30px;
+    background-color: #A3CCEA;
+    margin: 3%;
+}
 
 /* journal entry page */
 .journalentrypage {

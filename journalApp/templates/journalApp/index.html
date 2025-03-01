@@ -6,73 +6,89 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ThoughtThread | Dashboard</title>
+
   <!-- stylesheets -->
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
   <!-- icon -->
   <link rel="icon" href="{% static 'images/icons/thoughtthread-icon.png' %}">
 </head>
 
 <body>
   {% load static %}
-  <header>
-    <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
-  </header>
-  <!-- side nav bar -->
-  <div id="mySidebar" class="sidebar">
-    <!-- Tags -->
-    <div class="tags-list">
-      {% for tag in allTags %}
-      <a href="/journal/">{{tag.name}}</a>
-      {% endfor %}
-    </div>
-    <br><br>
+  <header id="header-row">
 
-    <!-- navigation buttons -->
-    <div class="side-nav-btns">
-      <a>-- Others --</a>
-      <a href="newEntry/"><button><img src="{% static 'images/icons/newentry.png' %}" alt="Dashboard" width="8%">New
-          Journal Entry</button></a>
-      <a href="#"><button><img src="{% static 'images/icons/profile.png' %}" alt="Profile" width="8%">Profile
-          Settings</button></a>
+    <div id="header-logo">
+      <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
+    </div>
+
+    <div id="header-nav">
+      <a href="#"><button><img src="{% static 'images/icons/profile.png' %}" alt="Profile"></button></a>
       {% if user.is_authenticated %}
-      <a href="{% url 'logOut' %}"><button><img src="{% static 'images/icons/logout.png' %}" alt="Logout"
-            width="8%">Logout</button></a>
+      <a href="{% url 'logOut' %}"><button><img src="{% static 'images/icons/logout.png' %}" alt="Logout"></button></a>
       {% endif %}
     </div>
 
-  </div>
-
-  <!-- main section of dashboard page -->
-  <main id="main">
-    <button class="openbtn" onclick="nav()">☰</button>
-
-    <div class="bg-light">
-      <div class="container py-5">
-        <div class="search-wrapper">
-          <div class="search-box">
-            <input type="text" class="search-input form-control" placeholder="Search">
-            <i class="fas fa-search search-icon"></i>
+    <div id="header-search">
+      <div class="bg-light">
+        <div class="container py-5">
+          <div class="search-wrapper">
+            <div class="search-box">
+              <input type="text" class="search-input form-control" placeholder="Search">
+              <i class="fas fa-search search-icon"></i>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- prompt -->
-    <div id="prompt">
-      <h2>Display Prompt Here</h2>
-      <h6>ZenQuotes</h6>
+  </header>
+
+  <main id="dashboard-page">
+
+    <div id="entries-side">
+      <div id="entries-list">
+        <h3>Journal Entries</h3>
+        <hr><br>
+        {% for journal in allJournals %}
+        <button>{{journal.title}}</button>
+        {% endfor %}
+      </div>
+      <div id="button">
+        <a href="newEntry/"><button><img src="{% static 'images/icons/newentry.png' %}" alt="Dashboard" width="8%">New
+            Journal Entry</button></a>
+      </div>
     </div>
 
-    <br><br>
-
-    <!-- displaying all previous entries -->
-    <div class="row">
-      {% for journal in allJournals %}
-      <div class="col">
-        {{journal.title}}
+    <div id="dashboard-area">
+      <div id="prompts">
+        <h2>Prompts</h2>
+        <div class="row">
+          <div class="col">
+            prompt 1
+          </div>
+          <div class="col">
+            prompt 2
+          </div>
+          <div class="col">
+            prompt 3
+          </div>
+        </div>
       </div>
-      {% endfor %}
+
+      <div id="activity">
+        <div id="greeting">
+          Good Morning[name]!<br>
+          Date
+        </div>
+        <div id="latest">
+          Latest Entry!
+        </div>
+      </div>
+
+    </div>
+
   </main>
 
   <footer>
@@ -88,7 +104,73 @@
       <a>&#169;ThoughtThread 2025</a>
     </div>
   </footer>
-  <script src="{% static 'scripts/sidenav.js' %}"></script>
+
+  <!-- side nav bar -->
+  <!-- <div id="mySidebar" class="sidebar"> -->
+  <!-- Tags -->
+  <!-- <div class="tags-list"> -->
+  <!-- {% for tag in allTags %} -->
+  <!-- <a href="/journal/">{{tag.name}}</a> -->
+  <!-- {% endfor %} -->
+  <!-- </div> -->
+  <!-- <br><br> -->
+
+  <!-- navigation buttons -->
+  <!-- <div class="side-nav-btns"> -->
+  <!-- <a>-- Others --</a> -->
+  <!-- <a href="newEntry/"><button><img src="{% static 'images/icons/newentry.png' %}" alt="Dashboard" width="8%">New -->
+  <!-- Journal Entry</button></a> -->
+  <!-- <a href="#"><button><img src="{% static 'images/icons/profile.png' %}" alt="Profile" width="8%">Profile -->
+  <!-- Settings</button></a> -->
+  <!-- {% if user.is_authenticated %} -->
+  <!-- <a href="{% url 'logOut' %}"><button><img src="{% static 'images/icons/logout.png' %}" alt="Logout" -->
+  <!-- width="8%">Logout</button></a> -->
+  <!-- {% endif %} -->
+  <!-- </div> -->
+
+  <!-- </div> -->
+
+  <!-- main section of dashboard page -->
+  <!-- <main id="main"> -->
+  <!-- <button class="openbtn" onclick="nav()">☰</button> -->
+
+  <!-- <div class="bg-light">
+      <div class="container py-5">
+        <div class="search-wrapper">
+          <div class="search-box">
+            <input type="text" class="search-input form-control" placeholder="Search">
+            <i class="fas fa-search search-icon"></i>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+  <!-- prompt -->
+  <!-- <div id="prompt">
+      <h2>Display Prompt Here</h2>
+      <h6>ZenQuotes</h6>
+    </div>
+
+    <br><br> -->
+
+  <!-- displaying all previous entries -->
+  <!-- <div class="row">
+      {% for journal in allJournals %} -->
+  <!-- <div class="col"> -->
+  <!-- {{journal.title}} -->
+  <!-- </div> -->
+  <!-- {% endfor %} -->
+  <!-- </main>  -->
+
+  <!-- <script src="{% static 'scripts/sidenav.js' %}"></script> -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+    crossorigin="anonymous"></script>
+
 </body>
 
 </html>
