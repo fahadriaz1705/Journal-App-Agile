@@ -23,5 +23,6 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index,name = 'home'),
+    path('register/', views.register,name = 'register'),
     path('journal/',include('journalApp.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

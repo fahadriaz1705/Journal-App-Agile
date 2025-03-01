@@ -1,4 +1,4 @@
-<!-- {% load static %} -->
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +21,7 @@
 <body>
 
     <header>
-        <img src="/journalApp/static/images/logo.png" alt="thoughtthread.">
+        <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
     </header>
 
 
@@ -30,7 +30,7 @@
             <div class="col-md-5 col-lg-4">
                 <h3 class="text-center mb-3">Sign Up</h3>
                 <form method="POST" action="journal/signUp/" id="signup">
-                    <!-- {% csrf_token %} -->
+                    {% csrf_token %}
                     <div class="mb-3">
                         <input type="text" class="form-control" id="usernameSu" name="usernameSu"
                             placeholder="Enter Username" required>
@@ -55,7 +55,7 @@
 
     <footer>
         <div>
-            <img src="/journalApp/static/images/logo.png" alt="thoughtthread.">
+            <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
         </div>
         <div id="ftr-nav">
             <a href="#">Home</a>
