@@ -47,12 +47,16 @@
             <div class="col">
                 <h4>Username</h4>
                 <div class="data-holder">
-                    <h5>[username]</h5>
+                    {% if user.is_authenticated %}
+                    <h5>{{ user.username }}</h5>
+                    {% endif %}
                 </div>
 
                 <h4>Email</h4>
                 <div class="data-holder">
-                    <h5>[email]</h5>
+                    {% if user.is_authenticated %}
+                    <h5>{{ user.email }}</h5>
+                    {% endif %}
                 </div>
             </div>
             <div class="col">
