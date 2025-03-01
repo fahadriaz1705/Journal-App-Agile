@@ -1,3 +1,14 @@
+/* font reference: https://www.fontspace.com/quinfo-font-f12927 */
+@font-face {
+    font-family: QuinfoNorm;
+    src: url('/journalApp/static/fonts/Quinfo-Jw0K.otf');
+}
+
+@font-face {
+    font-family: QuinfoBold;
+    src: url('/journalApp/static/fonts/QuinfoBold-GXgA.otf');
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -48,6 +59,7 @@ footer #ftr-nav a:hover {
 
 footer #ftr-cp {
     padding-top: 40px;
+    color: white;
 }
 
 footer #ftr-L,
@@ -201,7 +213,7 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 
 /* journal entry page */
 .journalentrypage {
-    background-image: url("/journalApp/static/images/background/bg.png");
+    background-image: url('/static/myapp/images/bg.png');
     background-repeat: repeat-y;
     background-size: cover;
     background-position: center;
@@ -240,14 +252,14 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
     outline: none;
 }
 
-#journalEntry {
+#journalContent {
     width: 100%;
     padding: 10px;
     font-size: 12px;
     border: 2px solid #A3CCEA;
     border-radius: 20px;
     margin-bottom: 8px;
-    min-height: 300px;
+    height: 300px;
     resize: vertical;
     font-family: monospace;
     background-color: white;
@@ -255,7 +267,7 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 }
 
 #journalTitle:focus,
-#journalEntry:focus {
+#journalContent:focus {
     border: 2px solid #E5BAD3;
 }
 
@@ -277,6 +289,52 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 
 .toolbar button:hover {
     background-color: #E5BAD3;
+}
+
+#existingTag {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    left: 59.5%;
+    top: 79%;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background-color: #BAA6B1;
+    color: #eee;
+    border: 2px solid #e3d5dd;
+}
+
+#newtag {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    left: 57%;
+    top: 61%;
+    border-radius: 20px;
+    background-color: #BAA6B1;
+    color: #eee;
+    border: 2px solid #e3d5dd;
+    width: 25%;
+    height: 25%;
+    padding: 20px;
+    text-align: center;
+    overflow: hidden;
+}
+
+#attachments-block {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    left: 49%;
+    top: 74.5%;
+    border-radius: 20px;
+    background-color: #BAA6B1;
+    color: #eee;
+    border: 2px solid #e3d5dd;
+    width: 25%;
+    height: auto;
+    padding: 20px;
+    align-items: center;
 }
 
 /* prompt */
@@ -309,4 +367,42 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
     padding: 20px;
     margin: 0px 10px;
     min-height: 150px;
+}
+
+/* login and signup */
+#login input,
+#login button,
+#signup input,
+#signup button {
+    border-radius: 25px;
+    padding: 12px 0px;
+    margin: auto 0;
+    text-align: center;
+    font-family: QuinfoNorm;
+    border: 2px solid #d7cbd2;
+}
+
+#login,
+#signup {
+    padding-bottom: 30px;
+}
+
+.col-lg-4 {
+    width: 45%;
+    letter-spacing: 1.2px;
+}
+
+.mb-3 {
+    font-family: QuinfoBold;
+    overflow: hidden;
+}
+
+#login button,
+#signup button {
+    background-color: #BAA6B1;
+}
+
+#login button:hover,
+#signup button:hover {
+    background-color: #d7cbd2;
 }
