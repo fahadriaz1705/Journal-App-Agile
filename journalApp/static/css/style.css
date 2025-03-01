@@ -406,3 +406,67 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 #signup button:hover {
     background-color: #d7cbd2;
 }
+
+/* Settings Page */
+
+#page-heading {
+    width: 80%;
+    text-align: center;
+    padding: 20px;
+    border: none;
+    background: #BAA6B1;
+    border-radius: 30px;
+    margin: 0 auto;
+    color: #eee;
+    font-size: larger;
+    font-family: QuinfoBold;
+}
+
+#settings-box {
+    display: flex;
+    width: 80%;
+    text-align: center;
+    padding: 20px;
+    border: none;
+    margin: 0 auto;
+}
+
+.col {
+    width: 50%;
+    padding: 5px;
+    text-align: left;
+    border: none;
+    background-color: white;
+}
+
+#settings-box h4 {
+    padding-top: 20px;
+    font-family: QuinfoNorm;
+}
+
+.data-holder {
+    width: 90%;
+    background-color: #e3d5dd;
+    padding: 15px 5px;
+    border-radius: 25px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.col button {
+    width: 90%;
+    background-color: #e3d5dd;
+    padding: 15px 5px;
+    border-radius: 25px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 20px;
+    border: 2px solid #d7cbd2;
+    font-family: monospace;
+    color: #504249;
+}
+
+.col button:hover {
+    background-color: #d7cbd2;
+    color: #eee;
+}
