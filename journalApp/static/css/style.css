@@ -409,7 +409,7 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 
 /* Settings Page */
 
-#page-heading {
+/* #page-heading {
     width: 80%;
     text-align: center;
     padding: 20px;
@@ -469,4 +469,22 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 .col button:hover {
     background-color: #d7cbd2;
     color: #eee;
+} */
+
+/* settings */
+#settings-page {
+    padding: 5% 8%;
+}
+
+#profile-settings .row {
+    display: flex;
+    text-align: left;
+}
+
+.col1 {
+    width: 20%;
+}
+
+.col2 {
+    width: 80%;
 }
