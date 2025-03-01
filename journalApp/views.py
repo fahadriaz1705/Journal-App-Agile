@@ -105,4 +105,5 @@ def createEntry(request):
     else:
         messages.error(request, 'Sorry, we encountered an error. Try again.')
         return redirect('newEntry')
-
+def profSetting(request):
+    return render(request,'journalApp/settings.html')

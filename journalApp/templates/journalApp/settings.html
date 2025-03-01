@@ -1,34 +1,38 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThoughtThread | Profile Settings</title>
 
-    <link rel="stylesheet" href="/journalApp/static/css/style.css">
-    <link rel="icon" href="/journalApp/static/images/icons/thoughtthread-icon.png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="{% static 'images/icons/thoughtthread-icon.png' %}">
 
 </head>
 
 <body>
     <header>
-        <img src="/journalApp/static/images/logo.png" alt="thoughtthread.">
+        <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
     </header>
 
     <!-- side nav bar -->
     <div id="mySidebar" class="sidebar">
         <!-- navigation buttons -->
         <div class="side-nav-btns">
-            <a href="/journalApp/templates/journalApp/index.html"><button><img
-                        src="/journalApp/static/images/icons/dashboard.png" alt="Dashboard"
+            <a href="{% url 'index' %}"><button><img
+                        src="{% static 'images/icons/dashboard.png' %}" alt="Dashboard"
                         width="8%">Dashboard</button></a>
-            <a href=""><button><img src="/journalApp/static/images/icons/newentry.png" alt="Profile" width="8%">New
-                    Entry</button></a>
-            <!-- {% if user.is_authenticated %} -->
-            <a href="logout/"><button><img src="/journalApp/static/images/icons/logout.png" alt="Logout"
-                        width="8%">Logout</button></a>
-            <!-- {% endif %} -->
+            <a href="{% url 'newEntry' %}"><button><img
+                src="{% static 'images/icons/newentry.png' %}" alt="Dashboard"
+                width="8%">New Journal Entry</button></a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'logOut' %}">
+                <button>
+                    <img src="{% static 'images/icons/logout.png' %}" alt="Logout" width="8%">Logout
+                </button>
+            </a>
+            {% endif %}
         </div>
     </div>
 
@@ -66,10 +70,10 @@
 
     <footer>
         <div>
-            <img src="/journalApp/static/images/logo.png" alt="thoughtthread.">
+            <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
         </div>
         <div id="ftr-nav">
-            <a href="#">Home</a>
+            <a href="{% url 'index' %}">Home</a>
             <a href="#">About</a>
             <a href="#">Contact</a>
         </div>
@@ -78,7 +82,7 @@
         </div>
     </footer>
 
-    <script src="/journalApp/static/scripts/sidenav.js"></script>
+    <script src="{% static 'scripts/sidenav.js' %}"></script>
 
 </body>
 
