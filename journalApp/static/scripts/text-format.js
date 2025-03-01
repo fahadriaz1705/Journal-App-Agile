@@ -172,7 +172,7 @@ function stringMani(lines, prefix) {
 }
 
 // Showing tag options
-let options = false;
+/* let options = false;
 function showOptions() {
     if (!options) {
         document.getElementById('existingTag').style.display = 'block';
@@ -183,9 +183,9 @@ function showOptions() {
         options = false;
     }
 }
-
+ */
 // Add new tag pop up
-let add = false;
+/* let add = false;
 function addTag() {
     if (!add) {
         document.getElementById('newtag').style.display = 'block';
@@ -195,10 +195,10 @@ function addTag() {
         document.getElementById('newtag').style.display = 'none';
         add = false;
     }
-}
+} */
 
 // Add attachment
-let attachment = false;
+/* let attachment = false;
 function addAttachments() {
     if (!attachment) {
         document.getElementById('attachments-block').style.display = 'block';
@@ -208,4 +208,4 @@ function addAttachments() {
         document.getElementById('attachments-block').style.display = 'none';
         attachment = false;
     }
-}
+} */

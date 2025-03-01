@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 class Tag(models.Model):
     tag_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100, unique=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
 
     def __str__(self):
         return self.name

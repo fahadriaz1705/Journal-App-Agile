@@ -64,17 +64,18 @@ def logOut(request):
     messages.success(request,'You have successfully logged out')
     return redirect('home')
 def newEntry(request):
-    allTags = Tag.objects.filter(journalentry__user=request.user).distinct()
+    allTags = Tag.objects.filter(user=request.user)
     params = {'allTags': allTags}
     return render(request,'journalApp/journalEntry.html',params)
 def createEntry(request):
     if request.method == 'POST':
+        # 1) Grab title and rich-text HTML from the form
         title = request.POST.get('title')
-        content = request.POST.get('content')
+        content = request.POST.get('content')  # This is the raw HTML from the contenteditable div
+
+        # 2) Decide whether to use existing tag or create a new one
         existTagId = request.POST.get('existingTag')
         newTagName = request.POST.get('newTag')
-
-        # Decide whether to use existing tag or create a new one
         if newTagName:
             tag, created = Tag.objects.get_or_create(name=newTagName)
         elif existTagId:
@@ -82,15 +83,15 @@ def createEntry(request):
         else:
             tag = None
 
-        # Create the journal entry
+        # 3) Create the journal entry, storing the HTML
         newEnt = JournalEntry.objects.create(
             user=request.user,
             title=title,
-            content=content,
+            content=content,  # <--- HTML is saved here
             tag=tag
         )
 
-        # If a file was uploaded, create an Attachment object
+        # 4) Handle file uploads (if any)
         if 'attachment' in request.FILES:
             imgFile = request.FILES['attachment']
             Attachment.objects.create(
@@ -98,10 +99,10 @@ def createEntry(request):
                 image=imgFile
             )
 
-        # Redirect
+        # 5) Redirect or show success message
+        messages.success(request, "Journal entry created successfully!")
         return redirect('index')
     else:
-        messages.error(request, 'Sorry we encountered an error. Try again.')
+        messages.error(request, 'Sorry, we encountered an error. Try again.')
         return redirect('newEntry')
-
 

@@ -291,7 +291,7 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
     background-color: #E5BAD3;
 }
 
-#existingTag {
+/* #existingTag {
     display: none;
     position: absolute;
     z-index: 1;
@@ -302,9 +302,9 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
     background-color: #BAA6B1;
     color: #eee;
     border: 2px solid #e3d5dd;
-}
+} */
 
-#newtag {
+/* #newtag {
     display: none;
     position: absolute;
     z-index: 1;
@@ -320,8 +320,8 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
     text-align: center;
     overflow: hidden;
 }
-
-#attachments-block {
+ */
+/* #attachments-block {
     display: none;
     position: absolute;
     z-index: 1;
@@ -336,7 +336,7 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
     padding: 20px;
     align-items: center;
 }
-
+ */
 /* prompt */
 
 #prompt {

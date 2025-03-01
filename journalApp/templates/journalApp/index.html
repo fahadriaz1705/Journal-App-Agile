@@ -35,7 +35,7 @@
       <a href="#"><button><img src="{% static 'images/icons/profile.png' %}" alt="Profile" width="8%">Profile
           Settings</button></a>
       {% if user.is_authenticated %}
-      <a href="logout/"><button><img src="{% static 'images/icons/logout.png' %}" alt="Logout"
+      <a href="{% url 'logOut' %}"><button><img src="{% static 'images/icons/logout.png' %}" alt="Logout"
               width="8%">Logout</button></a>
       {% endif %}
     </div>
