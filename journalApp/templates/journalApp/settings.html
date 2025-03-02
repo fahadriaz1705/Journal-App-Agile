@@ -74,7 +74,7 @@
             <h4>[text about what itll do]</h4>
             <button>Clear All Account Settings</button><br><br><br>
 
-            <h4>[text about what itll do]</h4>
+            <h4>[Delete all Journal Entries, Tags and Attachments]</h4>
             <form action="{% url 'delData' %}" method="POST">
                 {% csrf_token %}
                 <button type="submit" onclick="return confirm('Are you sure you want to delete all data? This cannot be undone.');">
@@ -82,8 +82,14 @@
                   </button>                  
             </form>
 
-            <h4>[text about what itll do]</h4>
-            <button>Delete Account</button><br><br><br>
+            <h4>[Delte your account]</h4>
+            <form action="{% url 'delAccount' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" onclick="return confirm('Are you sure you want to delete your entire account? This cannot be undone.');">
+                  Delete Account
+                </button>
+            </form>
+              
         </div>
 
     </main>

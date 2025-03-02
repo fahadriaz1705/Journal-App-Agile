@@ -190,3 +190,12 @@ def delData(request):
     else:
         messages.error(request, "Invalid request.")
         return redirect('profSetting')
+@login_required
+def delAccount(request):
+    if request.method == 'POST':
+        request.user.delete()
+        messages.success(request, "Your account has been deleted.")
+        return redirect('home')
+    else:
+        messages.error(request, "Invalid request type.")
+        return redirect('profSetting')

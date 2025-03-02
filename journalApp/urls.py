@@ -13,4 +13,5 @@ urlpatterns = [
     path('entry/<int:entry_id>/download/pdf/', views.downloadEntry, name='downloadEntry'),
      path('changePass/', views.changePass, name='changePass'),
      path('delData/', views.delData, name='delData'),
+     path('delAccount/', views.delAccount, name='delAccount'),
 ]
