@@ -20,6 +20,11 @@
     </header>
 
     <main>
+
+        <a href="{% url 'index' %}"></a>Go Back</ab>
+        {% if user.is_authenticated %}
+            <a href="{% url 'logOut' %}"><button><img src="{% static 'images/icons/logout.png' %}" alt="Logout"></button></a>
+        {% endif %}
         <div id="view-journal-title">
             <h3>Title:</h3>
             {{ journal.title }}

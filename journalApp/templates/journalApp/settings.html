@@ -28,6 +28,11 @@
 
     <main id="settings-page">
 
+        <a href="{% url 'index' %}"></a>Go Back</ab>
+        {% if user.is_authenticated %}
+            <a href="{% url 'logOut' %}"><button><img src="{% static 'images/icons/logout.png' %}" alt="Logout"></button></a>
+        {% endif %}
+
         <div id="profile-settings">
             <h2>Profile Settings</h2>
             <hr>
@@ -90,9 +95,6 @@
         <div id="account-settings">
             <h2>Account Settings</h2>
             <hr>
-
-            <h4>[text about what itll do]</h4>
-            <button>Clear All Account Settings</button><br><br><br>
 
             <h4>[Delete all Journal Entries, Tags and Attachments]</h4>
             <form action="{% url 'delData' %}" method="POST">
