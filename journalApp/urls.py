@@ -14,4 +14,5 @@ urlpatterns = [
      path('changePass/', views.changePass, name='changePass'),
      path('delData/', views.delData, name='delData'),
      path('delAccount/', views.delAccount, name='delAccount'),
+     path('updateTheme/', views.updateTheme, name='updateTheme'),
 ]

@@ -16,6 +16,16 @@
 </head>
 
 <body>
+  {% if messages %}
+        <div class="message-container">
+        {% for message in messages %}
+            <div class="alert 
+                {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                    {{ message }}
+            </div>
+        {% endfor %}
+        </div>
+  {% endif %}
   {% load static %}
   <header id="header-row">
 

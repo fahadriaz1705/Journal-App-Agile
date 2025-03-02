@@ -11,6 +11,7 @@ from django.contrib import messages
 from .models import Tag
 from .models import JournalEntry
 from .models import Attachment
+from .models import Theme
 from django.utils import timezone
 from xhtml2pdf import pisa
 from io import BytesIO
@@ -198,4 +199,22 @@ def delAccount(request):
         return redirect('home')
     else:
         messages.error(request, "Invalid request type.")
+        return redirect('profSetting')
+@login_required
+def updateTheme(request):
+    if request.method == 'POST':
+        primary = request.POST.get('primary_color')
+        secondary = request.POST.get('secondary_color')
+
+        theme, created = Theme.objects.get_or_create(user=request.user)
+
+        # Update the colors
+        theme.primary_color = primary
+        theme.secondary_color = secondary
+        theme.save()
+
+        messages.success(request, 'Your theme has been updated!')
+        return redirect('profSetting')
+    else:
+        messages.error(request, 'Invalid request type.')
         return redirect('profSetting')

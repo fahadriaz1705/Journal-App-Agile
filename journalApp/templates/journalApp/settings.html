@@ -12,6 +12,16 @@
 </head>
 
 <body>
+    {% if messages %}
+        <div class="message-container">
+        {% for message in messages %}
+            <div class="alert 
+                {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                    {{ message }}
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
     <header>
         <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
     </header>
@@ -45,14 +55,24 @@
         <div id="theme-settings">
             <h2>Application Theme</h2>
             <hr>
-            <form action="">
+            <form action="{% url 'updateTheme' %}" method="POST">
+                {% csrf_token %}
                 <div>
-                    <label for="">Primary Colour</label>
-                    <input type="color" value="">
+                    <label for="primary_color">Primary Colour</label>
+                    <!-- Optionally prefill with the user's existing primary_color -->
+                    <input 
+                        type="color" 
+                        name="primary_color" 
+                        value="{{ user.theme.primary_color|default:'#000000' }}"
+                    >
                 </div>
                 <div>
-                    <label for="">Secondary Colour</label>
-                    <input type="color" value="">
+                    <label for="secondary_color">Secondary Colour</label>
+                    <input 
+                        type="color" 
+                        name="secondary_color" 
+                        value="{{ user.theme.secondary_color|default:'#FFFFFF' }}"
+                    >
                 </div>
                 <button type="submit" class="btn btn-success w-100">Apply Theme</button>
             </form>
