@@ -15,4 +15,5 @@ urlpatterns = [
      path('delData/', views.delData, name='delData'),
      path('delAccount/', views.delAccount, name='delAccount'),
      path('updateTheme/', views.updateTheme, name='updateTheme'),
+     path('entry/<int:entry_id>/edit/', views.editEntry, name='editEntry'),
 ]

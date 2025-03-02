@@ -21,7 +21,7 @@
 
     <main>
 
-        <a href="{% url 'index' %}"></a>Go Back</ab>
+        <a href="{% url 'index' %}">Go back</a>
         {% if user.is_authenticated %}
             <a href="{% url 'logOut' %}"><button><img src="{% static 'images/icons/logout.png' %}" alt="Logout"></button></a>
         {% endif %}
@@ -63,9 +63,10 @@
         </a>
                
 
-        <button>
-            Edit Entry
-        </button>
+        <a href="{% url 'editEntry' journal.entry_id %}">
+            <button>Edit Entry</button>
+        </a>
+        
     </main>
 
     <footer>

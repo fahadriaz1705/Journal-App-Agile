@@ -218,3 +218,47 @@ def updateTheme(request):
     else:
         messages.error(request, 'Invalid request type.')
         return redirect('profSetting')
+def editEntry(request, entry_id):
+    journal = JournalEntry.objects.get(pk=entry_id,user=request.user)
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        existing_tag_id = request.POST.get('existingTag')
+        new_tag_name = request.POST.get('newTag')
+        
+
+        journal.title = title
+        journal.content = content
+        
+        if new_tag_name:
+            tag, _ = Tag.objects.get_or_create(name=new_tag_name, user=request.user)
+            journal.tag = tag
+        elif existing_tag_id:
+            journal.tag = Tag.objects.get(tag_id=existing_tag_id, user=request.user)
+        else:
+            journal.tag = None
+
+        remove_existing = request.POST.get('remove_attachment')
+        if remove_existing == 'on':
+            journal.attachments.all().delete()
+
+        if 'new_attachment' in request.FILES:
+            image_file = request.FILES['new_attachment']
+            Attachment.objects.create(
+                journal_entry=journal,
+                image=image_file
+            )
+    
+        journal.save()
+        
+        messages.success(request, "Entry updated successfully!")
+        return redirect('viewEntry', entry_id=journal.entry_id)
+    
+    else:
+
+        all_tags = Tag.objects.filter(user=request.user).distinct()
+        context = {
+            'journal': journal,
+            'all_tags': all_tags
+        }
+        return render(request, 'journalApp/editEntry.html', context)
