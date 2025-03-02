@@ -431,6 +431,24 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
     align-items: center;
 }
  */
+
+#tags-list {
+    padding: 0 1%;
+    border: none;
+}
+
+#tags-list select,
+#tags-list select option {
+    border-radius: 15px;
+    padding: 0.5%;
+    border: 2px solid #A3CCEA;
+}
+
+#tags-list select:hover,
+#tags-list select option:hover {
+    border: 2px solid #BAA6B1;
+}
+
 /* prompt */
 
 #prompt {

@@ -67,7 +67,7 @@
             </div>
 
             <!-- Existing Tag Selection -->
-            <div class="form-group">
+            <div class="form-group" id="tags-list">
                 <label for="existingTag">Choose an Existing Tag</label>
                 <select id="existingTag" name="existingTag" class="form-control">
                     <option value="">-- Select a tag --</option>
@@ -95,72 +95,67 @@
                 <input type="file" id="attachment" name="attachment" accept="image/*">
             </div>
 
-            <!-- Submit Button -->
-            <!-- We'll intercept the form submission to copy the contenteditable HTML into #hiddenContent -->
-            <div class="form-group mt-3">
-                <button type="submit" class="btn btn-primary" onclick="prepareSubmission(event)">
-                    Create Journal
+            <!-- ToolBar -->
+            <div class="toolbar">
+                <!-- Increase font size button -->
+                <button onclick="changeSize('up')" title="Increase font size">
+                    <img src="{% static 'images/text-format-icons/font-size-up.png' %}" alt="Increase Font Size">
+                </button>
+
+                <!-- Decrease font size button -->
+                <button onclick="changeSize('down')" title="Decrease font size">
+                    <img src="{% static 'images/text-format-icons/font-size-down.png' %}" alt="Decrease Font Size">
+                </button>
+
+                <!-- Make text bold button -->
+                <button onclick="formatText('bold')" title="Bold Font">
+                    <img src="{% static 'images/text-format-icons/bold.png' %}" alt="Bold">
+                </button>
+
+                <!-- Make text Italic button -->
+                <button onclick="formatText('italic')" title="Italic Font">
+                    <img src="{% static 'images/text-format-icons/italic.png' %}" alt="Italic">
+                </button>
+
+                <!-- Make text Underline button -->
+                <button onclick="formatText('underline')" title="Underline Font">
+                    <img src="{% static 'images/text-format-icons/underline.png' %}" alt="Underline">
+                </button>
+
+                <!-- Change text alignment button -->
+                <button onclick="changeAlignment('left')" title="Left Align Text">
+                    <img src="{% static 'images/text-format-icons/left-align.png' %}" alt="Left-Align">
+                </button>
+
+                <!-- Change text alignment button -->
+                <button onclick="changeAlignment('center')" title="Center Align Text">
+                    <img src="{% static 'images/text-format-icons/center.png' %}" alt="Center-Align">
+                </button>
+
+                <!-- Change text alignment button -->
+                <button onclick="changeAlignment('right')" title="Right Align Text">
+                    <img src="{% static 'images/text-format-icons/right-align.png' %}" alt="Right-Align">
+                </button>
+
+                <!-- Insert Bullet Points button -->
+                <button onclick="addLists('bullet')" title="Bullet Points">
+                    <img src="{% static 'images/text-format-icons/bullet-points.png' %}" alt="Bullet-Points">
+                </button>
+
+                <!-- Insert Numbered Points button -->
+                <button onclick="addLists('numbered')" title="Numbered Points">
+                    <img src="{% static 'images/text-format-icons/numbered points.png' %}" alt="Numbered-List">
+                </button>
+
+                <!-- Submit Button -->
+                <!-- We'll intercept the form submission to copy the contenteditable HTML into #hiddenContent -->
+                <button type="submit" onclick="prepareSubmission(event)">
+                    <img src="{% static 'images/text-format-icons/save.png' %}" alt="Save Entry">
                 </button>
             </div>
+
         </form>
 
-        <!-- ToolBar -->
-        <div class="toolbar">
-            <!-- Increase font size button -->
-            <button onclick="changeSize('up')" title="Increase font size">
-                <img src="{% static 'images/text-format-icons/font-size-up.png' %}" alt="Increase Font Size">
-            </button>
-
-            <!-- Decrease font size button -->
-            <button onclick="changeSize('down')" title="Decrease font size">
-                <img src="{% static 'images/text-format-icons/font-size-down.png' %}" alt="Decrease Font Size">
-            </button>
-
-            <!-- Make text bold button -->
-            <button onclick="formatText('bold')" title="Bold Font">
-                <img src="{% static 'images/text-format-icons/bold.png' %}" alt="Bold">
-            </button>
-
-            <!-- Make text Italic button -->
-            <button onclick="formatText('italic')" title="Italic Font">
-                <img src="{% static 'images/text-format-icons/italic.png' %}" alt="Italic">
-            </button>
-
-            <!-- Make text Underline button -->
-            <button onclick="formatText('underline')" title="Underline Font">
-                <img src="{% static 'images/text-format-icons/underline.png' %}" alt="Underline">
-            </button>
-
-            <!-- Change text alignment button -->
-            <button onclick="changeAlignment('left')" title="Left Align Text">
-                <img src="{% static 'images/text-format-icons/left-align.png' %}" alt="Left-Align">
-            </button>
-
-            <!-- Change text alignment button -->
-            <button onclick="changeAlignment('center')" title="Center Align Text">
-                <img src="{% static 'images/text-format-icons/center.png' %}" alt="Center-Align">
-            </button>
-
-            <!-- Change text alignment button -->
-            <button onclick="changeAlignment('right')" title="Right Align Text">
-                <img src="{% static 'images/text-format-icons/right-align.png' %}" alt="Right-Align">
-            </button>
-
-            <!-- Insert Bullet Points button -->
-            <button onclick="addLists('bullet')" title="Bullet Points">
-                <img src="{% static 'images/text-format-icons/bullet-points.png' %}" alt="Bullet-Points">
-            </button>
-
-            <!-- Insert Numbered Points button -->
-            <button onclick="addLists('numbered')" title="Numbered Points">
-                <img src="{% static 'images/text-format-icons/numbered points.png' %}" alt="Numbered-List">
-            </button>
-
-            {% comment %} <!-- Add Attachments button -->
-            <button onclick="addAttachments()" title="Add Attachment">
-                <img src="{% static 'images/text-format-icons/attachments.png' %}" alt="Add Attachments">
-            </button> {% endcomment %}
-        </div>
     </main>
 
     <footer>
