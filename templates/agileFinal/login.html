@@ -20,6 +20,16 @@
 
 <body>
 
+    {% if messages %}
+        <div class="message-container">
+        {% for message in messages %}
+            <div class="alert 
+                {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                    {{ message }}
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
     <main>
         <div class="auth-page-row">
             <div class="colL">
@@ -42,6 +52,7 @@
                         <button type="submit" class="btn btn-primary w-100">Login</button>
                     </form>
                 </div>
+                <a href="{% url 'register' %}">Sign Up</a>
             </div>
         </div>
     </main>

@@ -24,7 +24,7 @@
     </div>
 
     <div id="header-nav">
-      <a href="#"><button><img src="{% static 'images/icons/profile.png' %}" alt="Profile"></button></a>
+      <a href="{% url 'profSetting' %}"><button><img src="{% static 'images/icons/profile.png' %}" alt="Profile"></button></a>
       {% if user.is_authenticated %}
       <a href="{% url 'logOut' %}"><button><img src="{% static 'images/icons/logout.png' %}" alt="Logout"></button></a>
       {% endif %}

@@ -11,4 +11,5 @@ urlpatterns = [
     path('profSetting/',views.profSetting,name="profSetting"),
     path('viewEntry/<int:entry_id>/', views.viewEntry, name='viewEntry'),
     path('entry/<int:entry_id>/download/pdf/', views.downloadEntry, name='downloadEntry'),
+     path('changePass/', views.changePass, name='changePass'),
 ]

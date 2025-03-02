@@ -27,7 +27,7 @@
                     <h4>Username</h4>
                 </div>
                 <div class="col2">
-                    [username]
+                    {{ user.username }}
                 </div>
             </div>
 
@@ -36,7 +36,7 @@
                     <h4>Email</h4>
                 </div>
                 <div class="col2">
-                    [email]
+                    {{ user.email }}
                 </div>
             </div>
         </div>
@@ -74,6 +74,7 @@
                 <button type="submit" class="btn btn-success w-100">Change Password</button>
             </form>
         </div>
+        <a href="{% url 'changePass' %}">Change Password</a>
 
         <br><br>
         <div id="account-settings">

@@ -2,6 +2,10 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import login,logout,authenticate
+from django.contrib.auth import password_validation
+from django.core.exceptions import ValidationError
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from .models import Tag
 from .models import JournalEntry
@@ -39,31 +43,42 @@ def signUp(request):
         pass1 = request.POST.get('password1')
         pass2 = request.POST.get('password2')
 
-        existUser = User.objects.filter(username = userName)
-        existEmail = User.objects.filter(email=userEmail)
+        # Check for existing user/ email
+        if User.objects.filter(username=userName).exists():
+            messages.error(request, 'This username already exists. Please try a different one.')
+            return redirect('register')
 
+        if User.objects.filter(email=userEmail).exists():
+            messages.error(request, 'This email already exists. Please try a different one.')
+            return redirect('register')
+
+        # Some basic checks:
         if len(userName) > 10:
-            messages.error(request,'Username must be less than 10 characters')
-            return redirect('home')
-        if not pass1 == pass2:
-            messages.error(request,'Both passwords didnt match, please try again')
-            return redirect('home')
+            messages.error(request, 'Username must be less than 10 characters.')
+            return redirect('register')
+
         if not userName.isalnum():
-            messages.error(request,'Username should only contain alpha numeric characters')
-            return redirect('home')
-        if existUser:
-            messages.error(request,'This username already exists please try a different one')
-            return redirect('home')
-        if existEmail:
-            messages.error(request,'This email already exists please try a different one')
-            return redirect('home')
-            
-        user = User.objects.create_user(username=userName,email=userEmail,password=pass1)
+            messages.error(request, 'Username should only contain alphanumeric characters.')
+            return redirect('register')
+
+        if pass1 != pass2:
+            messages.error(request, 'Both passwords did not match, please try again.')
+            return redirect('register')
+        try:
+            password_validation.validate_password(pass1, user=None)
+        except ValidationError as e:
+            for error in e:
+                messages.error(request, error)
+            return redirect('register')
+
+        # If we reach here, the password is valid per Django's validators
+        user = User.objects.create_user(username=userName, email=userEmail, password=pass1)
         user.save()
-        messages.success(request,'Your account has been successfully created')
+        messages.success(request, 'Your account has been successfully created')
         return redirect('home')
+
     else:
-        return HttpResponse('Error: 404(Not Found)')
+        return HttpResponse('Error: 404 (Not Found)')
 def logOut(request):
     logout(request)
     messages.success(request,'You have successfully logged out')
@@ -149,3 +164,18 @@ def downloadEntry(request, entry_id):
         content_disposition = f'attachment; filename="{filename}"'
         response['Content-Disposition'] = content_disposition
         return response
+def changePass(request):
+    if not request.user.is_authenticated:
+        return redirect('home')
+    if request.method == 'POST':
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            user = form.save() 
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('profSetting')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(user=request.user)
+    return render(request, 'journalApp/change_password.html', {'form': form})

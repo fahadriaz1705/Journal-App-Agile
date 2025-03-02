@@ -249,8 +249,8 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 #entries-list {
     margin: 20px 15px;
     text-align: center;
-    max-height: 80%;
-    overflow-y: scroll;
+    max-height: 50%;
+    overflow-y: auto;
 }
 
 #entries-list button {

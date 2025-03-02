@@ -19,7 +19,16 @@
 </head>
 
 <body>
-
+    {% if messages %}
+        <div class="message-container">
+        {% for message in messages %}
+            <div class="alert 
+                {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                    {{ message }}
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
     <main>
         <div class="auth-page-row">
             <div class="colL">
@@ -29,7 +38,7 @@
                 <div class="row justify-content-center">
                     <h3 class="text-center mb-3">Sign Up</h3>
                     <form method="POST" action="{% url 'signUp' %}" id="signup">
-                        <!-- {% csrf_token %} -->
+                        {% csrf_token %}
                         <div class="mb-3">
                             <input type="text" class="form-control" id="usernameSu" name="usernameSu"
                                 placeholder="Enter Username" required>
