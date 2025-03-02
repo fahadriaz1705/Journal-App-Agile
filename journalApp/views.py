@@ -6,6 +6,7 @@ from django.contrib import messages
 from .models import Tag
 from .models import JournalEntry
 from .models import Attachment
+from django.utils import timezone
 from xhtml2pdf import pisa
 from io import BytesIO
 
@@ -16,7 +17,8 @@ def index(request):
         allJournals = JournalEntry.objects.filter(user=userId)
         latestJournal = JournalEntry.objects.filter(user=request.user).order_by('-created_at').first()
         allTags = Tag.objects.filter(journalentry__user=request.user).distinct()
-        params = {'allJournals': allJournals,'allTags': allTags,'latestJournal': latestJournal}
+        today = timezone.now()
+        params = {'allJournals': allJournals,'allTags': allTags,'latestJournal': latestJournal,'today':today}
         return render(request,'journalApp/index.html',params)
 def logIn(request):
     if request.method == 'POST':

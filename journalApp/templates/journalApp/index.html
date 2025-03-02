@@ -89,8 +89,8 @@
 
       <div id="activity">
         <div id="greeting">
-          Good Morning {{ user.username }} !<br>
-          Date
+          Good Morning {{ user.username }}!<br>
+          <strong>Today is:</strong> {{ today|date:"M d, Y" }}
         </div>
         <div id="latest">
           <h2>Latest Entry</h2>
