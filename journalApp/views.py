@@ -6,6 +6,7 @@ from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Tag
 from .models import JournalEntry
@@ -179,3 +180,13 @@ def changePass(request):
     else:
         form = PasswordChangeForm(user=request.user)
     return render(request, 'journalApp/change_password.html', {'form': form})
+@login_required
+def delData(request):
+    if request.method == 'POST':
+        JournalEntry.objects.filter(user=request.user).delete()
+        Tag.objects.filter(user=request.user).delete()
+        messages.success(request, "All your journal data has been deleted.")
+        return redirect('profSetting')
+    else:
+        messages.error(request, "Invalid request.")
+        return redirect('profSetting')
