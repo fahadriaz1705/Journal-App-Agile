@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ journal.title }}</title>
+    <style>
+       body {
+         font-family: sans-serif;
+       }
+       h1 {
+         text-align: center;
+         font-size: 20px;
+       }
+       .attachment {
+         border: 1px solid #ccc;
+         margin-bottom: 10px;
+       }
+    </style>
+</head>
+<body>
+    <h1>{{ journal.title }}</h1>
+
+    <!-- If your content is HTML, be sure to use the 'safe' filter if it's stored as HTML -->
+    <div>
+        {{ journal.content|safe }}
+    </div>
+
+    <p><strong>Tag:</strong> 
+       {% if journal.tag %}{{ journal.tag.name }}{% else %}No tag{% endif %}
+    </p>
+
+    <p>
+      <strong>Attachments:</strong>
+      {% if journal.attachments.all %}
+        <ul>
+            {% for attach_url in attachments_urls %}
+            <img src="{{ attach_url }}" style="max-width: 300px;" />
+            {% endfor %}
+        </ul>
+      {% else %}
+        No attachments
+      {% endif %}
+    </p>
+
+    <p>
+      <strong>Created at:</strong> {{ journal.created_at }}<br>
+      <strong>Last updated:</strong> {{ journal.updated_at }}
+    </p>
+</body>
+</html>

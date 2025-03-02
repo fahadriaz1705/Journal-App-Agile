@@ -6,6 +6,8 @@ from django.contrib import messages
 from .models import Tag
 from .models import JournalEntry
 from .models import Attachment
+from xhtml2pdf import pisa
+from io import BytesIO
 
 # Create your views here.
 def index(request):
@@ -112,3 +114,35 @@ def viewEntry(request, entry_id):
     # Pass it to the template
     params = {'journal': journal}
     return render(request, 'journalApp/viewJournalEntry.html', params)
+def download_entry_pdf(request, entry_id):
+    # 1. Get the journal entry or raise 404
+    journal = JournalEntry.objects.get(pk=entry_id)
+
+    # 2. Render HTML template for PDF content
+    # We'll pass 'journal' as context
+    attachments = journal.attachments.all()
+    attachments_urls = [
+        request.build_absolute_uri(a.image.url) for a in attachments
+    ]
+
+    context = {
+        'journal': journal,
+        'attachments_urls': attachments_urls,
+    }
+
+    html_string = render(request, 'journalApp/pdf_template.html', context).content.decode('utf-8')
+
+    # 3. Create a PDF using xhtml2pdf
+    pdf_file = BytesIO()  # We'll write the PDF data into this file-like buffer
+    pisa_status = pisa.CreatePDF(src=html_string, dest=pdf_file)
+
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html_string + '</pre>')
+    else:
+        # 4. Return the PDF as a download
+        pdf_file.seek(0)  # Reset file pointer to start
+        response = HttpResponse(pdf_file.read(), content_type='application/pdf')
+        filename = f"{journal.title}.pdf"
+        content_disposition = f'attachment; filename="{filename}"'
+        response['Content-Disposition'] = content_disposition
+        return response

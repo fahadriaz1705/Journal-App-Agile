@@ -53,9 +53,10 @@
         </p>
 
 
-        <button>
-            Download
-        </button>
+        <a href="{% url 'download_entry_pdf' journal.entry_id %}">
+            Download as PDF
+        </a>
+               
 
         <button>
             Edit Entry
