@@ -89,11 +89,37 @@
 
       <div id="activity">
         <div id="greeting">
-          Good Morning[name]!<br>
+          Good Morning {{ user.username }} !<br>
           Date
         </div>
         <div id="latest">
-          Latest Entry!
+          <h2>Latest Entry</h2>
+          {% if latestJournal %}
+            <!-- Title as a clickable link to the detail page -->
+            <a href="{% url 'viewEntry' latestJournal.entry_id %}">
+              <strong>{{ latestJournal.title }}</strong>
+            </a>
+            <br>
+
+            <!-- Content (use |safe if storing HTML) -->
+            <p>{{ latestJournal.content|safe }}</p>
+
+            <!-- Tag -->
+            <p>
+              <strong>Tag:</strong>
+              {% if latestJournal.tag %}
+                {{ latestJournal.tag.name }}
+              {% else %}
+                No tag
+              {% endif %}
+            </p>
+
+            <!-- Created date -->
+            <p><strong>Created at:</strong> {{ latestJournal.created_at }}</p>
+
+          {% else %}
+            <p>No entries found.</p>
+          {% endif %}
         </div>
       </div>
 

@@ -10,5 +10,5 @@ urlpatterns = [
     path('createEntry/',views.createEntry,name="createEntry"),
     path('profSetting/',views.profSetting,name="profSetting"),
     path('viewEntry/<int:entry_id>/', views.viewEntry, name='viewEntry'),
-    path('entry/<int:entry_id>/download/pdf/', views.download_entry_pdf, name='download_entry_pdf'),
+    path('entry/<int:entry_id>/download/pdf/', views.downloadEntry, name='downloadEntry'),
 ]

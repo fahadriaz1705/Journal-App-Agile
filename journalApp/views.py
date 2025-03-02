@@ -14,8 +14,9 @@ def index(request):
     if request.user.is_authenticated:
         userId = request.user.id
         allJournals = JournalEntry.objects.filter(user=userId)
+        latestJournal = JournalEntry.objects.filter(user=request.user).order_by('-created_at').first()
         allTags = Tag.objects.filter(journalentry__user=request.user).distinct()
-        params = {'allJournals': allJournals,'allTags': allTags}
+        params = {'allJournals': allJournals,'allTags': allTags,'latestJournal': latestJournal}
         return render(request,'journalApp/index.html',params)
 def logIn(request):
     if request.method == 'POST':
@@ -114,34 +115,34 @@ def viewEntry(request, entry_id):
     # Pass it to the template
     params = {'journal': journal}
     return render(request, 'journalApp/viewJournalEntry.html', params)
-def download_entry_pdf(request, entry_id):
+def downloadEntry(request, entry_id):
     # 1. Get the journal entry or raise 404
     journal = JournalEntry.objects.get(pk=entry_id)
 
     # 2. Render HTML template for PDF content
     # We'll pass 'journal' as context
     attachments = journal.attachments.all()
-    attachments_urls = [
+    attachmentUrl = [
         request.build_absolute_uri(a.image.url) for a in attachments
     ]
 
     context = {
         'journal': journal,
-        'attachments_urls': attachments_urls,
+        'attachmentUrl': attachmentUrl,
     }
 
-    html_string = render(request, 'journalApp/pdf_template.html', context).content.decode('utf-8')
+    htmlString = render(request, 'journalApp/pdf_template.html', context).content.decode('utf-8')
 
     # 3. Create a PDF using xhtml2pdf
-    pdf_file = BytesIO()  # We'll write the PDF data into this file-like buffer
-    pisa_status = pisa.CreatePDF(src=html_string, dest=pdf_file)
+    pdfFile = BytesIO()  # We'll write the PDF data into this file-like buffer
+    pisa_status = pisa.CreatePDF(src=htmlString, dest=pdfFile)
 
     if pisa_status.err:
-        return HttpResponse('We had some errors <pre>' + html_string + '</pre>')
+        return HttpResponse('We had some errors <pre>' + htmlString + '</pre>')
     else:
         # 4. Return the PDF as a download
-        pdf_file.seek(0)  # Reset file pointer to start
-        response = HttpResponse(pdf_file.read(), content_type='application/pdf')
+        pdfFile.seek(0)  # Reset file pointer to start
+        response = HttpResponse(pdfFile.read(), content_type='application/pdf')
         filename = f"{journal.title}.pdf"
         content_disposition = f'attachment; filename="{filename}"'
         response['Content-Disposition'] = content_disposition
