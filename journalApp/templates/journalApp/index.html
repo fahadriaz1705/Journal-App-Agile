@@ -52,14 +52,24 @@
         <h3>Journal Entries</h3>
         <hr><br>
         {% for journal in allJournals %}
-        <button>{{journal.title}}</button>
+          
+          <a href="{% url 'viewEntry' journal.entry_id %}">
+            {{ journal.title }}
+          </a>
+          <br>
         {% endfor %}
       </div>
+    
       <div id="button">
-        <a href="newEntry/"><button><img src="{% static 'images/icons/newentry.png' %}" alt="Dashboard" width="8%">New
-            Journal Entry</button></a>
+        <a href="{% url 'newEntry' %}">
+          <button>
+            <img src="{% static 'images/icons/newentry.png' %}" alt="Dashboard" width="8%">
+            New Journal Entry
+          </button>
+        </a>
       </div>
     </div>
+    
 
     <div id="dashboard-area">
       <div id="prompts">

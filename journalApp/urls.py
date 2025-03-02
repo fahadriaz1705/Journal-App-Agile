@@ -9,4 +9,5 @@ urlpatterns = [
     path('newEntry/',views.newEntry,name="newEntry"),
     path('createEntry/',views.createEntry,name="createEntry"),
     path('profSetting/',views.profSetting,name="profSetting"),
+    path('viewEntry/<int:entry_id>/', views.viewEntry, name='viewEntry'),
 ]

@@ -21,12 +21,37 @@
 
     <main>
         <div id="view-journal-title">
-
+            <h3>Title:</h3>
+            {{ journal.title }}
         </div>
-
         <div id="view-journal-entry">
-
+            <h3>Content:</h3>
+            <p>{{ journal.content|safe }}</p>
         </div>
+
+        <!-- Show the tag if one is assigned -->
+        {% if journal.tag %}
+        <p><strong>Tag:</strong> {{ journal.tag.name }}</p>
+        {% else %}
+        <p><em>No tag assigned.</em></p>
+        {% endif %}
+
+        <!-- Display attachments (if any) -->
+        {% if journal.attachments.all %}
+        <h3>Attachments</h3>
+        {% for attachment in journal.attachments.all %}
+        <div>
+            <img src="{{ attachment.image.url }}" alt="Attachment">
+        </div>
+        {% endfor %}
+        {% else %}
+        <p><em>No attachments.</em></p>
+        {% endif %}
+        <p>
+            <strong>Created at:</strong> {{ journal.created_at }} <br>
+            <strong>Last updated:</strong> {{ journal.updated_at }}
+        </p>
+
 
         <button>
             Download
@@ -42,7 +67,7 @@
             <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
         </div>
         <div id="ftr-nav">
-            <a href="#">Home</a>
+            <a href="{% url 'index' %}">Home</a>
             <a href="#">About</a>
             <a href="#">Contact</a>
         </div>

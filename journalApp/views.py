@@ -107,3 +107,8 @@ def createEntry(request):
         return redirect('newEntry')
 def profSetting(request):
     return render(request,'journalApp/settings.html')
+def viewEntry(request, entry_id):
+    journal = JournalEntry.objects.get(pk=entry_id)
+    # Pass it to the template
+    params = {'journal': journal}
+    return render(request, 'journalApp/viewJournalEntry.html', params)
