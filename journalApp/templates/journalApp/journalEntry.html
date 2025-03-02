@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,58 +44,35 @@
         <button class="openbtn" onclick="nav()">☰</button>
 
         <!-- Journal Entry Form -->
-        <form 
-            action="{% url 'createEntry' %}" 
-            method="POST" 
-            id="journalForm" 
-            enctype="multipart/form-data"
-        >
+        <form action="{% url 'createEntry' %}" method="POST" id="journalForm" enctype="multipart/form-data">
             {% csrf_token %}
 
             <!-- Journal Title -->
             <div class="form-group">
                 <label for="journalTitle">Journal Title</label>
-                <input 
-                    type="text"
-                    id="journalTitle" 
-                    name="title"
-                    class="form-control"
-                    placeholder="Enter your journal title"
-                    required
-                >
+                <input type="text" id="journalTitle" name="title" class="form-control"
+                    placeholder="Enter your journal title" required>
             </div>
 
             <!-- Journal Content (Hidden) -->
             <!-- We'll store the HTML from the contenteditable div here on submit -->
-            <textarea 
-                name="content" 
-                id="hiddenContent" 
-                style="display: none;"
-            ></textarea>
+            <textarea name="content" id="hiddenContent" style="display: none;"></textarea>
 
             <!-- ContentEditable Div -->
             <div class="form-group">
                 <label for="journalContent">Journal Content</label>
                 <!-- We display or style this div as the "editor" region -->
-                <div 
-                    id="journalContent" 
-                    class="journal-content-editable"
-                    contenteditable="true"
-                    placeholder="Write your thoughts here..."
-                ></div>
+                <div id="journalContent" class="journal-content-editable" contenteditable="true"
+                    placeholder="Write your thoughts here..."></div>
             </div>
 
             <!-- Existing Tag Selection -->
             <div class="form-group">
                 <label for="existingTag">Choose an Existing Tag</label>
-                <select 
-                    id="existingTag" 
-                    name="existingTag" 
-                    class="form-control"
-                >
+                <select id="existingTag" name="existingTag" class="form-control">
                     <option value="">-- Select a tag --</option>
                     {% for tag in allTags %}
-                        <option value="{{ tag.tag_id }}">{{ tag.name }}</option>
+                    <option value="{{ tag.tag_id }}">{{ tag.name }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -104,28 +82,17 @@
             <!-- New Tag Creation -->
             <div class="form-group">
                 <label for="newTag">Or Create a New Tag</label>
-                <input 
-                    type="text" 
-                    id="newTag" 
-                    name="newTag" 
-                    class="form-control" 
-                    placeholder="Enter a new tag name"
-                >
+                <input type="text" id="newTag" name="newTag" class="form-control" placeholder="Enter a new tag name">
                 <small class="text-muted">
                     If you want to create a brand new tag, enter it here.
                     If you do, the existing tag selection above will be ignored.
                 </small>
             </div>
-            
+
             <!-- Attachment Upload -->
             <div class="form-group">
                 <label for="attachment">Upload Attachment (optional)</label>
-                <input 
-                    type="file" 
-                    id="attachment" 
-                    name="attachment" 
-                    accept="image/*"
-                >
+                <input type="file" id="attachment" name="attachment" accept="image/*">
             </div>
 
             <!-- Submit Button -->
@@ -189,7 +156,7 @@
                 <img src="{% static 'images/text-format-icons/numbered points.png' %}" alt="Numbered-List">
             </button>
 
-{% comment %}             <!-- Add Attachments button -->
+            {% comment %} <!-- Add Attachments button -->
             <button onclick="addAttachments()" title="Add Attachment">
                 <img src="{% static 'images/text-format-icons/attachments.png' %}" alt="Add Attachments">
             </button> {% endcomment %}
@@ -225,4 +192,5 @@
         }
     </script>
 </body>
+
 </html>
