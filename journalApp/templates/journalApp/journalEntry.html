@@ -6,62 +6,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThoughtThread | Journal Entry</title>
-    <!-- Main CSS -->
+
+    <!-- stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="icon" href="{% static 'images/icons/thoughtthread-icon.png' %}">
+
+    <!-- icon -->
+    <link rel="icon" href="{% static 'images/logos/thoughtthread-icon.png' %}">
+
 </head>
 
 <body>
-    {% if messages %}
-        <div class="message-container">
-        {% for message in messages %}
-            <div class="alert 
-                {% if message.tags %}alert-{{ message.tags }}{% endif %}">
-                    {{ message }}
-            </div>
-        {% endfor %}
-        </div>
-    {% endif %}
-    <header>
-        <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
-    </header>
 
-    <!-- Side nav bar -->
-    <div id="mySidebar" class="sidebar">
-        <!-- navigation buttons -->
-        <div class="side-nav-btns">
+    {% if messages %}
+    <div class="message-container">
+        {% for message in messages %}
+        <div class="alert 
+                {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <main id="main" class="journalentrypage">
+
+        <div id="side-nav">
             <a href="{% url 'index' %}">
                 <button>
-                    <img src="{% static 'images/icons/dashboard.png' %}" alt="Dashboard" width="8%">Dashboard
+                    <img src="{% static 'images/button-icons/dashboard.png' %}" alt="Dashboard" width="80%">
                 </button>
             </a>
+            <br><br>
             <a href="{% url 'profSetting' %}">
                 <button>
-                    <img src="{% static 'images/icons/profile.png' %}" alt="Profile" width="8%">Profile Settings
+                    <img src="{% static 'images/button-icons/profile.png' %}" alt="Profile" width="95%">
                 </button>
             </a>
+            <br><br>
             {% if user.is_authenticated %}
             <a href="{% url 'logOut' %}">
                 <button>
-                    <img src="{% static 'images/icons/logout.png' %}" alt="Logout" width="8%">Logout
+                    <img src="{% static 'images/button-icons/logout.png' %}" alt="Logout" width="85%">
                 </button>
             </a>
             {% endif %}
         </div>
-    </div>
-
-    <main id="main" class="journalentrypage">
-        <button class="openbtn" onclick="nav()">☰</button>
 
         <!-- Journal Entry Form -->
         <form action="{% url 'createEntry' %}" method="POST" id="journalForm" enctype="multipart/form-data">
+
             {% csrf_token %}
 
             <!-- Journal Title -->
             <div class="form-group">
-                <label for="journalTitle">Journal Title</label>
+                <!-- <label for="journalTitle">Journal Title</label> -->
                 <input type="text" id="journalTitle" name="title" class="form-control"
-                    placeholder="Enter your journal title" required>
+                    placeholder="Your Journal Entry Title" required>
             </div>
 
             <!-- Journal Content (Hidden) -->
@@ -70,13 +70,67 @@
 
             <!-- ContentEditable Div -->
             <div class="form-group">
-                <label for="journalContent">Journal Content</label>
+                <!-- <label for="journalContent">Journal Content</label> -->
                 <!-- We display or style this div as the "editor" region -->
-                <div id="journalContent" class="journal-content-editable" contenteditable="true"
-                    placeholder="Write your thoughts here..."></div>
+                <div id="journalContent" class="journal-content-editable" contenteditable="true">Write your thoughts
+                    here...</div>
             </div>
 
-            <!-- Existing Tag Selection -->
+            <!-- Submit Button -->
+            <!-- We'll intercept the form submission to copy the contenteditable HTML into #hiddenContent -->
+            <div class="form-group mt-3" id="save-btn">
+                <button type="submit" class="btn btn-primary" onclick="prepareSubmission(event)">
+                    Create Journal Entry
+                </button>
+            </div>
+
+            <br>
+
+            <div id="tags-section">
+
+                <!-- Existing Tag Selection -->
+                <div class="form-group">
+
+                    <label for="existingTag">Choose an Existing Tag</label>
+                    <select id="existingTag" name="existingTag" class="form-control">
+                        <option value="">-- Select a tag --</option>
+                        {% for tag in allTags %}
+                        <option value="{{ tag.tag_id }}">{{ tag.name }}</option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+
+                <br>
+                <hr><!-- Simple divider -->
+                <br>
+                <!-- New Tag Creation -->
+                <div class="form-group">
+
+                    <label for="newTag">Or Create a New Tag</label>
+                    <input type="text" id="newTag" name="newTag" class="form-control"
+                        placeholder="Enter a new tag name">
+
+                    <br>
+                    <small class="text-muted">
+                        If you want to create a brand new tag, enter it here.
+                        If you do, the existing tag selection above will be ignored.
+                    </small>
+                </div>
+
+            </div>
+
+            <br>
+
+            <!-- Attachment Upload -->
+            <div class="form-group" id="attachment-section">
+                <label for="attachment">Upload Attachment (optional)</label>
+                <input type="file" id="attachment" name="attachment" accept="image/*">
+            </div>
+
+            <!-- ---------------------------------------------------------------- -->
+
+            <!-- Existing Tag Selection
             <div class="form-group">
                 <label for="existingTag">Choose an Existing Tag</label>
                 <select id="existingTag" name="existingTag" class="form-control">
@@ -85,110 +139,99 @@
                     <option value="{{ tag.tag_id }}">{{ tag.name }}</option>
                     {% endfor %}
                 </select>
-            </div>
+            </div> --->
 
-            <hr><!-- Simple divider -->
+            <!-- <hr>Simple divider -->
 
             <!-- New Tag Creation -->
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="newTag">Or Create a New Tag</label>
                 <input type="text" id="newTag" name="newTag" class="form-control" placeholder="Enter a new tag name">
                 <small class="text-muted">
                     If you want to create a brand new tag, enter it here.
                     If you do, the existing tag selection above will be ignored.
                 </small>
-            </div>
+            </div> -->
 
             <!-- Attachment Upload -->
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="attachment">Upload Attachment (optional)</label>
                 <input type="file" id="attachment" name="attachment" accept="image/*">
-            </div>
+            </div> -->
 
             <!-- Submit Button -->
             <!-- We'll intercept the form submission to copy the contenteditable HTML into #hiddenContent -->
-            <div class="form-group mt-3">
+            <!-- <div class="form-group mt-3">
                 <button type="submit" class="btn btn-primary" onclick="prepareSubmission(event)">
                     Create Journal
                 </button>
-            </div>
+            </div> -->
+
         </form>
 
         <!-- ToolBar -->
         <div class="toolbar">
+
             <!-- Increase font size button -->
             <button onclick="changeSize('up')" title="Increase font size">
-                <img src="{% static 'images/text-format-icons/font-size-up.png' %}" alt="Increase Font Size">
+                <img src="{% static 'images/toolbar-icons/font-size-up.png' %}" alt="Increase Font Size">
             </button>
 
             <!-- Decrease font size button -->
             <button onclick="changeSize('down')" title="Decrease font size">
-                <img src="{% static 'images/text-format-icons/font-size-down.png' %}" alt="Decrease Font Size">
+                <img src="{% static 'images/toolbar-icons/font-size-down.png' %}" alt="Decrease Font Size">
             </button>
 
             <!-- Make text bold button -->
             <button onclick="formatText('bold')" title="Bold Font">
-                <img src="{% static 'images/text-format-icons/bold.png' %}" alt="Bold">
+                <img src="{% static 'images/toolbar-icons/bold.png' %}" alt="Bold">
             </button>
 
             <!-- Make text Italic button -->
             <button onclick="formatText('italic')" title="Italic Font">
-                <img src="{% static 'images/text-format-icons/italic.png' %}" alt="Italic">
+                <img src="{% static 'images/toolbar-icons/italic.png' %}" alt="Italic">
             </button>
 
             <!-- Make text Underline button -->
             <button onclick="formatText('underline')" title="Underline Font">
-                <img src="{% static 'images/text-format-icons/underline.png' %}" alt="Underline">
+                <img src="{% static 'images/toolbar-icons/underline.png' %}" alt="Underline">
             </button>
 
             <!-- Change text alignment button -->
             <button onclick="changeAlignment('left')" title="Left Align Text">
-                <img src="{% static 'images/text-format-icons/left-align.png' %}" alt="Left-Align">
+                <img src="{% static 'images/toolbar-icons/left-align.png' %}" alt="Left-Align">
             </button>
 
             <!-- Change text alignment button -->
             <button onclick="changeAlignment('center')" title="Center Align Text">
-                <img src="{% static 'images/text-format-icons/center.png' %}" alt="Center-Align">
+                <img src="{% static 'images/toolbar-icons/center.png' %}" alt="Center-Align">
             </button>
 
             <!-- Change text alignment button -->
             <button onclick="changeAlignment('right')" title="Right Align Text">
-                <img src="{% static 'images/text-format-icons/right-align.png' %}" alt="Right-Align">
+                <img src="{% static 'images/toolbar-icons/right-align.png' %}" alt="Right-Align">
             </button>
 
             <!-- Insert Bullet Points button -->
             <button onclick="addLists('bullet')" title="Bullet Points">
-                <img src="{% static 'images/text-format-icons/bullet-points.png' %}" alt="Bullet-Points">
+                <img src="{% static 'images/toolbar-icons/bullet-points.png' %}" alt="Bullet-Points">
             </button>
 
             <!-- Insert Numbered Points button -->
             <button onclick="addLists('numbered')" title="Numbered Points">
-                <img src="{% static 'images/text-format-icons/numbered points.png' %}" alt="Numbered-List">
+                <img src="{% static 'images/toolbar-icons/numbered points.png' %}" alt="Numbered-List">
             </button>
 
-            {% comment %} <!-- Add Attachments button -->
-            <button onclick="addAttachments()" title="Add Attachment">
-                <img src="{% static 'images/text-format-icons/attachments.png' %}" alt="Add Attachments">
-            </button> {% endcomment %}
         </div>
+
+        <div id="fixed-logo">
+            <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread." width="30%">
+        </div>
+
     </main>
 
-    <footer>
-        <div>
-            <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
-        </div>
-        <div id="ftr-nav">
-            <a href="{% url 'index' %}">Home</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-        </div>
-        <div id="ftr-cp">
-            <a>&#169;ThoughtThread 2025</a>
-        </div>
-    </footer>
-
     <!-- JS Scripts -->
-    <script src="{% static 'scripts/sidenav.js' %}"></script>
+    <!-- <script src="{% static 'scripts/sidenav.js' %}"></script> -->
     <script src="{% static 'scripts/text-format.js' %}"></script>
 
     <!-- Additional inline script for grabbing the content from the contenteditable div -->

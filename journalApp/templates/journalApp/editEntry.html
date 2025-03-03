@@ -5,8 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <title>ThoughtThread | Edit Journal Entry</title>
+
+    <!-- stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="icon" href="{% static 'images/icons/thoughtthread-icon.png' %}">
+
+    <!-- icon -->
+    <link rel="icon" href="{% static 'images/logos/thoughtthread-icon.png' %}">
 </head>
 
 <body>
@@ -21,36 +25,29 @@
         </div>
     {% endif %}
 
-    <header>
-        <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
-    </header>
+    <main id="main" class="journalentrypage">
 
-    <!-- Side nav bar -->
-    <div id="mySidebar" class="sidebar">
-        <!-- navigation buttons -->
-        <div class="side-nav-btns">
+        <div id="side-nav">
             <a href="{% url 'index' %}">
                 <button>
-                    <img src="{% static 'images/icons/dashboard.png' %}" alt="Dashboard" width="8%">Dashboard
+                    <img src="{% static 'images/button-icons/dashboard.png' %}" alt="Dashboard" width="80%">
                 </button>
             </a>
+            <br><br>
             <a href="{% url 'profSetting' %}">
                 <button>
-                    <img src="{% static 'images/icons/profile.png' %}" alt="Profile" width="8%">Profile Settings
+                    <img src="{% static 'images/button-icons/profile.png' %}" alt="Profile" width="95%">
                 </button>
             </a>
+            <br><br>
             {% if user.is_authenticated %}
             <a href="{% url 'logOut' %}">
                 <button>
-                    <img src="{% static 'images/icons/logout.png' %}" alt="Logout" width="8%">Logout
+                    <img src="{% static 'images/button-icons/logout.png' %}" alt="Logout" width="85%">
                 </button>
             </a>
             {% endif %}
         </div>
-    </div>
-
-    <main id="main" class="journalentrypage">
-        <button class="openbtn" onclick="nav()">☰</button>
 
         <!-- Edit Journal Entry Form -->
         <!-- Notice the action points to 'editEntry' with the journal.entry_id -->
@@ -64,7 +61,7 @@
 
             <!-- Journal Title -->
             <div class="form-group">
-                <label for="journalTitle">Journal Title</label>
+                <!-- <label for="journalTitle">Journal Title</label> -->
                 <input 
                     type="text" 
                     id="journalTitle" 
@@ -84,7 +81,7 @@
 
             <!-- ContentEditable Div Preloaded with the existing HTML content -->
             <div class="form-group">
-                <label for="journalContent">Journal Content</label>
+                <!-- <label for="journalContent">Journal Content</label> -->
                 <div 
                     id="journalContent" 
                     class="journal-content-editable" 
@@ -94,50 +91,70 @@
                 </div>
             </div>
 
-            <!-- Existing Tag Selection -->
-            <div class="form-group">
-                <label for="existingTag">Choose an Existing Tag</label>
-                <select 
-                    id="existingTag" 
-                    name="existingTag" 
-                    class="form-control"
+            <!-- Submit Button -->
+            <div class="form-group mt-3" id="save-btn">
+                <button 
+                    type="submit" 
+                    class="btn btn-primary"
+                    onclick="prepareSubmission(event)"
                 >
-                    <option value="">-- Select a tag --</option>
-                    {% for tag in all_tags %}
-                        <option 
-                            value="{{ tag.tag_id }}"
-                            {% if journal.tag and journal.tag.tag_id == tag.tag_id %}
-                                selected
-                            {% endif %}
-                        >
-                            {{ tag.name }}
-                        </option>
-                    {% endfor %}
-                </select>
+                    Update Journal
+                </button>
             </div>
 
-            <hr>
+            <div id="tags-section">
+
+                <!-- Existing Tag Selection -->
+                <div class="form-group">
+                    
+                    <label for="existingTag">Choose an Existing Tag</label>
+                    <select 
+                        id="existingTag" 
+                        name="existingTag" 
+                        class="form-control"
+                    >
+                        <option value="">-- Select a tag --</option>
+                        {% for tag in all_tags %}
+                            <option 
+                                value="{{ tag.tag_id }}"
+                                {% if journal.tag and journal.tag.tag_id == tag.tag_id %}
+                                    selected
+                                {% endif %}
+                            >
+                                {{ tag.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <br>
+                <hr>
+                <br>
 
             <!-- New Tag Creation -->
-            <div class="form-group">
-                <label for="newTag">Or Create a New Tag</label>
-                <input 
-                    type="text" 
-                    id="newTag" 
-                    name="newTag" 
-                    class="form-control" 
-                    placeholder="Enter a new tag name"
-                >
-                <small class="text-muted">
-                    If you create a new tag, the existing tag selection above is ignored.
-                </small>
+                <div class="form-group">
+                    <label for="newTag">Or Create a New Tag</label>
+                    <input 
+                        type="text" 
+                        id="newTag" 
+                        name="newTag" 
+                        class="form-control" 
+                        placeholder="Enter a new tag name"
+                    >
+                    <small class="text-muted">
+                        If you create a new tag, the existing tag selection above is ignored.
+                    </small>
+                </div>
             </div>
 
+            <br>
+            <br>
             <hr>
+            <br>
 
             <!-- Current Attachments (if any) + Remove Option -->
             {% if journal.attachments.all %}
-                <h4>Current Attachments</h4>
+                <h4>Current Attachments:</h4><br><br>
                 {% for attach in journal.attachments.all %}
                     <img 
                         src="{{ attach.image.url }}" 
@@ -155,7 +172,7 @@
             {% endif %}
 
             <!-- New Attachment Upload -->
-            <div class="form-group">
+            <div class="form-group" id="attachment-section">
                 <label for="new_attachment">Upload Attachment (optional)</label>
                 <input 
                     type="file" 
@@ -166,7 +183,7 @@
             </div>
 
             <!-- Submit Button -->
-            <div class="form-group mt-3">
+            <!-- <div class="form-group mt-3">
                 <button 
                     type="submit" 
                     class="btn btn-primary"
@@ -174,54 +191,59 @@
                 >
                     Update Journal
                 </button>
-            </div>
+            </div> -->
         </form>
 
         <!-- The Same Toolbar as in create page -->
         <div class="toolbar">
             <button onclick="changeSize('up')" title="Increase font size">
-                <img src="{% static 'images/text-format-icons/font-size-up.png' %}" alt="Increase Font Size">
+                <img src="{% static 'images/toolbar-icons/font-size-up.png' %}" alt="Increase Font Size">
             </button>
 
             <button onclick="changeSize('down')" title="Decrease font size">
-                <img src="{% static 'images/text-format-icons/font-size-down.png' %}" alt="Decrease Font Size">
+                <img src="{% static 'images/toolbar-icons/font-size-down.png' %}" alt="Decrease Font Size">
             </button>
 
             <button onclick="formatText('bold')" title="Bold Font">
-                <img src="{% static 'images/text-format-icons/bold.png' %}" alt="Bold">
+                <img src="{% static 'images/toolbar-icons/bold.png' %}" alt="Bold">
             </button>
 
             <button onclick="formatText('italic')" title="Italic Font">
-                <img src="{% static 'images/text-format-icons/italic.png' %}" alt="Italic">
+                <img src="{% static 'images/toolbar-icons/italic.png' %}" alt="Italic">
             </button>
 
             <button onclick="formatText('underline')" title="Underline Font">
-                <img src="{% static 'images/text-format-icons/underline.png' %}" alt="Underline">
+                <img src="{% static 'images/toolbar-icons/underline.png' %}" alt="Underline">
             </button>
 
             <button onclick="changeAlignment('left')" title="Left Align Text">
-                <img src="{% static 'images/text-format-icons/left-align.png' %}" alt="Left-Align">
+                <img src="{% static 'images/toolbar-icons/left-align.png' %}" alt="Left-Align">
             </button>
 
             <button onclick="changeAlignment('center')" title="Center Align Text">
-                <img src="{% static 'images/text-format-icons/center.png' %}" alt="Center-Align">
+                <img src="{% static 'images/toolbar-icons/center.png' %}" alt="Center-Align">
             </button>
 
             <button onclick="changeAlignment('right')" title="Right Align Text">
-                <img src="{% static 'images/text-format-icons/right-align.png' %}" alt="Right-Align">
+                <img src="{% static 'images/toolbar-icons/right-align.png' %}" alt="Right-Align">
             </button>
 
             <button onclick="addLists('bullet')" title="Bullet Points">
-                <img src="{% static 'images/text-format-icons/bullet-points.png' %}" alt="Bullet-Points">
+                <img src="{% static 'images/toolbar-icons/bullet-points.png' %}" alt="Bullet-Points">
             </button>
 
             <button onclick="addLists('numbered')" title="Numbered Points">
-                <img src="{% static 'images/text-format-icons/numbered points.png' %}" alt="Numbered-List">
+                <img src="{% static 'images/toolbar-icons/numbered points.png' %}" alt="Numbered-List">
             </button>
         </div>
+
+        <div id="fixed-logo">
+            <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread." width="30%">
+        </div>
+
     </main>
 
-    <footer>
+    <!-- <footer>
         <div>
             <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
         </div>
@@ -233,7 +255,7 @@
         <div id="ftr-cp">
             <a>&#169;ThoughtThread 2025</a>
         </div>
-    </footer>
+    </footer> -->
 
     <!-- Scripts -->
     <script src="{% static 'scripts/sidenav.js' %}"></script>

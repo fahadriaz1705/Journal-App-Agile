@@ -311,7 +311,7 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 }
 
 /* journal entry page */
-.journalentrypage {
+/* .journalentrypage {
     background-image: url('/static/myapp/images/bg.png');
     background-repeat: repeat-y;
     background-size: cover;
@@ -388,7 +388,7 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 
 .toolbar button:hover {
     background-color: #E5BAD3;
-}
+} */
 
 /* #existingTag {
     display: none;
@@ -549,6 +549,19 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 .col2 {
     width: 80%;
 } */
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -827,4 +840,170 @@ footer img {
 .settings-btn {
     text-align: right;
     padding-top: 1%;
+}
+
+/* journal entry page */
+#main {
+    background-image: linear-gradient(to bottom right, #383940, #43545b);
+    padding: 5% 26%;
+}
+
+#main form p,
+#main form h4{
+    color: white;
+}
+
+#side-nav {
+    position: fixed;
+    top: 4.5%;
+    left: 96.5%;
+}
+
+#side-nav button {
+    background-color: transparent;
+    max-width: 30px;
+    border: none;
+}
+
+#side-nav button:hover {
+    background-image: radial-gradient(#7b96a2, #43545b, #43545b);
+    cursor: pointer;
+}
+
+#main form input,
+#journalContent {
+    padding: 2%;
+    padding-left: 0;
+    font-family: EvolventaBold;
+    background-color: transparent;
+    border: none;
+    font-size: larger;
+    color: white;
+}
+
+#journalContent {
+    font-family: Evolventa;
+    font-size: small;
+    min-height: 335px;
+    overflow: hidden;
+    resize: vertical;
+}
+
+#main form input:focus,
+#journalContent {
+    outline: none;
+    border: none;
+}
+
+.toolbar {
+    position: fixed;
+    top: 88%;
+    left: 10.5%;
+}
+
+.toolbar,
+#tags-section,
+#attachment-section {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+    background-color: #43545b;
+    margin: 0px 10%;
+    border-radius: 20px;
+    margin-top: 8px;
+}
+
+.toolbar button img {
+    width: 70%;
+    height: 70%;
+}
+
+.toolbar button {
+    width: 4%;
+    height: 4%;
+    padding: 5px;
+    padding-top: 8px;
+    margin: 8px;
+    background-color: #43545b;
+    border: none;
+    border-radius: 12px;
+}
+
+.toolbar button:hover {
+    background-color: #7b96a2;
+}
+
+#tags-section,
+#attachment-section {
+    display: block;
+    padding: 3%;
+    color: white;
+    width: 80%;
+}
+
+#main form label {
+    color: white;
+    font-family: Evolventa;
+    font-size: small;
+}
+
+#tags-section div input {
+    font-family: Times;
+    font-size: small;
+    color: black;
+    border: 1px solid white;
+    padding: 1%;
+    background: white;
+    border-radius: 4px;
+}
+
+#tags-section div input:focus {
+    border: 1px solid #7b96a2;
+    border-radius: 4px;
+}
+
+#tags-section div select {
+    border-radius: 4px;
+    padding: 1%;
+    border: 1px solid white;
+}
+
+#tags-section div select:focus {
+    border: 1px solid #7b96a2;
+}
+
+#save-btn {
+    text-align: right;
+    padding: 1% 0;
+}
+
+#save-btn button {
+    background-color: #43545b;
+    padding: 1% 3%;
+    color: white;
+    border: none;
+}
+
+#save-btn button:hover {
+    background-color: #7b96a2;
+}
+
+#tags-section {
+    margin-top: 15%;
+}
+
+#attachment-section {
+    margin-bottom: 15%;
+}
+
+#fixed-logo {
+    text-align: right;
+    position: fixed;
+    top: 92%;
+    left: 58%;
+}
+
+#fixed-logo img {
+    filter: opacity(0.6);
 }
