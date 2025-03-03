@@ -12,45 +12,41 @@
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
   <!-- icon -->
-  <link rel="icon" href="{% static 'images/icons/thoughtthread-icon.png' %}">
+  <link rel="icon" href="{% static 'images/logos/thoughtthread-icon.png' %}">
 </head>
 
 <body>
+
   {% if messages %}
-        <div class="message-container">
-        {% for message in messages %}
-            <div class="alert 
+  <div class="message-container">
+    {% for message in messages %}
+    <div class="alert 
                 {% if message.tags %}alert-{{ message.tags }}{% endif %}">
-                    {{ message }}
-            </div>
-        {% endfor %}
-        </div>
+      {{ message }}
+    </div>
+    {% endfor %}
+  </div>
   {% endif %}
+
   {% load static %}
-  <header id="header-row">
+
+  <!-- header -->
+  <header>
 
     <div id="header-logo">
-      <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
+      <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread." width="35%">
     </div>
 
     <div id="header-nav">
-      <a href="{% url 'profSetting' %}"><button><img src="{% static 'images/icons/profile.png' %}" alt="Profile"></button></a>
-      {% if user.is_authenticated %}
-      <a href="{% url 'logOut' %}"><button><img src="{% static 'images/icons/logout.png' %}" alt="Logout"></button></a>
-      {% endif %}
-    </div>
+      <nav>
+        <a href="{% url 'profSetting' %}"><button><img src="{% static 'images/button-icons/profile.png' %}"
+              alt="Profile Settings"></button></a>
 
-    <div id="header-search">
-      <div class="bg-light">
-        <div class="container py-5">
-          <div class="search-wrapper">
-            <div class="search-box">
-              <input type="text" class="search-input form-control" placeholder="Search">
-              <i class="fas fa-search search-icon"></i>
-            </div>
-          </div>
-        </div>
-      </div>
+        {% if user.is_authenticated %}
+        <a href="{% url 'logOut' %}"><button><img src="{% static 'images/button-icons/logout.png' %}"
+              alt="Logout"></button></a>
+        {% endif %}
+      </nav>
     </div>
 
   </header>
@@ -58,77 +54,94 @@
   <main id="dashboard-page">
 
     <div id="entries-side">
+
+      <h3>Journal Entries</h3>
+
       <div id="entries-list">
-        <h3>Journal Entries</h3>
-        <hr><br>
+
         {% for journal in allJournals %}
-          
-          <a href="{% url 'viewEntry' journal.entry_id %}">
-            {{ journal.title }}
-          </a>
-          <br>
+
+        <a href="{% url 'viewEntry' journal.entry_id %}">
+          <button> {{ journal.title }} </button>
+        </a>
+
         {% endfor %}
+
       </div>
-    
+
       <div id="button">
         <a href="{% url 'newEntry' %}">
           <button>
-            <img src="{% static 'images/icons/newentry.png' %}" alt="Dashboard" width="8%">
-            New Journal Entry
+            + New Journal Entry
           </button>
         </a>
       </div>
     </div>
-    
+
 
     <div id="dashboard-area">
+
       <div id="prompts">
-        <h2>Prompts</h2>
+
+        <div id="prompt-heading">
+          <h2>Prompts</h2>
+          <a href="">
+            <button>
+              <img src="{% static 'images/button-icons/refresh.png' %}" alt="Refresh" width="100%">
+            </button>
+          </a>
+        </div>
+
         <div class="row">
           <div class="col">
             prompt 1
           </div>
+
           <div class="col">
             prompt 2
           </div>
+
           <div class="col">
             prompt 3
           </div>
+
         </div>
       </div>
 
       <div id="activity">
+
         <div id="greeting">
-          Good Morning {{ user.username }}!<br>
+          Welcome {{ user.username }}!<br>
           <strong>Today is:</strong> {{ today|date:"M d, Y" }}
         </div>
+
         <div id="latest">
           <h2>Latest Entry</h2>
           {% if latestJournal %}
-            <!-- Title as a clickable link to the detail page -->
-            <a href="{% url 'viewEntry' latestJournal.entry_id %}">
-              <strong>{{ latestJournal.title }}</strong>
-            </a>
-            <br>
+          <!-- Title as a clickable link to the detail page -->
+          <a href="{% url 'viewEntry' latestJournal.entry_id %}">
+            <strong>{{ latestJournal.title }}</strong>
+          </a>
+          <br>
 
-            <!-- Content (use |safe if storing HTML) -->
-            <p>{{ latestJournal.content|safe }}</p>
+          <!-- Content (use |safe if storing HTML) -->
+          <p>{{ latestJournal.content|safe }}</p>
 
-            <!-- Tag -->
-            <p>
-              <strong>Tag:</strong>
-              {% if latestJournal.tag %}
-                {{ latestJournal.tag.name }}
-              {% else %}
-                No tag
-              {% endif %}
-            </p>
+          <!-- Tag -->
+          <p>
+            <strong>Tag:</strong>
+            {% if latestJournal.tag %}
+            {{ latestJournal.tag.name }}
+            {% else %}
+            No tag
+            {% endif %}
+          </p>
 
-            <!-- Created date -->
-            <p><strong>Created at:</strong> {{ latestJournal.created_at }}</p>
+          <!-- Created date -->
+          <p><strong>Created at:</strong> {{ latestJournal.created_at }}</p>
 
           {% else %}
-            <p>No entries found.</p>
+          <p>No entries found.</p>
           {% endif %}
         </div>
       </div>
@@ -137,12 +150,13 @@
 
   </main>
 
+  <!-- footer -->
   <footer>
     <div>
-      <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
+      <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread.">
     </div>
     <div id="ftr-nav">
-      <a href="{% url 'index' %}">Home</a>
+      <a href="#">Home</a>
       <a href="#">About</a>
       <a href="#">Contact</a>
     </div>

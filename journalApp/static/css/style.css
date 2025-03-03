@@ -79,9 +79,9 @@ footer img {
 } */
 
 /* nav bar reference: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapse_sidebar */
-.sidebar {
-    /* width: 250px; */
-    width: 0;
+/* .sidebar { */
+/* width: 250px; */
+/* width: 0;
     position: fixed;
     z-index: 1;
     top: 80px;
@@ -90,9 +90,9 @@ footer img {
     transition: 0.5s;
     padding: 30px 10px;
     height: auto;
-    border-radius: 25px;
-    /* left: 10px; */
-    left: -30px;
+    border-radius: 25px;*/
+/* left: 10px; */
+/*left: -30px;
     font-family: 'Courier New';
     text-align: center;
     border: 4px solid #d7cbd2;
@@ -151,14 +151,14 @@ footer img {
 
 #main {
     transition: margin-left .5s;
-    padding: 16px;
+    padding: 16px; */
 
-    /* to remove later */
-    /* margin-left: 250px; */
-}
+/* to remove later */
+/* margin-left: 250px; */
+/* } */
 
 /* new dashboard */
-#header-row {
+/* #header-row {
     display: flex;
     padding: 8px;
     margin: auto;
@@ -169,7 +169,7 @@ footer img {
     text-align: left;
     padding: 5px;
     padding-bottom: none;
-}
+} */
 
 /* #header-nav {
     width: 25%;
@@ -195,7 +195,7 @@ footer img {
 
 /* 
 https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
-.search-wrapper {
+/* .search-wrapper {
     max-width: 100%;
     padding: 7px;
 }
@@ -239,76 +239,7 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 
 .search-box:focus-within .search-icon {
     color: #A3CCEA;
-}
-
-#dashboard-page {
-    display: flex;
-}
-
-#entries-side {
-    width: 27%;
-    background-color: #535e66;
-    color: white;
-}
-
-#entries-list {
-    margin: 20px 15px;
-    text-align: center;
-    max-height: 50%;
-    overflow-y: auto;
-}
-
-#entries-list button {
-    margin: 6px 5px;
-    width: 90%;
-    border: none;
-    border-radius: 15px;
-    padding: 5px;
-}
-
-#button {
-    margin: 30px;
-    text-align: center;
-    max-height: 20%;
-}
-
-#button button {
-    width: 100%;
-    padding: 20px 10px;
-    border-radius: 30px;
-    border: none;
-}
-
-#dashboard-area {
-    width: 73%;
-    padding: 2% 5%;
-}
-
-#prompts .row {
-    width: 100%;
-    padding: 1%;
-    margin: 1%;
-}
-
-#activity {
-    background-color: #504249;
-    border-radius: 30px;
-    display: flex;
-    margin: 2%;
-}
-
-#greeting {
-    width: 40%;
-    padding: 5%;
-}
-
-#latest {
-    width: 60%;
-    padding: 5%;
-    border-radius: 30px;
-    background-color: #A3CCEA;
-    margin: 3%;
-}
+} */
 
 /* journal entry page */
 /* .journalentrypage {
@@ -674,6 +605,8 @@ header {
 header #header-logo {
     width: 35%;
     text-align: left;
+    padding-top: 8px;
+    padding-left: 5px;
 }
 
 header #header-nav {
@@ -736,10 +669,10 @@ footer #ftr-R {
     width: 50%;
 }
 
-
 footer img {
     width: 150px;
     height: auto;
+    padding-bottom: 8px;
 }
 
 /* view journal enrty page */
@@ -849,7 +782,7 @@ footer img {
 }
 
 #main form p,
-#main form h4{
+#main form h4 {
     color: white;
 }
 
@@ -1006,4 +939,117 @@ footer img {
 
 #fixed-logo img {
     filter: opacity(0.6);
+}
+
+/* dashboard */
+#dashboard-page {
+    display: flex;
+}
+
+#entries-side {
+    width: 25%;
+    background-color: #383940;
+    color: white;
+    font-family: Evolventa;
+}
+
+#entries-side h3 {
+    padding-left: 10%;
+    padding-top: 10%;
+}
+
+#entries-list {
+    margin: 20px 15px;
+    margin-top: 6px;
+    max-height: 50%;
+    overflow-y: auto;
+    text-align: center;
+}
+
+#entries-list button {
+    margin: 6px 5px;
+    width: 90%;
+    border: none;
+    border-radius: 10px;
+    padding: 8px;
+    font-family: Evolventa;
+}
+
+#button {
+    margin: 30px;
+    text-align: center;
+    max-height: 20%;
+}
+
+#button button {
+    width: 100%;
+    padding: 20px 10px;
+    border-radius: 15px;
+    border: 3px solid #7b96a2;
+    background: linear-gradient(to bottom right, #383940, #43545b);
+    color: #7b96a2;
+    font-size: medium;
+    font-family: EvolventaBold;
+    cursor: pointer;
+}
+
+#dashboard-area {
+    width: 75%;
+    padding: 2% 4%;
+    background-color: #43545b;
+}
+
+#prompt-heading {
+    display: flex;
+    font-family: EvolventaBold;
+}
+
+#prompt-heading button {
+    text-align: left;
+    background-color: transparent;
+    border: none;
+    padding: 1.3%;
+    cursor: pointer;
+    max-width: 6.5%;
+}
+
+#prompt-heading button:hover {
+    background-image: radial-gradient(#7b96a2, #43545b, #43545b);
+    cursor: pointer;
+}
+
+#prompts h2 {
+    color: white;
+}
+
+#prompts .row {
+    width: 100%;
+    padding: 1%;
+    margin: 1%;
+}
+
+#prompts .col {
+    background-image: url('../images/backgrounds/prompt-bg.png');
+    background-color: #e8e8e8;
+    border: none;
+}
+
+#activity {
+    background-color: #e8e8e8;
+    border-radius: 30px;
+    display: flex;
+    margin: 2%;
+}
+
+#greeting {
+    width: 40%;
+    padding: 5%;
+}
+
+#latest {
+    width: 60%;
+    padding: 5%;
+    border-radius: 30px;
+    background-color: #A3CCEA;
+    margin: 3%;
 }
