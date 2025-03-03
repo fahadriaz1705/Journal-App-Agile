@@ -28,7 +28,7 @@
             <nav>
                 <a href="{% url 'index' %}"><button><img src="{% static 'images/button-icons/dashboard.png' %}"
                             alt="Dashboard"></button></a>
-                <a href=""><button><img src="{% static 'images/button-icons/profile.png' %}"
+                <a href="{% url 'profSetting' %}"><button><img src="{% static 'images/button-icons/profile.png' %}"
                             alt="Profile Settings"></button></a>
 
                 {% if user.is_authenticated %}
@@ -59,6 +59,7 @@
             <p>{{ journal.content|safe }}</p>
         </div>
 
+        <br>
         <!-- Show the tag if one is assigned -->
         {% if journal.tag %}
         <p><strong>Tag: </strong>{{ journal.tag.name }}</p>
@@ -66,6 +67,7 @@
         <p><em>No tag assigned.</em></p>
         {% endif %}
 
+        <br>
         <!-- Display attachments (if any) -->
         {% if journal.attachments.all %}
         <h3>Attachments:</h3>
@@ -78,11 +80,13 @@
         <p><em>No attachments.</em></p>
         {% endif %}
 
+        <br>
         <p>
             <strong>Created at:</strong> {{ journal.created_at }} <br>
             <strong>Last updated:</strong> {{ journal.updated_at }}
         </p>
 
+        <br>
         <div id="vep-buttons">
             <a href="{% url 'editEntry' journal.entry_id %}">
                 <button>Edit Entry</button>

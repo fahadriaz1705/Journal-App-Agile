@@ -1,127 +1,198 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ThoughtThread | Profile Settings</title>
+    <title>ThoughtThread | Settings</title>
 
+    <!-- style sheet -->
+    <!-- <link rel="stylesheet" href="/journalApp/static/css/style.css"> -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="icon" href="{% static 'images/icons/thoughtthread-icon.png' %}">
+
+    <!-- icon -->
+    <link rel="icon" href="{% static 'images/logos/thoughtthread-icon.png' %}">
 
 </head>
 
 <body>
+
     {% if messages %}
-        <div class="message-container">
+    <div class="message-container">
         {% for message in messages %}
-            <div class="alert 
+        <div class="alert 
                 {% if message.tags %}alert-{{ message.tags }}{% endif %}">
-                    {{ message }}
-            </div>
-        {% endfor %}
+            {{ message }}
         </div>
+        {% endfor %}
+    </div>
     {% endif %}
+
+    <!-- header -->
     <header>
-        <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
+
+        <div id="header-logo">
+            <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread." width="35%">
+        </div>
+
+        <div id="header-nav">
+            <nav>
+                <a href="{% url 'index' %}"><button><img src="{% static 'images/button-icons/dashboard.png' %}"
+                            alt="Dashboard"></button></a>
+
+                {% if user.is_authenticated %}
+                <a href="{% url 'logOut' %}"><button><img src="{% static 'images/button-icons/logout.png' %}"
+                            alt="Logout"></button></a>
+                {% endif %}
+            </nav>
+        </div>
+
     </header>
 
     <main id="settings-page">
 
-        <a href="{% url 'index' %}"></a>Go Back</ab>
+        <!-- <a href="{% url 'index' %}"></a>Go Back</ab>
         {% if user.is_authenticated %}
-            <a href="{% url 'logOut' %}"><button><img src="{% static 'images/icons/logout.png' %}" alt="Logout"></button></a>
-        {% endif %}
+        <a href="{% url 'logOut' %}"><button><img src="{% static 'images/icons/logout.png' %}"
+                    alt="Logout"></button></a>
+        {% endif %} -->
 
         <div id="profile-settings">
-            <h2>Profile Settings</h2>
+
+            <h2>Profile</h2>
             <hr>
 
-            <div class="row">
+            <div class="box">
+                <div id="profile-img">
+                    <img src="{% static 'images/button-icons/profile-icon.png' %}" alt="Profile Image" width="40%">
+                </div>
+
+                <div id="profile-details">
+                    <a>Username: {{ user.username }}</a><br>
+                    <a>Email: {{ user.email }}</a>
+                </div>
+            </div>
+
+            <!-- <div class="row">
                 <div class="col1">
                     <h4>Username</h4>
                 </div>
                 <div class="col2">
                     {{ user.username }}
                 </div>
-            </div>
+            </div> -->
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col1">
                     <h4>Email</h4>
                 </div>
                 <div class="col2">
                     {{ user.email }}
                 </div>
-            </div>
+            </div> -->
+
         </div>
 
         <br><br>
+
         <div id="theme-settings">
-            <h2>Application Theme</h2>
+
+            <h2>Themes</h2>
             <hr>
+
             <form action="{% url 'updateTheme' %}" method="POST">
+
                 {% csrf_token %}
+
                 <div>
-                    <label for="primary_color">Primary Colour</label>
+                    <label for="primary_color">Primary Colour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                     <!-- Optionally prefill with the user's existing primary_color -->
-                    <input 
-                        type="color" 
-                        name="primary_color" 
-                        value="{{ user.theme.primary_color|default:'#000000' }}"
-                    >
+                    <input type="color" name="primary_color" value="{{ user.theme.primary_color|default:'#383940' }}">
                 </div>
+
                 <div>
-                    <label for="secondary_color">Secondary Colour</label>
-                    <input 
-                        type="color" 
-                        name="secondary_color" 
-                        value="{{ user.theme.secondary_color|default:'#FFFFFF' }}"
-                    >
+                    <label for="secondary_color">Secondary Colour&nbsp;&nbsp;</label>
+                    <input type="color" name="secondary_color"
+                        value="{{ user.theme.secondary_color|default:'#43545b' }}">
                 </div>
-                <button type="submit" class="btn btn-success w-100">Apply Theme</button>
+
+                <div class="settings-btn">
+                    <button type="submit" class="btn btn-success w-100">Apply Theme</button>
+                </div>
+
             </form>
+
         </div>
 
         <br><br>
+
         <div id="password-settings">
+
             <h2>Reset Password</h2>
             <hr>
-            <a href="{% url 'changePass' %}">Change Password</a>
+            <br>
+            <a>To change your password, simply click the "Change Password" button below. You will be redirected to a
+                secure page where you can enter and update your new password. Make sure to choose a strong and unique
+                password to keep your account safe.</a>
+
+            <div class="settings-btn">
+                <a href="{% url 'changePass' %}"><button>Change Password</button></a>
+            </div>
+
         </div>
-        
+
 
         <br><br>
         <div id="account-settings">
+
             <h2>Account Settings</h2>
             <hr>
 
-            <h4>[Delete all Journal Entries, Tags and Attachments]</h4>
+            <br>
+            <h4>Delete all Journal Entries, Tags, and Attachments</h4>
+            <br>
+            <a>Warning: Pressing this button will permanently delete all your Journal Entries, Tags, and Attachments.
+                This action cannot be undone. Please make sure you have backed up any important information before
+                proceeding. Once deleted, all data will be lost.</a>
+
             <form action="{% url 'delData' %}" method="POST">
                 {% csrf_token %}
-                <button type="submit" onclick="return confirm('Are you sure you want to delete all data? This cannot be undone.');">
-                    Delete All Account Data
-                  </button>                  
+                <div class="settings-btn">
+                    <button type="submit"
+                        onclick="return confirm('Are you sure you want to delete all data? This cannot be undone.');">
+                        Delete All Account Data
+                    </button>
+                </div>
             </form>
 
-            <h4>[Delte your account]</h4>
+            <h4>Delete Account</h4>
+            <br>
+            <a>Warning: Deleting your account will permanently erase all your data, including Journal Entries, Tags,
+                Attachments, and any other associated information. This action cannot be undone. Please ensure you have
+                backed up any important content before proceeding. Once deleted, your account and all related data will
+                be gone forever.</a>
             <form action="{% url 'delAccount' %}" method="POST">
                 {% csrf_token %}
-                <button type="submit" onclick="return confirm('Are you sure you want to delete your entire account? This cannot be undone.');">
-                  Delete Account
-                </button>
+                <div class="settings-btn">
+                    <button type="submit"
+                        onclick="return confirm('Are you sure you want to delete your entire account? This cannot be undone.');">
+                        Delete Account
+                    </button>
+                </div>
             </form>
-              
+
         </div>
 
     </main>
 
+    <!-- footer -->
     <footer>
         <div>
-            <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
+            <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread.">
         </div>
         <div id="ftr-nav">
-            <a href="{% url 'index' %}">Home</a>
+            <a href="#">Home</a>
             <a href="#">About</a>
             <a href="#">Contact</a>
         </div>

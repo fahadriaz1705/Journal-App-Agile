@@ -1,12 +1,17 @@
-/* font reference: https://www.fontspace.com/quinfo-font-f12927 */
+/* font reference: https://www.fontspace.com/evolventa-font-f25261 */
 @font-face {
-    font-family: QuinfoNorm;
-    src: url('../fonts/Quinfo-Jw0K.otf');
+    font-family: Evolventa;
+    src: url('../fonts/Evolventa-zLXL.ttf');
 }
 
 @font-face {
-    font-family: QuinfoBold;
-    src: url('../fonts/QuinfoBold-GXgA.otf');
+    font-family: EvolventaBold;
+    src: url('../fonts/EvolventaBold-55Xv.ttf');
+}
+
+@font-face {
+    font-family: EvolventaOblique;
+    src: url('../fonts/EvolventaOblique-yPLV.ttf');
 }
 
 * {
@@ -528,7 +533,7 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 } */
 
 /* settings */
-#settings-page {
+/* #settings-page {
     padding: 5% 8%;
 }
 
@@ -543,7 +548,7 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 
 .col2 {
     width: 80%;
-}
+} */
 
 
 
@@ -553,7 +558,7 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 #singup input {
     border: none;
     background-color: #e8e8e8;
-    font-family: monospace;
+    font-family: Evolventa;
 }
 
 #login button,
@@ -579,7 +584,7 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 
 #login button,
 #signup button {
-    font-family: QuinfoNorm;
+    font-family: Evolventa;
 }
 
 #login,
@@ -593,14 +598,13 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 }
 
 .mb-3 {
-    font-family: QuinfoBold;
+    font-family: EvolventaBold;
     overflow: hidden;
 }
 
 .auth-page-row {
     display: flex;
     padding: 6%;
-    /* padding-bottom: 6%; */
 }
 
 .colL {
@@ -639,12 +643,11 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
 }
 
 .message-container {
-    background-color: #f8ffe6;
     color: black;
     font-family: Times;
 }
 
-/* header */
+/* header & footer */
 header {
     top: 0;
     position: sticky;
@@ -695,7 +698,7 @@ footer {
 
 footer a {
     color: white;
-    font-family: 'Courier New';
+    font-family: Evolventa;
     font-size: 10px;
 }
 
@@ -731,11 +734,12 @@ footer img {
     padding: 5% 26%;
     background-image: linear-gradient(to bottom right, #383940, #43545b);
     padding-bottom: 1%;
+    font-family: Evolventa;
 }
 
 #view-journal-title {
     color: white;
-    font-family: QuinfoBold;
+    font-family: EvolventaBold;
     font-size: larger;
     text-align: justify;
 }
@@ -770,4 +774,57 @@ footer img {
 
 #vep-buttons a {
     padding: 0 3.5%;
+}
+
+/* settings page */
+#settings-page {
+    background-color: #383940;
+    padding: 5%;
+    color: white;
+    font-family: Evolventa;
+}
+
+#settings-page h2 {
+    letter-spacing: 1px;
+}
+
+.box {
+    display: flex;
+    padding: 1% 0;
+}
+
+#profile-img {
+    width: 10%;
+    text-align: center;
+}
+
+#profile-details {
+    width: 90%;
+    text-align: left;
+    padding: 0.5% 0;
+}
+
+#theme-settings form div {
+    padding-top: 1%;
+}
+
+#theme-settings form button,
+#password-settings button,
+#account-settings button {
+    background-color: #43545b;
+    color: white;
+    padding: 0.5% 4%;
+    border: none;
+    font-family: Evolventa;
+}
+
+#theme-settings form button:hover,
+#password-settings button:hover,
+#account-settings button:hover {
+    background-color: #7b96a2;
+}
+
+.settings-btn {
+    text-align: right;
+    padding-top: 1%;
 }
