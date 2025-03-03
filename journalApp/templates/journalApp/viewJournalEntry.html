@@ -1,4 +1,4 @@
-<!-- {% load static %} -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,12 +8,10 @@
     <title>ThoughtThread | View Journal Entry</title>
 
     <!-- stylesheets -->
-    <link rel="stylesheet" href="/journalApp/static/css/style.css">
-    <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <!-- icon -->
-    <!-- <link rel="icon" href="{% static 'images/icons/thoughtthread-icon.png' %}"> -->
-    <link rel="icon" href="/journalApp/static/images/logos/thoughtthread-icon.png">
+    <link rel="icon" href="{% static 'images/logos/thoughtthread-icon.png' %}">
 
 </head>
 
@@ -23,20 +21,20 @@
     <header>
 
         <div id="header-logo">
-            <img src="/journalApp/static/images/logos/thoughtthread-logo-rect.png" alt="thoughtthread." width="35%">
+            <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread." width="35%">
         </div>
 
         <div id="header-nav">
             <nav>
-                <a href="{% url 'index' %}"><button><img src="/journalApp/static/images/button-icons/dashboard.png"
+                <a href="{% url 'index' %}"><button><img src="{% static 'images/button-icons/dashboard.png' %}"
                             alt="Dashboard"></button></a>
-                <a href=""><button><img src="/journalApp/static/images/button-icons/profile.png"
+                <a href=""><button><img src="{% static 'images/button-icons/profile.png' %}"
                             alt="Profile Settings"></button></a>
 
-                <!-- {% if user.is_authenticated %} -->
-                <a href="{% url 'logOut' %}"><button><img src="/journalApp/static/images/button-icons/logout.png"
+                {% if user.is_authenticated %}
+                <a href="{% url 'logOut' %}"><button><img src="{% static 'images/button-icons/logout.png' %}"
                             alt="Logout"></button></a>
-                <!-- {% endif %} -->
+                {% endif %}
             </nav>
         </div>
 
@@ -52,25 +50,25 @@
         {% endif %} -->
 
         <div id="view-journal-title">
-            <h3>Title:</h3>
-            {{ journal.title }}
+            <!-- <h3>Title:</h3> -->
+            <h3>{{ journal.title }}</h3>
         </div>
 
         <div id="view-journal-entry">
-            <h3>Content:</h3>
+            <!-- <h3>Content:</h3> -->
             <p>{{ journal.content|safe }}</p>
         </div>
 
         <!-- Show the tag if one is assigned -->
         {% if journal.tag %}
-        <p><strong>Tag:</strong> {{ journal.tag.name }}</p>
+        <p><strong>Tag: </strong>{{ journal.tag.name }}</p>
         {% else %}
         <p><em>No tag assigned.</em></p>
         {% endif %}
 
         <!-- Display attachments (if any) -->
         {% if journal.attachments.all %}
-        <h3>Attachments</h3>
+        <h3>Attachments:</h3>
         {% for attachment in journal.attachments.all %}
         <div>
             <img src="{{ attachment.image.url }}" alt="Attachment">
@@ -85,25 +83,36 @@
             <strong>Last updated:</strong> {{ journal.updated_at }}
         </p>
 
+        <div id="vep-buttons">
+            <a href="{% url 'editEntry' journal.entry_id %}">
+                <button>Edit Entry</button>
+            </a>
+            <a href="{% url 'downloadEntry' journal.entry_id %}">
+                <button>Download Entry</button>
+            </a>
+            <a href="">
+                <button>Delete Entry</button>
+            </a>
+        </div>
 
-        <a href="{% url 'downloadEntry' journal.entry_id %}">
+        <!-- <a href="{% url 'downloadEntry' journal.entry_id %}">
             Download as PDF
         </a>
 
 
         <a href="{% url 'editEntry' journal.entry_id %}">
             <button>Edit Entry</button>
-        </a>
+        </a> -->
 
     </main>
 
     <!-- footer -->
     <footer>
         <div>
-            <img src="/journalApp/static/images/logos/thoughtthread-logo-rect.png" alt="thoughtthread.">
+            <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread.">
         </div>
         <div id="ftr-nav">
-            <a href="{% url 'index' %}">Home</a>
+            <a href="#">Home</a>
             <a href="#">About</a>
             <a href="#">Contact</a>
         </div>

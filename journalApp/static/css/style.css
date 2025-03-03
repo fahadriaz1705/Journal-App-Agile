@@ -31,7 +31,7 @@ header img {
     height: auto;
 } */
 
-footer {
+/* footer {
     width: 100%;
     height: auto;
     padding: 30px 20px;
@@ -71,7 +71,7 @@ footer #ftr-R {
 footer img {
     width: 150px;
     height: auto;
-}
+} */
 
 /* nav bar reference: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapse_sidebar */
 .sidebar {
@@ -545,6 +545,9 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
     width: 80%;
 }
 
+
+
+/* -------------------------------- */
 /* login and signup pages */
 #login input,
 #singup input {
@@ -681,4 +684,90 @@ header #header-nav button:hover {
     border-radius: 50%;
 }
 
-/*  */
+footer {
+    width: 100%;
+    height: auto;
+    padding: 30px 20px;
+    padding-top: 40px;
+    background-color: #383940;
+    text-align: center;
+}
+
+footer a {
+    color: white;
+    font-family: 'Courier New';
+    font-size: 10px;
+}
+
+footer #ftr-nav a {
+    font-size: 13px;
+    text-decoration: none;
+    padding: 0 20px;
+}
+
+footer #ftr-nav a:hover {
+    color: #7b96a2;
+    font-weight: bold;
+}
+
+footer #ftr-cp {
+    padding-top: 40px;
+    color: white;
+}
+
+footer #ftr-L,
+footer #ftr-R {
+    width: 50%;
+}
+
+
+footer img {
+    width: 150px;
+    height: auto;
+}
+
+/* view journal enrty page */
+#view-entry-page {
+    padding: 5% 26%;
+    background-image: linear-gradient(to bottom right, #383940, #43545b);
+    padding-bottom: 1%;
+}
+
+#view-journal-title {
+    color: white;
+    font-family: QuinfoBold;
+    font-size: larger;
+    text-align: justify;
+}
+
+#view-entry-page p {
+    padding: 3% 0;
+    color: white;
+    text-align: justify;
+}
+
+#view-journal-entry p {
+    padding: 0.3% 0;
+}
+
+#view-entry-page h3 {
+    color: white;
+    font-size: larger;
+    padding: 3% 0;
+}
+
+#vep-buttons {
+    padding: 2% 0;
+    text-align: center;
+}
+
+#vep-buttons button {
+    background-color: #7b96a2;
+    color: white;
+    padding: 1.5% 6%;
+    border: none;
+}
+
+#vep-buttons a {
+    padding: 0 3.5%;
+}
