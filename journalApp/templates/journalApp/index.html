@@ -128,7 +128,10 @@
             <br>
 
             <!-- Content (use |safe if storing HTML) -->
-            <p>{{ latestJournal.content|safe }}</p>
+            <div id="latest-journal-entry">
+              <p>{{ latestJournal.content|safe }}</p>
+            </div>
+
 
             <br>
             <!-- Tag -->

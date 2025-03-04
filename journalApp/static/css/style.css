@@ -1134,3 +1134,9 @@ footer img {
 #latest-entry a:hover {
     color: #7b96a2;
 }
+
+#latest-journal-entry {
+    line-height: 1.5;
+    max-height: 4em;
+    overflow: hidden;
+}
