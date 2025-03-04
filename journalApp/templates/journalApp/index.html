@@ -111,38 +111,44 @@
       <div id="activity">
 
         <div id="greeting">
-          Welcome {{ user.username }}!<br>
-          <strong>Today is:</strong> {{ today|date:"M d, Y" }}
+          <h2>Welcome <br>{{ user.username }}!</h2>
+          <br>
+          <p><strong>Today is:</strong> {{ today|date:"M d, Y" }}</p>
         </div>
 
         <div id="latest">
           <h2>Latest Entry</h2>
-          {% if latestJournal %}
-          <!-- Title as a clickable link to the detail page -->
-          <a href="{% url 'viewEntry' latestJournal.entry_id %}">
-            <strong>{{ latestJournal.title }}</strong>
-          </a>
-          <br>
 
-          <!-- Content (use |safe if storing HTML) -->
-          <p>{{ latestJournal.content|safe }}</p>
+          <div id="latest-entry">
+            {% if latestJournal %}
+            <!-- Title as a clickable link to the detail page -->
+            <a href="{% url 'viewEntry' latestJournal.entry_id %}">
+              <strong>{{ latestJournal.title }}</strong>
+            </a>
+            <br>
 
-          <!-- Tag -->
-          <p>
-            <strong>Tag:</strong>
-            {% if latestJournal.tag %}
-            {{ latestJournal.tag.name }}
+            <!-- Content (use |safe if storing HTML) -->
+            <p>{{ latestJournal.content|safe }}</p>
+
+            <br>
+            <!-- Tag -->
+            <p>
+              <strong>Tag:</strong>
+              {% if latestJournal.tag %}
+              {{ latestJournal.tag.name }}
+              {% else %}
+              No tag
+              {% endif %}
+            </p>
+
+            <br>
+            <!-- Created date -->
+            <p><strong>Created at:</strong> {{ latestJournal.created_at }}</p>
+
             {% else %}
-            No tag
+            <p>No entries found.</p>
             {% endif %}
-          </p>
-
-          <!-- Created date -->
-          <p><strong>Created at:</strong> {{ latestJournal.created_at }}</p>
-
-          {% else %}
-          <p>No entries found.</p>
-          {% endif %}
+          </div>
         </div>
       </div>
 

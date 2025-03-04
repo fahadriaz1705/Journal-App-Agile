@@ -369,7 +369,7 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
  */
 /* prompt */
 
-#prompt {
+/* #prompt {
     width: 79%;
     margin: 0 auto;
     padding: 5%;
@@ -397,7 +397,7 @@ https://bootstrapexamples.com/@mateo/modern-search-bar-with-autocompletion */
     padding: 20px;
     margin: 0px 10px;
     min-height: 150px;
-}
+} */
 
 /* Settings Page */
 
@@ -944,13 +944,18 @@ footer img {
 /* dashboard */
 #dashboard-page {
     display: flex;
+    flex-direction: row;
+    background: linear-gradient(to bottom right, #383940, #43545b);
 }
 
 #entries-side {
+    display: block;
     width: 25%;
     background-color: #383940;
     color: white;
     font-family: Evolventa;
+    overflow: hidden;
+    height: 600px;
 }
 
 #entries-side h3 {
@@ -961,9 +966,12 @@ footer img {
 #entries-list {
     margin: 20px 15px;
     margin-top: 6px;
-    max-height: 50%;
+    max-height: 55%;
     overflow-y: auto;
+    overflow-x: hidden;
+    /* overflow-y: scroll; */
     text-align: center;
+    flex-grow: 1;
 }
 
 #entries-list button {
@@ -996,7 +1004,11 @@ footer img {
 #dashboard-area {
     width: 75%;
     padding: 2% 4%;
-    background-color: #43545b;
+    display: block;
+    flex-grow: 1;
+    max-height: min-content;
+    overflow: hidden;
+    /* background-color: #43545b; */
 }
 
 #prompt-heading {
@@ -1017,6 +1029,37 @@ footer img {
     background-image: radial-gradient(#7b96a2, #43545b, #43545b);
     cursor: pointer;
 }
+
+#prompt {
+    width: 75%;
+    margin: 0 auto;
+    padding: 5%;
+    padding-top: 20px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.row {
+    width: 75%;
+    margin: 20px auto;
+    margin-bottom: 0px;
+    padding: 30px;
+    padding-bottom: 0;
+    text-align: center;
+    display: flex;
+}
+
+.col {
+    flex-grow: 1;
+    width: 33.33%;
+    border-radius: 20px;
+    padding: 20px;
+    padding-bottom: 0;
+    margin: 0px 10px;
+    min-height: 150px;
+}
+
 
 #prompts h2 {
     color: white;
@@ -1043,13 +1086,51 @@ footer img {
 
 #greeting {
     width: 40%;
+    margin: 1%;
     padding: 5%;
+    background-image: url('../images/backgrounds/prompt-bg.png');
+    border-radius: 8%;
+    text-align: center;
+    color: #43545b;
+    font-family: EvolventaBold;
+    font-size: larger;
+}
+
+#greeting p {
+    font-family: Evolventa;
+    font-size: large;
 }
 
 #latest {
     width: 60%;
-    padding: 5%;
-    border-radius: 30px;
-    background-color: #A3CCEA;
+    background-color: none;
     margin: 3%;
+    font-family: EvolventaBold;
+    font-size: medium;
+    text-align: left;
+    color: #43545b;
+}
+
+#latest-entry {
+    background-color: white;
+    padding: 3%;
+    border-radius: 10px;
+    height: 82%;
+    overflow: hidden;
+    color: #43545b;
+}
+
+#latest-entry p {
+    font-family: Evolventa;
+}
+
+#latest-entry a {
+    font-family: EvolventaBold;
+    text-decoration: none;
+    cursor: pointer;
+    color: #43545b;
+}
+
+#latest-entry a:hover {
+    color: #7b96a2;
 }
