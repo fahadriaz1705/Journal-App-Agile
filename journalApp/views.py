@@ -205,12 +205,14 @@ def updateTheme(request):
     if request.method == 'POST':
         primary = request.POST.get('primary_color')
         secondary = request.POST.get('secondary_color')
+        tertiary = request.POST.get('tertiary_color')
 
         theme, created = Theme.objects.get_or_create(user=request.user)
 
         # Update the colors
         theme.primary_color = primary
         theme.secondary_color = secondary
+        theme.tertiary_color = tertiary
         theme.save()
 
         messages.success(request, 'Your theme has been updated!')

@@ -122,6 +122,11 @@
                     <input type="color" name="secondary_color"
                         value="{{ user.theme.secondary_color|default:'#43545b' }}">
                 </div>
+                <div>
+                    <label for="tertiary_color">Tertiary Colour&nbsp;&nbsp;</label>
+                    <input type="color" name="tertiary_color"
+                        value="{{ user.theme.tertiary_color|default:'#FFFFFF' }}">
+                </div>
 
                 <div class="settings-btn">
                     <button type="submit" class="btn btn-success w-100">Apply Theme</button>

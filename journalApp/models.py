@@ -35,6 +35,7 @@ class Theme(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='theme')
     primary_color = models.CharField(max_length=7, default="#000000")  # Default black
     secondary_color = models.CharField(max_length=7, default="#FFFFFF")  # Default white
+    tertiary_color = models.CharField(max_length=7, default="#0000FF")  # Default blue
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
