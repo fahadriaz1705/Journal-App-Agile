@@ -3,12 +3,12 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThoughtThread | Settings</title>
 
     <!-- style sheet -->
-    <!-- <link rel="stylesheet" href="/journalApp/static/css/style.css"> -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <!-- icon -->
@@ -34,22 +34,18 @@
 
         <div id="header-logo">
             <a href="{% url 'index' %}">
-                <img 
-                    src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" 
-                    alt="thoughtthread."
-                    width="35%"
-                >
+                <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread." width="35%">
             </a>
-        </div>        
+        </div>
 
         <div id="header-nav">
             <nav>
-                <a href="{% url 'index' %}"><button title="Dashboard"><img src="{% static 'images/button-icons/dashboard.png' %}"
-                            alt="Dashboard"></button></a>
+                <a href="{% url 'index' %}"><button title="Dashboard"><img
+                            src="{% static 'images/button-icons/dashboard.png' %}" alt="Dashboard"></button></a>
 
                 {% if user.is_authenticated %}
-                <a href="{% url 'logOut' %}"><button title="Logout"><img src="{% static 'images/button-icons/logout.png' %}"
-                            alt="Logout"></button></a>
+                <a href="{% url 'logOut' %}"><button title="Logout"><img
+                            src="{% static 'images/button-icons/logout.png' %}" alt="Logout"></button></a>
                 {% endif %}
             </nav>
         </div>
@@ -57,12 +53,6 @@
     </header>
 
     <main id="settings-page">
-
-        <!-- <a href="{% url 'index' %}"></a>Go Back</ab>
-        {% if user.is_authenticated %}
-        <a href="{% url 'logOut' %}"><button><img src="{% static 'images/icons/logout.png' %}"
-                    alt="Logout"></button></a>
-        {% endif %} -->
 
         <div id="profile-settings">
 
@@ -80,24 +70,6 @@
                 </div>
             </div>
 
-            <!-- <div class="row">
-                <div class="col1">
-                    <h4>Username</h4>
-                </div>
-                <div class="col2">
-                    {{ user.username }}
-                </div>
-            </div> -->
-
-            <!-- <div class="row">
-                <div class="col1">
-                    <h4>Email</h4>
-                </div>
-                <div class="col2">
-                    {{ user.email }}
-                </div>
-            </div> -->
-
         </div>
 
         <br><br>
@@ -113,6 +85,7 @@
 
                 <div>
                     <label for="primary_color">Primary Colour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+
                     <!-- Optionally prefill with the user's existing primary_color -->
                     <input type="color" name="primary_color" value="{{ user.theme.primary_color|default:'#383940' }}">
                 </div>
@@ -123,9 +96,9 @@
                         value="{{ user.theme.secondary_color|default:'#43545b' }}">
                 </div>
                 <div>
-                    <label for="tertiary_color">Tertiary Colour&nbsp;&nbsp;</label>
-                    <input type="color" name="tertiary_color"
-                        value="{{ user.theme.tertiary_color|default:'#FFFFFF' }}">
+                    <label for="tertiary_color">Tertiary
+                        Colour&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <input type="color" name="tertiary_color" value="{{ user.theme.tertiary_color|default:'#7b96a2' }}">
                 </div>
 
                 <div class="settings-btn">
@@ -179,7 +152,8 @@
             <h4>Delete Account</h4>
             <br>
             <a>Warning: Deleting your account will permanently erase all your data, including Journal Entries, Tags,
-                Attachments, and any other associated information. This action cannot be undone. Once deleted, your account and all related data will
+                Attachments, and any other associated information. This action cannot be undone. Once deleted, your
+                account and all related data will
                 be gone forever.</a>
             <form action="{% url 'delAccount' %}" method="POST">
                 {% csrf_token %}
@@ -204,11 +178,11 @@
         </div>
         <div id="ftr-nav">
             <a href="{% url 'index' %}">Home</a>
-            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'aboutUs' %}">About</a>
             <a href="mailto:contact@thoughtthread.com">Contact</a>
         </div>
-        
-        
+
+
         <div id="ftr-cp">
             <a>&#169;ThoughtThread 2025</a>
         </div>

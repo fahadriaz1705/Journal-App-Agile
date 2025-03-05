@@ -3,6 +3,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <title>ThoughtThread | Edit Journal Entry</title>
 
@@ -11,18 +12,19 @@
 
     <!-- icon -->
     <link rel="icon" href="{% static 'images/logos/thoughtthread-icon.png' %}">
+
 </head>
 
 <body>
     {% if messages %}
-        <div class="message-container">
+    <div class="message-container">
         {% for message in messages %}
-            <div class="alert 
+        <div class="alert 
                 {% if message.tags %}alert-{{ message.tags }}{% endif %}">
-                    {{ message }}
-            </div>
-        {% endfor %}
+            {{ message }}
         </div>
+        {% endfor %}
+    </div>
     {% endif %}
 
     <main id="main" class="journalentrypage">
@@ -51,53 +53,29 @@
 
         <!-- Edit Journal Entry Form -->
         <!-- Notice the action points to 'editEntry' with the journal.entry_id -->
-        <form 
-            action="{% url 'editEntry' journal.entry_id %}" 
-            method="POST" 
-            id="journalForm" 
-            enctype="multipart/form-data"
-        >
+        <form action="{% url 'editEntry' journal.entry_id %}" method="POST" id="journalForm"
+            enctype="multipart/form-data">
             {% csrf_token %}
 
             <!-- Journal Title -->
             <div class="form-group">
-                <!-- <label for="journalTitle">Journal Title</label> -->
-                <input 
-                    type="text" 
-                    id="journalTitle" 
-                    name="title" 
-                    class="form-control"
-                    value="{{ journal.title }}" 
-                    required
-                >
+                <input type="text" id="journalTitle" name="title" class="form-control" value="{{ journal.title }}"
+                    required>
             </div>
 
             <!-- Hidden Textarea to Store HTML -->
-            <textarea 
-                name="content" 
-                id="hiddenContent" 
-                style="display: none;"
-            ></textarea>
+            <textarea name="content" id="hiddenContent" style="display: none;"></textarea>
 
             <!-- ContentEditable Div Preloaded with the existing HTML content -->
             <div class="form-group">
-                <!-- <label for="journalContent">Journal Content</label> -->
-                <div 
-                    id="journalContent" 
-                    class="journal-content-editable" 
-                    contenteditable="true"
-                >
+                <div id="journalContent" class="journal-content-editable" contenteditable="true">
                     {{ journal.content|safe }}
                 </div>
             </div>
 
             <!-- Submit Button -->
             <div class="form-group mt-3" id="save-btn">
-                <button 
-                    type="submit" 
-                    class="btn btn-primary"
-                    onclick="prepareSubmission(event)"
-                >
+                <button type="submit" class="btn btn-primary" onclick="prepareSubmission(event)">
                     Update Journal
                 </button>
             </div>
@@ -106,23 +84,15 @@
 
                 <!-- Existing Tag Selection -->
                 <div class="form-group">
-                    
+
                     <label for="existingTag">Choose an Existing Tag</label>
-                    <select 
-                        id="existingTag" 
-                        name="existingTag" 
-                        class="form-control"
-                    >
+                    <select id="existingTag" name="existingTag" class="form-control">
                         <option value="">-- Select a tag --</option>
                         {% for tag in all_tags %}
-                            <option 
-                                value="{{ tag.tag_id }}"
-                                {% if journal.tag and journal.tag.tag_id == tag.tag_id %}
-                                    selected
-                                {% endif %}
-                            >
-                                {{ tag.name }}
-                            </option>
+                        <option value="{{ tag.tag_id }}" {% if journal.tag and journal.tag.tag_id==tag.tag_id %}
+                            selected {% endif %}>
+                            {{ tag.name }}
+                        </option>
                         {% endfor %}
                     </select>
                 </div>
@@ -131,16 +101,11 @@
                 <hr>
                 <br>
 
-            <!-- New Tag Creation -->
+                <!-- New Tag Creation -->
                 <div class="form-group">
                     <label for="newTag">Or Create a New Tag</label>
-                    <input 
-                        type="text" 
-                        id="newTag" 
-                        name="newTag" 
-                        class="form-control" 
-                        placeholder="Enter a new tag name"
-                    >
+                    <input type="text" id="newTag" name="newTag" class="form-control"
+                        placeholder="Enter a new tag name">
                     <small class="text-muted">
                         If you create a new tag, the existing tag selection above is ignored.
                     </small>
@@ -154,44 +119,25 @@
 
             <!-- Current Attachments (if any) + Remove Option -->
             {% if journal.attachments.all %}
-                <h4>Current Attachments:</h4><br><br>
-                {% for attach in journal.attachments.all %}
-                    <img 
-                        src="{{ attach.image.url }}" 
-                        alt="Attachment"
-                        style="max-width: 200px;"
-                    ><br>
-                {% endfor %}
-                <label>
-                    <input type="checkbox" name="remove_attachment">
-                    Remove existing attachments?
-                </label>
-                <br><br>
+            <h4>Current Attachments:</h4><br><br>
+            {% for attach in journal.attachments.all %}
+            <img src="{{ attach.image.url }}" alt="Attachment" style="max-width: 200px;"><br>
+            {% endfor %}
+            <label>
+                <input type="checkbox" name="remove_attachment">
+                Remove existing attachments?
+            </label>
+            <br><br>
             {% else %}
-                <p>No attachments.</p>
+            <p>No attachments.</p>
             {% endif %}
 
             <!-- New Attachment Upload -->
             <div class="form-group" id="attachment-section">
                 <label for="new_attachment">Upload Attachment (optional)</label>
-                <input 
-                    type="file" 
-                    id="new_attachment" 
-                    name="new_attachment" 
-                    accept="image/*"
-                >
+                <input type="file" id="new_attachment" name="new_attachment" accept="image/*">
             </div>
 
-            <!-- Submit Button -->
-            <!-- <div class="form-group mt-3">
-                <button 
-                    type="submit" 
-                    class="btn btn-primary"
-                    onclick="prepareSubmission(event)"
-                >
-                    Update Journal
-                </button>
-            </div> -->
         </form>
 
         <!-- The Same Toolbar as in create page -->
@@ -243,26 +189,12 @@
 
     </main>
 
-    <!-- <footer>
-        <div>
-            <img src="{% static 'images/logo.png' %}" alt="thoughtthread.">
-        </div>
-        <div id="ftr-nav">
-            <a href="{% url 'index' %}">Home</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-        </div>
-        <div id="ftr-cp">
-            <a>&#169;ThoughtThread 2025</a>
-        </div>
-    </footer> -->
-
     <!-- Scripts -->
     <script src="{% static 'scripts/sidenav.js' %}"></script>
     <script src="{% static 'scripts/text-format.js' %}"></script>
     <script>
         // Just like in your create page, we copy the contenteditable HTML to the hidden textarea on submit
-        function prepareSubmission(event) {
+        function prepareSubmission (event) {
             const editor = document.getElementById('journalContent');
             const hidden = document.getElementById('hiddenContent');
             hidden.value = editor.innerHTML;

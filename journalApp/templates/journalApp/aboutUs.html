@@ -3,20 +3,29 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | ThoughtThread</title>
+    <title>ThoughtThread | About Us</title>
+
+    <!-- stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="icon" href="{% static 'images/logos/thoughtthread-logo-rect.png' %}">
+
+    <!-- icon -->
+    <link rel="icon" href="{% static 'images/logos/thoughtthread-icon.png' %}">
+
 </head>
 
 <body>
+
     <header>
+
         <div id="header-logo">
             <a href="{% url 'index' %}">
                 <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="ThoughtThread" width="35%">
             </a>
         </div>
+
         <nav>
             <a href="{% url 'index' %}"><button>Home</button></a>
             <a href="{% url 'profSetting' %}"><button>Settings</button></a>
@@ -24,34 +33,45 @@
             <a href="{% url 'logOut' %}"><button>Logout</button></a>
             {% endif %}
         </nav>
+
     </header>
+
     <main id="about-page">
+
         <section id="about-intro">
+
             <h1>Welcome to ThoughtThread</h1>
             <p>
-                ThoughtThread is more than just a journaling app—it's a **personalized sanctuary** for self-reflection, 
-                creativity, and emotional well-being. Designed with **color psychology** and **user experience** in mind, 
+                ThoughtThread is more than just a journaling app—it's a **personalized sanctuary** for self-reflection,
+                creativity, and emotional well-being. Designed with **color psychology** and **user experience** in
+                mind,
                 ThoughtThread transforms journaling into a **seamless, stress-free, and enriching** habit.
             </p>
+
         </section>
 
         <section id="about-mission">
+
             <h2>Our Mission</h2>
             <p>
-                We believe that journaling should be **simple, expressive, and empowering**.  
-                ThoughtThread was created to provide a **distraction-free, customizable** environment where users can 
+                We believe that journaling should be **simple, expressive, and empowering**.
+                ThoughtThread was created to provide a **distraction-free, customizable** environment where users can
                 organize thoughts, express emotions, and track personal growth—all while feeling completely at ease.
             </p>
+
         </section>
 
         <section id="about-features">
+
             <h2>Why ThoughtThread?</h2>
+
             <div class="features-container">
                 <div class="feature-box">
                     <img src="{% static 'images/icons/customization.png' %}" alt="Customization">
                     <h3>Customizable Experience</h3>
                     <p>
-                        From **color themes** to **text formatting**, ThoughtThread lets you design your journaling space 
+                        From **color themes** to **text formatting**, ThoughtThread lets you design your journaling
+                        space
                         to reflect your **mood and personality**.
                     </p>
                 </div>
@@ -60,7 +80,8 @@
                     <img src="{% static 'images/icons/prompts.png' %}" alt="Prompts">
                     <h3>Daily Writing Prompts</h3>
                     <p>
-                        Never face writer's block again! Get **fresh, inspiring prompts** every time you log in or refresh, 
+                        Never face writer's block again! Get **fresh, inspiring prompts** every time you log in or
+                        refresh,
                         helping you stay consistent in your journaling journey.
                     </p>
                 </div>
@@ -69,7 +90,8 @@
                     <img src="{% static 'images/icons/privacy.png' %}" alt="Privacy">
                     <h3>Privacy & Security</h3>
                     <p>
-                        Your thoughts are yours alone. ThoughtThread ensures that all journal entries are **stored locally**, 
+                        Your thoughts are yours alone. ThoughtThread ensures that all journal entries are **stored
+                        locally**,
                         giving you **full control over your data**.
                     </p>
                 </div>
@@ -78,16 +100,20 @@
                     <img src="{% static 'images/icons/export.png' %}" alt="Export">
                     <h3>Export Your Journals</h3>
                     <p>
-                        Need to back up your entries? Export them as **text files**, allowing for **offline access** 
+                        Need to back up your entries? Export them as **text files**, allowing for **offline access**
                         while maintaining complete **data security**.
                     </p>
                 </div>
             </div>
+
         </section>
+
         <section id="about-future">
+
             <h2>The Future of ThoughtThread</h2>
             <p>
-                We're just getting started! The first version of ThoughtThread is designed to be **simple yet powerful**.  
+                We're just getting started! The first version of ThoughtThread is designed to be **simple yet
+                powerful**.
                 However, we're already looking ahead to features such as:
             </p>
             <ul>
@@ -96,15 +122,18 @@
                 <li>🔹 **Cloud Syncing** for seamless access across devices</li>
             </ul>
             <p>
-                ThoughtThread aims to be more than an app—it’s a **journey of self-discovery**.  
-                We’re committed to **evolving with our users**, ensuring a meaningful and therapeutic journaling experience.
+                ThoughtThread aims to be more than an app—it’s a **journey of self-discovery**.
+                We’re committed to **evolving with our users**, ensuring a meaningful and therapeutic journaling
+                experience.
             </p>
+
         </section>
 
         <section id="about-join">
             <h2>Join the ThoughtThread Community</h2>
             <p>
-                Whether you're journaling to **reflect**, **heal**, or simply **organize your thoughts**, ThoughtThread is here 
+                Whether you're journaling to **reflect**, **heal**, or simply **organize your thoughts**, ThoughtThread
+                is here
                 to support you. Start your journey today!
             </p>
             <a href="{% url 'newEntry' %}"><button>Start Journaling</button></a>
@@ -119,8 +148,7 @@
         </div>
         <div id="ftr-nav">
             <a href="{% url 'index' %}">Home</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
+            <a href="mailto:contact@thoughtthread.com">Contact</a>
         </div>
         <div id="ftr-cp">
             <a>&#169; ThoughtThread 2025</a>
@@ -184,7 +212,6 @@
             background: #0056b3;
         }
     </style>
-
-
 </body>
-</html>   
+
+</html>

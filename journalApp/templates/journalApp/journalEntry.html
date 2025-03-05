@@ -3,6 +3,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThoughtThread | Journal Entry</title>
@@ -59,7 +60,6 @@
 
             <!-- Journal Title -->
             <div class="form-group">
-                <!-- <label for="journalTitle">Journal Title</label> -->
                 <input type="text" id="journalTitle" name="title" class="form-control"
                     placeholder="Your Journal Entry Title" required>
             </div>
@@ -70,7 +70,6 @@
 
             <!-- ContentEditable Div -->
             <div class="form-group">
-                <!-- <label for="journalContent">Journal Content</label> -->
                 <!-- We display or style this div as the "editor" region -->
                 <div id="journalContent" class="journal-content-editable" contenteditable="true">Write your thoughts
                     here...</div>
@@ -127,45 +126,6 @@
                 <label for="attachment">Upload Attachment (optional)</label>
                 <input type="file" id="attachment" name="attachment" accept="image/*">
             </div>
-
-            <!-- ---------------------------------------------------------------- -->
-
-            <!-- Existing Tag Selection
-            <div class="form-group">
-                <label for="existingTag">Choose an Existing Tag</label>
-                <select id="existingTag" name="existingTag" class="form-control">
-                    <option value="">-- Select a tag --</option>
-                    {% for tag in allTags %}
-                    <option value="{{ tag.tag_id }}">{{ tag.name }}</option>
-                    {% endfor %}
-                </select>
-            </div> --->
-
-            <!-- <hr>Simple divider -->
-
-            <!-- New Tag Creation -->
-            <!-- <div class="form-group">
-                <label for="newTag">Or Create a New Tag</label>
-                <input type="text" id="newTag" name="newTag" class="form-control" placeholder="Enter a new tag name">
-                <small class="text-muted">
-                    If you want to create a brand new tag, enter it here.
-                    If you do, the existing tag selection above will be ignored.
-                </small>
-            </div> -->
-
-            <!-- Attachment Upload -->
-            <!-- <div class="form-group">
-                <label for="attachment">Upload Attachment (optional)</label>
-                <input type="file" id="attachment" name="attachment" accept="image/*">
-            </div> -->
-
-            <!-- Submit Button -->
-            <!-- We'll intercept the form submission to copy the contenteditable HTML into #hiddenContent -->
-            <!-- <div class="form-group mt-3">
-                <button type="submit" class="btn btn-primary" onclick="prepareSubmission(event)">
-                    Create Journal
-                </button>
-            </div> -->
 
         </form>
 
@@ -231,12 +191,11 @@
     </main>
 
     <!-- JS Scripts -->
-    <!-- <script src="{% static 'scripts/sidenav.js' %}"></script> -->
     <script src="{% static 'scripts/text-format.js' %}"></script>
 
     <!-- Additional inline script for grabbing the content from the contenteditable div -->
     <script>
-        function prepareSubmission(event) {
+        function prepareSubmission (event) {
             // Copy HTML content from the contenteditable div to the hidden textarea
             const editor = document.getElementById('journalContent');
             const hidden = document.getElementById('hiddenContent');

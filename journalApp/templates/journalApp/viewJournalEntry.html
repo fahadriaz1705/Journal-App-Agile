@@ -3,6 +3,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThoughtThread | View Journal Entry</title>
@@ -22,24 +23,20 @@
 
         <div id="header-logo">
             <a href="{% url 'index' %}">
-                <img 
-                    src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" 
-                    alt="thoughtthread."
-                    width="35%"
-                >
+                <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread." width="35%">
             </a>
         </div>
 
         <div id="header-nav">
             <nav>
-                <a href="{% url 'index' %}"><button title="Dashboard"><img src="{% static 'images/button-icons/dashboard.png' %}"
-                            alt="Dashboard"></button></a>
-                <a href="{% url 'profSetting' %}"><button title="Settings"><img src="{% static 'images/button-icons/profile.png' %}"
-                            alt="Profile Settings"></button></a>
+                <a href="{% url 'index' %}"><button title="Dashboard"><img
+                            src="{% static 'images/button-icons/dashboard.png' %}" alt="Dashboard"></button></a>
+                <a href="{% url 'profSetting' %}"><button title="Settings"><img
+                            src="{% static 'images/button-icons/profile.png' %}" alt="Profile Settings"></button></a>
 
                 {% if user.is_authenticated %}
-                <a href="{% url 'logOut' %}"><button title="Logout"><img src="{% static 'images/button-icons/logout.png' %}"
-                            alt="Logout"></button></a>
+                <a href="{% url 'logOut' %}"><button title="Logout"><img
+                            src="{% static 'images/button-icons/logout.png' %}" alt="Logout"></button></a>
                 {% endif %}
             </nav>
         </div>
@@ -48,20 +45,11 @@
 
     <main id="view-entry-page">
 
-        <!-- <a href="{% url 'index' %}">Go back</a>
-
-        {% if user.is_authenticated %}
-        <a href="{% url 'logOut' %}"><button><img src="{% static 'images/icons/logout.png' %}"
-                    alt="Logout"></button></a>
-        {% endif %} -->
-
         <div id="view-journal-title">
-            <!-- <h3>Title:</h3> -->
             <h3>{{ journal.title }}</h3>
         </div>
 
         <div id="view-journal-entry">
-            <!-- <h3>Content:</h3> -->
             <p>{{ journal.content|safe }}</p>
         </div>
 
@@ -105,15 +93,6 @@
             </a>
         </div>
 
-        <!-- <a href="{% url 'downloadEntry' journal.entry_id %}">
-            Download as PDF
-        </a>
-
-
-        <a href="{% url 'editEntry' journal.entry_id %}">
-            <button>Edit Entry</button>
-        </a> -->
-
     </main>
 
     <!-- footer -->
@@ -125,11 +104,11 @@
         </div>
         <div id="ftr-nav">
             <a href="{% url 'index' %}">Home</a>
-            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'aboutUs' %}">About</a>
             <a href="mailto:contact@thoughtthread.com">Contact</a>
         </div>
-        
-        
+
+
         <div id="ftr-cp">
             <a>&#169;ThoughtThread 2025</a>
         </div>
