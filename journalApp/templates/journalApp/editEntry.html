@@ -53,14 +53,12 @@
 
         <!-- Edit Journal Entry Form -->
         <!-- Notice the action points to 'editEntry' with the journal.entry_id -->
-        <form action="{% url 'editEntry' journal.entry_id %}" method="POST" id="journalForm"
-            enctype="multipart/form-data">
+        <form action="{% url 'editEntry' journal.entry_id %}" method="POST" id="journalForm" enctype="multipart/form-data">
             {% csrf_token %}
 
             <!-- Journal Title -->
             <div class="form-group">
-                <input type="text" id="journalTitle" name="title" class="form-control" value="{{ journal.title }}"
-                    required>
+                <input type="text" id="journalTitle" name="title" class="form-control" value="{{ journal.title }}" required>
             </div>
 
             <!-- Hidden Textarea to Store HTML -->
@@ -89,8 +87,7 @@
                     <select id="existingTag" name="existingTag" class="form-control">
                         <option value="">-- Select a tag --</option>
                         {% for tag in all_tags %}
-                        <option value="{{ tag.tag_id }}" {% if journal.tag and journal.tag.tag_id==tag.tag_id %}
-                            selected {% endif %}>
+                        <option value="{{ tag.tag_id }}" {% if journal.tag and journal.tag.tag_id==tag.tag_id %}selected{% endif %}>
                             {{ tag.name }}
                         </option>
                         {% endfor %}
