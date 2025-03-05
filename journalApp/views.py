@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth import password_validation
@@ -15,6 +15,7 @@ from .models import Theme
 from django.utils import timezone
 from xhtml2pdf import pisa
 from io import BytesIO
+import requests
 
 # Create your views here.
 def index(request):
@@ -264,3 +265,17 @@ def editEntry(request, entry_id):
             'all_tags': all_tags
         }
         return render(request, 'journalApp/editEntry.html', context)
+def zenQuotes(request):
+    try:
+        response = requests.get('https://zenquotes.io/api/random')
+        response.raise_for_status()
+        quoteData = response.json()
+
+        # Ensure we return the correct format
+        if isinstance(quoteData, list) and len(quoteData) > 0:
+            return JsonResponse(quoteData[0], safe=False)  # Send first object in array
+        else:
+            return JsonResponse({'error': 'Invalid response format from ZenQuotes API'}, status=500)
+
+    except requests.RequestException as e:
+        return JsonResponse({'error': str(e)}, status=500)
