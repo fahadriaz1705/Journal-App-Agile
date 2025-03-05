@@ -17,4 +17,6 @@ urlpatterns = [
      path('updateTheme/', views.updateTheme, name='updateTheme'),
      path('entry/<int:entry_id>/edit/', views.editEntry, name='editEntry'),
      path('zenQuote/', views.zenQuotes, name='zenQuotes'),
+     path('aboutUs/', views.aboutUs, name='aboutUs'),
+     
 ]

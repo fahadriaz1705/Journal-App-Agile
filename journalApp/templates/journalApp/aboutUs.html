@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | ThoughtThread</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="{% static 'images/logos/thoughtthread-logo-rect.png' %}">
+</head>
+
+<body>
+    <header>
+        <div id="header-logo">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="ThoughtThread" width="35%">
+            </a>
+        </div>
+        <nav>
+            <a href="{% url 'index' %}"><button>Home</button></a>
+            <a href="{% url 'profSetting' %}"><button>Settings</button></a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'logOut' %}"><button>Logout</button></a>
+            {% endif %}
+        </nav>
+    </header>
+
+</body>
+</html>   
