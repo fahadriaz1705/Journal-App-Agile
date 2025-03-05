@@ -167,6 +167,8 @@
 
         </div>
 
+        <br><br><br><br>
+
     </main>
 
     <!-- footer -->
@@ -187,6 +189,20 @@
             <a>&#169;ThoughtThread 2025</a>
         </div>
     </footer>
+
+    <!-- for customised themes -->
+    <script>
+
+        let p_c = "{{user.theme.primary_color}}"; // primary colour from database
+        let s_c = "{{user.theme.secondary_color}}"; // secondary colour from database
+        let t_c = "{{user.theme.tertiary_color}}"; // tertiary colour from database
+
+        // applying the three colours to the entire document's style
+        document.documentElement.style.setProperty('--primary_color', p_c);
+        document.documentElement.style.setProperty('--secondary_color', s_c);
+        document.documentElement.style.setProperty('--tertiary_color', t_c);
+
+    </script>
 
 </body>
 
