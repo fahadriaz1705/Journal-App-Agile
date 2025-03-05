@@ -33,8 +33,14 @@
     <header>
 
         <div id="header-logo">
-            <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread." width="35%">
-        </div>
+            <a href="{% url 'index' %}">
+                <img 
+                    src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" 
+                    alt="thoughtthread."
+                    width="35%"
+                >
+            </a>
+        </div>        
 
         <div id="header-nav">
             <nav>
@@ -153,8 +159,7 @@
             <h4>Delete all Journal Entries, Tags, and Attachments</h4>
             <br>
             <a>Warning: Pressing this button will permanently delete all your Journal Entries, Tags, and Attachments.
-                This action cannot be undone. Please make sure you have backed up any important information before
-                proceeding. Once deleted, all data will be lost.</a>
+                This action cannot be undone. Once deleted, all data will be lost.</a>
 
             <form action="{% url 'delData' %}" method="POST">
                 {% csrf_token %}
@@ -169,8 +174,7 @@
             <h4>Delete Account</h4>
             <br>
             <a>Warning: Deleting your account will permanently erase all your data, including Journal Entries, Tags,
-                Attachments, and any other associated information. This action cannot be undone. Please ensure you have
-                backed up any important content before proceeding. Once deleted, your account and all related data will
+                Attachments, and any other associated information. This action cannot be undone. Once deleted, your account and all related data will
                 be gone forever.</a>
             <form action="{% url 'delAccount' %}" method="POST">
                 {% csrf_token %}
@@ -189,7 +193,9 @@
     <!-- footer -->
     <footer>
         <div>
-            <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread.">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread.">
+            </a>
         </div>
         <div id="ftr-nav">
             <a href="#">Home</a>

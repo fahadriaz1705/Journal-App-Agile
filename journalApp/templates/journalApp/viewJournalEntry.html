@@ -21,7 +21,13 @@
     <header>
 
         <div id="header-logo">
-            <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread." width="35%">
+            <a href="{% url 'index' %}">
+                <img 
+                    src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" 
+                    alt="thoughtthread."
+                    width="35%"
+                >
+            </a>
         </div>
 
         <div id="header-nav">
@@ -113,7 +119,9 @@
     <!-- footer -->
     <footer>
         <div>
-            <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread.">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread.">
+            </a>
         </div>
         <div id="ftr-nav">
             <a href="#">Home</a>
