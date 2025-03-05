@@ -279,3 +279,5 @@ def zenQuotes(request):
 
     except requests.RequestException as e:
         return JsonResponse({'error': str(e)}, status=500)
+def aboutUs(request):
+    return render(request,'journalApp/aboutUs.html')
