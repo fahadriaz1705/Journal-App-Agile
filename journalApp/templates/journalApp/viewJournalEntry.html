@@ -54,6 +54,7 @@
         </div>
 
         <br>
+        <hr>
         <!-- Show the tag if one is assigned -->
         {% if journal.tag %}
         <p><strong>Tag: </strong>{{ journal.tag.name }}</p>
@@ -62,6 +63,7 @@
         {% endif %}
 
         <br>
+        <hr>
         <!-- Display attachments (if any) -->
         {% if journal.attachments.all %}
         <h3>Attachments:</h3>
@@ -75,6 +77,7 @@
         {% endif %}
 
         <br>
+        <hr>
         <p>
             <strong>Created at:</strong> {{ journal.created_at }} <br>
             <strong>Last updated:</strong> {{ journal.updated_at }}

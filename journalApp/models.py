@@ -33,9 +33,9 @@ class Attachment(models.Model):
 
 class Theme(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='theme')
-    primary_color = models.CharField(max_length=7, default="#383940")  # Default black
-    secondary_color = models.CharField(max_length=7, default="#43545b")  # Default white
-    tertiary_color = models.CharField(max_length=7, default="#7b96a2")  # Default blue
+    primary_color = models.CharField(max_length=7, default="#383940")  # Default color
+    secondary_color = models.CharField(max_length=7, default="#43545b")  # Default color
+    tertiary_color = models.CharField(max_length=7, default="#7b96a2")  # Default color
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
