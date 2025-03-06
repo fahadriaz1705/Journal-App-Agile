@@ -21,7 +21,7 @@ import requests
 def index(request):
     if request.user.is_authenticated:
         userId = request.user.id
-        allJournals = JournalEntry.objects.filter(user=userId)
+        allJournals = JournalEntry.objects.filter(user=userId).order_by('-created_at')
         latestJournal = JournalEntry.objects.filter(user=request.user).order_by('-created_at').first()
         allTags = Tag.objects.filter(journalentry__user=request.user).distinct()
         today = timezone.now()
