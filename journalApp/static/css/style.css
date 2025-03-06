@@ -217,7 +217,7 @@ footer img {
     color: white;
     font-family: EvolventaBold;
     font-size: larger;
-    text-align: justify;
+    text-align: center;
 }
 
 #view-entry-page p {
@@ -228,6 +228,7 @@ footer img {
 
 #view-journal-entry p {
     padding: 0.3% 0;
+    margin-top: 30px;
 }
 
 #view-entry-page h3 {
@@ -846,4 +847,49 @@ button:hover {
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
 }
+/* Oval Button Style for Tags */
+.tag-pill {
+    display: inline-block;
+    background-color: var(--tertiary_color);  /* Use theme color */
+    color: white;  /* Text color */
+    font-size: 14px;
+    font-weight: bold;
+    padding: 6px 12px;  /* Adds padding inside */
+    border-radius: 20px;  /* Creates an oval shape */
+    text-align: center;
+    margin: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Adds a slight shadow */
+    transition: background 0.3s ease-in-out;
+}
 
+/* Hover Effect */
+.tag-pill:hover {
+    background-color: var(--primary_color);  /* Changes color on hover */
+    cursor: pointer;
+}
+#tagJournal {
+    display: flex;
+    justify-content: center;  /* Centers horizontally */
+    align-items: center;  /* Centers vertically if needed */
+    margin-top: 0px;
+}
+
+/* Container for date pills */
+#journal-dates {
+    display: flex;  /* Aligns items side by side */
+    justify-content: center;  /* Centers them horizontally */
+    gap: 15px;  /* Space between the two pills */
+    margin-top: 15px;
+}
+
+/* Oval Style for Dates */
+.date-pill {
+    display: inline-block;
+    background-color: var(--primary_color);  /* Background from theme */
+    color: var(--tertiary_color);  /* Text color */
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 30px;  /* Makes it oval */
+    text-align: center;
+}

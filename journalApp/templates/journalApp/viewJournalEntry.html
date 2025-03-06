@@ -51,19 +51,25 @@
         <div id="view-journal-title">
             <h3>{{ journal.title }}</h3>
         </div>
+        <div id="tagJournal">
+            {% if journal.tag %}
+            <span class="tag-pill">{{ journal.tag.name }}</span>
+            </p>
+            {% else %}
+            <p><em>No tag assigned.</em></p>
+            {% endif %}
+        </div>
+        <hr>
+        
 
         <div id="view-journal-entry">
             <p>{{ journal.content|safe }}</p>
         </div>
 
         <br>
-        <hr>
         <!-- Show the tag if one is assigned -->
-        {% if journal.tag %}
-        <p><strong>Tag: </strong>{{ journal.tag.name }}</p>
-        {% else %}
-        <p><em>No tag assigned.</em></p>
-        {% endif %}
+
+
 
         <br>
         <hr>
@@ -80,11 +86,11 @@
         {% endif %}
 
         <br>
-        <hr>
-        <p>
-            <strong>Created at:</strong> {{ journal.created_at }} <br>
-            <strong>Last updated:</strong> {{ journal.updated_at }}
-        </p>
+        <div id="journal-dates">
+            <span class="date-pill"><strong>Created at:</strong> {{ journal.created_at }}</span>
+            <span class="date-pill"><strong>Last updated:</strong> {{ journal.updated_at }}</span>
+        </div>
+        
 
         <br>
         <div id="vep-buttons">
