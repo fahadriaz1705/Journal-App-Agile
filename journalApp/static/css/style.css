@@ -538,6 +538,28 @@ footer img {
     transform: scale(1.02);
 }
 
+
+#entries-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+
+#entries-list::-webkit-scrollbar-track {
+    background: var(--primary_color); 
+}
+
+/* Scrollbar thumb (draggable part) */
+#entries-list::-webkit-scrollbar-thumb {
+    background: var(--tertiary_color); /* Thumb color */
+    border-radius: 10px;
+}
+
+/* Scrollbar thumb on hover */
+#entries-list::-webkit-scrollbar-thumb:hover {
+    background: #ffffff;
+}
+
+
 #button {
     margin: 30px;
     text-align: center;
