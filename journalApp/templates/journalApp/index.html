@@ -19,17 +19,6 @@
 
 <body>
 
-  {% if messages %}
-  <div class="message-container">
-    {% for message in messages %}
-    <div class="alert 
-                {% if message.tags %}alert-{{ message.tags }}{% endif %}">
-      {{ message }}
-    </div>
-    {% endfor %}
-  </div>
-  {% endif %}
-
   {% load static %}
 
   <!-- header -->
@@ -89,10 +78,10 @@
 
         <div id="prompt-heading">
 
-          <h2>Prompts</h2>
+          <h2 padding-top="10px">Prompts</h2>
 
-          <button id="refresh-quote" title="Refresh Quote">
-            <img src="{% static 'images/button-icons/refresh.png' %}" alt="Refresh" width="100%">
+          <button id="refresh-quote" title="Refresh Quote" >
+            <img src="{% static 'images/button-icons/refresh.png' %}" alt="Refresh" width="50%">
           </button>
 
         </div>
