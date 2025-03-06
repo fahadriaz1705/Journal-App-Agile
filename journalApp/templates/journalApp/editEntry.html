@@ -101,30 +101,40 @@
             
 
             <br>
-            <br>
-            <hr>
-            <br>
 
-            <!-- Current Attachments (if any) + Remove Option -->
-            {% if journal.attachments.all %}
-            <h4>Attachments</h4><br><br>
-            {% for attach in journal.attachments.all %}
-            <img src="{{ attach.image.url }}" alt="Attachment" style="max-width: 200px;"><br>
-            {% endfor %}
-            <label>
-                <input type="checkbox" name="remove_attachment">
-                Remove existing attachments?
-            </label>
-            <br><br>
-            {% else %}
-            <p>No attachments.</p>
-            {% endif %}
+            <!-- Attachments Section -->
+            <div id="attachment-container">
+                
+                {% if journal.attachments.all %}
+                    <h4 class="attachment-header">Attachment</h4>
 
-            <!-- New Attachment Upload -->
-            <div class="form-group" id="attachment-section">
-                <label for="new_attachment">Upload Attachment (optional)</label>
-                <input type="file" id="new_attachment" name="new_attachment" accept="image/*">
+                    <div class="attachments-grid">
+                        {% for attach in journal.attachments.all %}
+                        <div class="attachment-item">
+                            <img src="{{ attach.image.url }}" alt="Attachment">
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Remove Attachment Checkbox -->
+                    <div class="remove-attachment">
+                        <label for="remove_attachment">
+                            <input type="checkbox" id="remove_attachment" name="remove_attachment">
+                            Remove existing attachment?
+                        </label>
+                    </div>
+                {% else %}
+                    <p class="no-attachments">No attachments.</p>
+                {% endif %}
+
+                <!-- New Attachment Upload -->
+                <div class="form-group upload-container">
+                    <label for="new_attachment" class="upload-label">Upload Attachment (optional)</label>
+                    <input type="file" id="new_attachment" name="new_attachment" accept="image/*" class="upload-input">
+                </div>
+
             </div>
+
 
         </form>
 
