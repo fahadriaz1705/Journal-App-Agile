@@ -18,16 +18,6 @@
 
 <body>
 
-    {% if messages %}
-    <div class="message-container">
-        {% for message in messages %}
-        <div class="alert 
-                {% if message.tags %}alert-{{ message.tags }}{% endif %}">
-            {{ message }}
-        </div>
-        {% endfor %}
-    </div>
-    {% endif %}
 
     <main id="main" class="journalentrypage">
 
@@ -69,9 +59,9 @@
 
             <!-- ContentEditable Div -->
             <div class="form-group">
-                <!-- We display or style this div as the "editor" region -->
-                <div id="journalContent" class="journal-content-editable" contenteditable="true">Write your thoughts here...</div>
+                <div id="journalContent" class="journal-content-editable" contenteditable="true" onfocus="clearPlaceholder()" onblur="restorePlaceholder()">Write your thoughts here...</div>
             </div>
+            
 
             <!-- Submit Button -->
             <!-- We'll intercept the form submission to copy the contenteditable HTML into #hiddenContent -->
@@ -82,45 +72,70 @@
             </div>
 
             <div id="tags-section">
-
-                <!-- Existing Tag Selection -->
+    
+                <!-- Centered Tag Selection -->
                 <div class="form-group">
-
-                    <label for="existingTag">Choose an Existing Tag</label>
-                    <select id="existingTag" name="existingTag" class="form-control">
-                        <option value="">-- Select a tag --</option>
-                        {% for tag in allTags %}
-                        <option value="{{ tag.tag_id }}">{{ tag.name }}</option>
-                        {% endfor %}
-                    </select>
-
+                    <label for="existingTag">Choose a Tag</label>
+                    <div class="dropdown-container">
+                        <select id="existingTag" name="existingTag" class="form-control tag-dropdown">
+                            <option value="">-- Select a tag --</option>
+                            {% for tag in allTags %}
+                                <option value="{{ tag.tag_id }}" {% if journal.tag and journal.tag.tag_id == tag.tag_id %}selected{% endif %}>
+                                    {{ tag.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
-
+            
                 <br>
-                <hr><!-- Simple divider -->
-                <br>
-                <!-- New Tag Creation -->
+            
+                <!-- Centered New Tag Input -->
                 <div class="form-group">
-
-                    <label for="newTag">Or Create a New Tag</label>
-                    <input type="text" id="newTag" name="newTag" class="form-control"
-                        placeholder="Enter a new tag name">
-
-                    <br>
-                    <small class="text-muted">
-                        If you want to create a brand new tag, enter it here.
-                        If you do, the existing tag selection above will be ignored.
-                    </small>
+                    <label for="newTag">Create a New Tag</label>
+                    <div class="new-tag-input">
+                        <input type="text" id="newTag" name="newTag" class="form-control" placeholder="Enter a new tag name">
+                        <button type="button" class="btn-add-tag">+</button>
+                    </div>
                 </div>
-
+            
             </div>
+            
+            
 
             <br>
 
-            <!-- Attachment Upload -->
-            <div class="form-group" id="attachment-section">
-                <label for="attachment">Upload Attachment (optional)</label>
-                <input type="file" id="attachment" name="attachment" accept="image/*">
+            <!-- Attachments Section -->
+            <div id="attachment-container">
+                
+                {% if journal.attachments.all %}
+                    <h4 class="attachment-header">Attachment</h4>
+
+                    <div class="attachments-grid">
+                        {% for attach in journal.attachments.all %}
+                        <div class="attachment-item">
+                            <img src="{{ attach.image.url }}" alt="Attachment">
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Remove Attachment Checkbox -->
+                    <div class="remove-attachment">
+                        <label for="remove_attachment">
+                            <input type="checkbox" id="remove_attachment" name="remove_attachment">
+                            Remove existing attachment?
+                        </label>
+                    </div>
+                {% else %}
+                    <p class="no-attachments">No attachments.</p>
+                {% endif %}
+
+                <!-- New Attachment Upload -->
+                <div class="form-group upload-container">
+                    <label for="new_attachment" class="upload-label">Upload Attachment (optional)</label>
+                    <input type="file" id="new_attachment" name="new_attachment" accept="image/*" class="upload-input">
+                </div>
+
             </div>
 
         </form>
@@ -151,21 +166,6 @@
             <!-- Make text Underline button -->
             <button onclick="formatText('underline')" title="Underline Font">
                 <img src="{% static 'images/toolbar-icons/underline.png' %}" alt="Underline">
-            </button><br>
-
-            <!-- Change text alignment button -->
-            <button onclick="changeAlignment('left')" title="Left Align Text">
-                <img src="{% static 'images/toolbar-icons/left-align.png' %}" alt="Left-Align">
-            </button><br>
-
-            <!-- Change text alignment button -->
-            <button onclick="changeAlignment('center')" title="Center Align Text">
-                <img src="{% static 'images/toolbar-icons/center.png' %}" alt="Center-Align">
-            </button><br>
-
-            <!-- Change text alignment button -->
-            <button onclick="changeAlignment('right')" title="Right Align Text">
-                <img src="{% static 'images/toolbar-icons/right-align.png' %}" alt="Right-Align">
             </button><br>
 
             <!-- Insert Bullet Points button -->
@@ -213,6 +213,32 @@
         document.documentElement.style.setProperty('--tertiary_color', t_c);
 
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const editor = document.getElementById("journalContent");
+        
+            function clearPlaceholder() {
+                if (editor.textContent.trim() === "Write your thoughts here...") {
+                    editor.textContent = "";  // Remove placeholder text
+                    editor.style.color = "#fff"; // Change text color to black
+                }
+            }
+        
+            function restorePlaceholder() {
+                if (editor.textContent.trim() === "") {
+                    editor.textContent = "Write your thoughts here...";
+                    editor.style.color = "#fff"; // Gray placeholder text
+                }
+            }
+        
+            // Ensure placeholder is applied when page loads
+            restorePlaceholder();
+            
+            // Assign functions globally for inline event listeners
+            window.clearPlaceholder = clearPlaceholder;
+            window.restorePlaceholder = restorePlaceholder;
+        });
+        </script>
 </body>
 
 </html>
