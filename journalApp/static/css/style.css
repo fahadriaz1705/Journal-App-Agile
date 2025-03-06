@@ -693,6 +693,7 @@ footer img {
     border-radius: 10px;
     padding: 8px;
     font-family: EvolventaBold;
+    color: var(--primary_color)
 }
 
 #entries-list button:hover {
@@ -719,7 +720,7 @@ footer img {
 
 /* Scrollbar thumb on hover */
 #entries-list::-webkit-scrollbar-thumb:hover {
-    background: #ffffff;
+    background:var(--secondary_color);
 }
 
 
@@ -910,49 +911,99 @@ footer img {
     background-color: var(--secondary_color);
 }
 
-/* about us page */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
+/* ABOUT PAGE GENERAL STYLING */
 #about-page {
-    padding: 50px;
     text-align: center;
+    padding: 50px 10%;
 }
 
+/* HEADINGS */
+#about-page h1, 
+#about-page h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: var(--primary_color);
+}
+
+/* SECTIONS */
+#about-intro, #about-mission, #about-features, #about-future, #about-join {
+    margin-bottom: 50px;
+}
+
+/* FEATURE BOXES */
 .features-container {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
-    gap: 20px;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
 }
 
 .feature-box {
-    width: 250px;
+    background-color: rgb(139, 182, 196);
+    border-radius: 12px;
     padding: 20px;
-    background: #f5f5f5;
-    border-radius: 10px;
+    width: 250px;
     text-align: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.feature-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .feature-box img {
     width: 50px;
-    height: 50px;
+    margin-bottom: 15px;
 }
 
-ul {
-    list-style-type: none;
+.feature-box h3 {
+    color: var(--primary_color);
+}
+
+/* FUTURE FEATURES LIST */
+#about-future ul {
+    list-style: none;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-ul li {
-    background: #eaf3fc;
-    margin: 5px 0;
-    padding: 10px;
-    border-radius: 5px;
+#about-future li {
+    background-color: rgb(139, 182, 196);
+    border-radius: 10px;
+    padding: 12px 18px;
+    margin: 8px 0;
+    width: 60%;
+    text-align: center; /* Centers text inside */
+    display: flex;
+    justify-content: center; /* Ensures text and icon are centered */
+    align-items: center;
+    gap: 10px;
 }
+
+
+/* CTA BUTTON */
+#about-join button {
+    background-color: var(--primary_color);
+    color: white;
+    font-size: 18px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    margin-top: 10px;
+}
+
+#about-join button:hover {
+    background-color: var(--tertiary_color);
+}
+
 
 button {
     padding: 10px 20px;
@@ -1013,7 +1064,7 @@ button:hover {
 .tag-pill {
     display: inline-block;
     background-color: var(--tertiary_color);  /* Use theme color */
-    color: white;  /* Text color */
+    color: var(--primary_color);  /* Text color */
     font-size: 16px;
     font-weight: bold;
     padding: 6px 20px;  /* Adds padding inside */
