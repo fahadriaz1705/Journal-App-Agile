@@ -373,57 +373,121 @@ footer img {
     border: none;
 }
 
+/* Toolbar Container - Position it to the Left */
 .toolbar {
-    position: fixed;
-    top: 3%;
-    left: 1.5%;
-}
-
-.toolbar,
-#tags-section,
-#attachment-section {
-    width: 60%;
-    justify-content: center;
-    margin-bottom: 5px;
-    background-color: var(--secondary_color);
-    margin: 0px 10%;
-    border-radius: 20px;
-    margin-top: 8px;
-}
-
-.toolbar {
-    margin: 0;
-    padding: 0;
-    width: 60%;
-    background-color: transparent;
-}
-
-.toolbar button img {
-    width: 70%;
-    height: 70%;
-}
-
-.toolbar button {
-    width: 4%;
-    height: 4%;
-    padding: 5px;
-    padding-top: 8px;
-    margin: 8px;
-    background-color: transparent;
-    border: none;
+    position: fixed; /* Keeps it fixed while scrolling */
+    left: 10px; /* Aligns it close to the left side */
+    top: 50%; /* Centers it vertically */
+    transform: translateY(-50%); /* Ensures it stays centered */
+    display: flex;
+    flex-direction: column; /* Stacks buttons vertically */
+    align-items: center;
+    gap: 10px; /* Space between buttons */
+    
+    padding: 10px;
     border-radius: 12px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Keeps it above other elements */
 }
 
+/* Maintain Button Styles */
+.toolbar button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background 0.3s ease-in-out;
+}
+
+/* Ensure Toolbar Buttons Keep Their Size */
+.toolbar button img {
+    width: 32px;
+    height: 32px;
+}
+
+/* Hover Effect (Maintains Original Style) */
 .toolbar button:hover {
-    background-color: var(--secondary_color);
+    background-color: var(--tertiary_color);
 }
 
-#tags-section,
-#attachment-section {
-    padding: 3%;
-    color: white;
-    width: 80%;
+
+/* Centering the Tags Section */
+#tags-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin-top: 20px;
 }
+
+/* Centered Dropdown */
+.dropdown-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+
+}
+
+/* Style the Dropdown */
+.tag-dropdown {
+    width: 250px;  /* Adjust width as needed */
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--primary_color);
+    background-color: var(--secondary_color);
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+
+}
+
+/* Hover Effect */
+.tag-dropdown:hover {
+    background-color: var(--tertiary_color);
+    color: white;
+}
+
+/* Centering the New Tag Input */
+.new-tag-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Centering the Text Input */
+#newTag {
+    width: 250px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid var(--primary_color);
+    text-align: center;
+}
+
+/* Add Tag Button */
+.btn-add-tag {
+    background-color: var(--primary_color);
+    color: white;
+    font-size: 18px;
+    padding: 6px 12px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+/* Hover Effect */
+.btn-add-tag:hover {
+    background-color: var(--tertiary_color);
+}
+
+
+
 
 #main form label {
     color: white;
@@ -431,30 +495,6 @@ footer img {
     font-size: small;
 }
 
-#tags-section div input {
-    font-family: Times;
-    font-size: small;
-    color: black;
-    border: 1px solid white;
-    padding: 1%;
-    background: white;
-    border-radius: 4px;
-}
-
-#tags-section div input:focus {
-    border: 1px solid var(--tertiary_color);
-    border-radius: 4px;
-}
-
-#tags-section div select {
-    border-radius: 4px;
-    padding: 1%;
-    border: 1px solid white;
-}
-
-#tags-section div select:focus {
-    border: 1px solid var(--tertiary_color);
-}
 
 #save-btn {
     text-align: right;
