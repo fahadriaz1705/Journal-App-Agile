@@ -533,8 +533,9 @@ footer img {
 }
 
 #entries-list button:hover {
+    background-image: none;
     background-color: var(--tertiary_color);
-    border: 3px solid var(--secondary_color);
+    transform: scale(1.02);
 }
 
 #button {
