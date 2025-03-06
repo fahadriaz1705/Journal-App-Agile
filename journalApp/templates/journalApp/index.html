@@ -1,29 +1,17 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ThoughtThread | Dashboard</title>
-
-  <!-- stylesheets -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-  <!-- icon -->
   <link rel="icon" href="{% static 'images/logos/thoughtthread-icon.png' %}">
-
 </head>
-
 <body>
 
-  {% load static %}
-
-  <!-- header -->
   <header>
-
     <div id="header-logo">
       <a href="{% url 'index' %}">
         <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread." width="35%" class="blink-effect">
@@ -35,31 +23,22 @@
         <a href="{% url 'profSetting' %}"><button title="Settings">
           <img src="{% static 'images/button-icons/profile.png' %}" alt="Profile Settings">
         </button></a>
-
         {% if user.is_authenticated %}
         <a href="{% url 'logOut' %}"><button title="Logout"><img src="{% static 'images/button-icons/logout.png' %}" alt="Logout"></button></a>
         {% endif %}
       </nav>
     </div>
-
   </header>
 
   <main id="dashboard-page">
-
     <div id="entries-side">
-
       <h3>Journal Entries</h3>
-
       <div id="entries-list">
-
         {% for journal in allJournals %}
-
         <a href="{% url 'viewEntry' journal.entry_id %}">
           <button> {{ journal.title }} </button>
         </a>
-
         {% endfor %}
-
       </div>
 
       <div id="button">
@@ -73,17 +52,12 @@
 
 
     <div id="dashboard-area">
-
       <div id="prompts">
-
         <div id="prompt-heading">
-
           <h2 padding-top="10px">Inspiration</h2>
-
           <button id="refresh-quote" title="Refresh Quote" >
             <img src="{% static 'images/button-icons/refresh.png' %}" alt="Refresh" width="50%">
           </button>
-
         </div>
 
         <div id="quote-container">
@@ -91,12 +65,10 @@
           <p id="quote-text">Loading quote...</p>
           <p id="quote-author"></p>
         </div>
-
       </div>
 
 
       <div id="activity">
-
         <div id="greeting">
           <h2 id="typewriter"></h2>
           <br>
@@ -105,23 +77,17 @@
 
         <div id="latest">
           <h2>Latest Entry</h2>
-
           <div id="latest-entry">
             {% if latestJournal %}
-            <!-- Title as a clickable link to the detail page -->
             <a href="{% url 'viewEntry' latestJournal.entry_id %}">
               <strong>{{ latestJournal.title }}</strong>
             </a>
             <br>
 
-            <!-- Content (use |safe if storing HTML) -->
             <div id="latest-journal-entry">
               <p>{{ latestJournal.content|safe }}</p>
             </div>
-
-
             <br>
-            <!-- Tag -->
             <p>
               <strong>Tag:</strong>
               {% if latestJournal.tag %}
@@ -130,23 +96,18 @@
               No tag
               {% endif %}
             </p>
-
             <br>
-            <!-- Created date -->
-            <p><strong>Created at:</strong> {{ latestJournal.created_at }}</p>
 
+            <p><strong>Created at:</strong> {{ latestJournal.created_at }}</p>
             {% else %}
             <p>No entries found.</p>
             {% endif %}
           </div>
         </div>
       </div>
-
     </div>
-
   </main>
-
-  <!-- footer -->
+  
   <footer>
     <div>
       <a href="{% url 'index' %}">
@@ -168,22 +129,17 @@
   <script>
     async function fetchQuote () {
       try {
-        // Fetch the quote from Django's proxy endpoint
         const response = await fetch("http://127.0.0.1:8000/journal/zenQuote/");
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        // Convert response to JSON
         const data = await response.json();
-
-        // Ensure data has expected properties
         if (!data.q || !data.a) {
           throw new Error("Invalid quote data received.");
         }
 
-        // Update the quote text and author in the HTML
         document.getElementById("quote-text").innerText = `"${data.q}"`;
         document.getElementById("quote-author").innerText = `— ${data.a}`;
       } catch (error) {
@@ -193,27 +149,11 @@
       }
     }
 
-    // Attach fetchQuote() to the refresh button
     document.getElementById("refresh-quote").addEventListener("click", fetchQuote);
-
-    // Fetch a quote when the page loads
     window.addEventListener("load", fetchQuote);
 
   </script>
 
-  <!-- for customised themes -->
-  <script>
-
-    let p_c = "{{user.theme.primary_color}}"; // primary colour from database
-    let s_c = "{{user.theme.secondary_color}}"; // secondary colour from database
-    let t_c = "{{user.theme.tertiary_color}}"; // tertiary colour from database
-
-    // applying the three colours to the entire document's style
-    document.documentElement.style.setProperty('--primary_color', p_c);
-    document.documentElement.style.setProperty('--secondary_color', s_c);
-    document.documentElement.style.setProperty('--tertiary_color', t_c);
-
-  </script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
         const element = document.getElementById("typewriter");
@@ -222,25 +162,34 @@
         
         function typeEffect() {
             if (index < text.length) {
-                element.innerHTML = text.substring(0, index + 1);  // Show part of text
+                element.innerHTML = text.substring(0, index + 1); 
                 index++;
-                setTimeout(typeEffect, 100);  // Typing speed
+                setTimeout(typeEffect, 100);
             } else {
-                setTimeout(resetEffect, 9000);  // Wait before resetting
+                setTimeout(resetEffect, 9000);
             }
         }
     
         function resetEffect() {
             index = 0;
-            element.innerHTML = "";  // Clear text
-            setTimeout(typeEffect, 500);  // Restart effect
+            element.innerHTML = "";
+            setTimeout(typeEffect, 500);
         }
     
-        typeEffect();  // Start the typing effect
+        typeEffect();
     });
     </script>
-    
+    <script>
 
+      let p_c = "{{user.theme.primary_color}}"; // primary colour from database
+      let s_c = "{{user.theme.secondary_color}}"; // secondary colour from database
+      let t_c = "{{user.theme.tertiary_color}}"; // tertiary colour from database
+
+      // applying the three colours to the entire document's style
+      document.documentElement.style.setProperty('--primary_color', p_c);
+      document.documentElement.style.setProperty('--secondary_color', s_c);
+      document.documentElement.style.setProperty('--tertiary_color', t_c);
+
+  </script>
 </body>
-
 </html>

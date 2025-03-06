@@ -1,23 +1,14 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThoughtThread | Settings</title>
-
-    <!-- style sheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-    <!-- icon -->
     <link rel="icon" href="{% static 'images/logos/thoughtthread-icon.png' %}">
-
 </head>
-
 <body>
-
     {% if messages %}
     <div class="message-container">
         {% for message in messages %}
@@ -28,10 +19,7 @@
         {% endfor %}
     </div>
     {% endif %}
-
-    <!-- header -->
     <header>
-
         <div id="header-logo">
             <a href="{% url 'index' %}">
                 <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread." width="35%">
@@ -50,16 +38,11 @@
                 {% endif %}
             </nav>
         </div>
-
     </header>
-
     <main id="settings-page">
-
         <div id="profile-settings">
-
             <h2>Profile</h2>
             <hr>
-
             <div class="box">
                 <div id="profile-img">
                     <img src="{% static 'images/button-icons/profile-icon.png' %}" alt="Profile Image" width="40%">
@@ -70,27 +53,21 @@
                     <a>Email: {{ user.email }}</a>
                 </div>
             </div>
-
         </div>
 
         <br><br>
 
         <div id="theme-settings">
-
             <h2>Themes</h2>
             <hr>
-
             <form action="{% url 'updateTheme' %}" method="POST">
-
                 {% csrf_token %}
-
                 <div>
                     <label for="primary_color">Primary Colour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 
                     <!-- Optionally prefill with the user's existing primary_color -->
                     <input type="color" name="primary_color" value="{{ user.theme.primary_color|default:'#383940' }}">
                 </div>
-
                 <div>
                     <label for="secondary_color">Secondary Colour&nbsp;&nbsp;</label>
                     <input type="color" name="secondary_color"
@@ -107,13 +84,11 @@
                 </div>
 
             </form>
-
         </div>
 
         <br><br>
 
         <div id="password-settings">
-
             <h2>Reset Password</h2>
             <hr>
             <br>
@@ -124,16 +99,13 @@
             <div class="settings-btn">
                 <a href="{% url 'changePass' %}"><button>Change Password</button></a>
             </div>
-
         </div>
 
 
         <br><br>
         <div id="account-settings">
-
             <h2>Account Settings</h2>
             <hr>
-
             <br>
             <h4>Delete all Journal Entries, Tags, and Attachments</h4>
             <br>
@@ -165,11 +137,8 @@
                     </button>
                 </div>
             </form>
-
         </div>
-
         <br><br><br><br>
-
     </main>
 
     <!-- footer -->
@@ -191,7 +160,6 @@
         </div>
     </footer>
 
-    <!-- for customised themes -->
     <script>
 
         let p_c = "{{user.theme.primary_color}}"; // primary colour from database
@@ -206,5 +174,4 @@
     </script>
 
 </body>
-
 </html>

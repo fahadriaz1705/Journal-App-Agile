@@ -1,25 +1,15 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThoughtThread | About Us</title>
-
-    <!-- stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-    <!-- icon -->
     <link rel="icon" href="{% static 'images/logos/thoughtthread-icon.png' %}">
-
 </head>
-
 <body>
-
     <header>
-
         <div id="header-logo">
           <a href="{% url 'index' %}">
             <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread." width="35%" class="blink-effect">
@@ -33,7 +23,7 @@
             <a href="{% url 'profSetting' %}"><button title="Settings">
               <img src="{% static 'images/button-icons/profile.png' %}" alt="Profile Settings">
             </button></a>
-    
+
             {% if user.is_authenticated %}
             <a href="{% url 'logOut' %}"><button title="Logout"><img src="{% static 'images/button-icons/logout.png' %}" alt="Logout"></button></a>
             {% endif %}
@@ -42,9 +32,7 @@
     
       </header>
     <main id="about-page">
-
         <section id="about-intro">
-
             <h1>Welcome to ThoughtThread</h1>
             <p>
                 ThoughtThread is more than just a journaling app it's a personalized sanctuary for self reflection,
@@ -52,24 +40,18 @@
                 mind,
                 ThoughtThread transforms journaling into a seamless, stress free, and enriching habit.
             </p>
-
         </section>
-
         <section id="about-mission">
-
             <h2>Our Mission</h2>
             <p>
                 We believe that journaling should be simple, expressive, and empowering.
                 ThoughtThread was created to provide a distraction free, customizable environment where users can
                 organize thoughts, express emotions, and track personal growth—all while feeling completely at ease.
             </p>
-
         </section>
 
         <section id="about-features">
-
             <h2>Why ThoughtThread?</h2>
-
             <div class="features-container">
                 <div class="feature-box">
                     <img src="{% static 'images/logos/thoughtthread-icon.png' %}" alt="Customization" class="blink-effect">
@@ -80,7 +62,6 @@
                         to reflect your mood and personality.
                     </p>
                 </div>
-
                 <div class="feature-box">
                     <img src="{% static 'images/logos/thoughtthread-icon.png' %}" alt="Customization" class="blink-effect">
                     <h3>Daily Writing Prompts</h3>
@@ -90,7 +71,6 @@
                         helping you stay consistent in your journaling journey.
                     </p>
                 </div>
-
                 <div class="feature-box">
                     <img src="{% static 'images/logos/thoughtthread-icon.png' %}" alt="Customization" class="blink-effect">
                     <h3>Privacy & Security</h3>
@@ -114,7 +94,6 @@
         </section>
 
         <section id="about-future">
-
             <h2>The Future of ThoughtThread</h2>
             <p>
                 We're just getting started! The first version of ThoughtThread is designed to be simple yet
@@ -131,7 +110,6 @@
                 We’re committed to evolving with our users, ensuring a meaningful and therapeutic journaling
                 experience.
             </p>
-
         </section>
 
         <section id="about-join">
@@ -159,13 +137,11 @@
             <a>&#169; ThoughtThread 2025</a>
         </div>
     </footer>
-
-    <!-- for customised themes -->
     <script>
 
-        let p_c = "{{user.theme.primary_color}}"; // primary colour from database
-        let s_c = "{{user.theme.secondary_color}}"; // secondary colour from database
-        let t_c = "{{user.theme.tertiary_color}}"; // tertiary colour from database
+        let p_c = "{{user.theme.primary_color}}"; 
+        let s_c = "{{user.theme.secondary_color}}"; 
+        let t_c = "{{user.theme.tertiary_color}}"; 
 
         // applying the three colours to the entire document's style
         document.documentElement.style.setProperty('--primary_color', p_c);
@@ -173,7 +149,5 @@
         document.documentElement.style.setProperty('--tertiary_color', t_c);
 
     </script>
-
 </body>
-
 </html>

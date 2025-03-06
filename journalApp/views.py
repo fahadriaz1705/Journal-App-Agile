@@ -46,7 +46,7 @@ def signUp(request):
         pass1 = request.POST.get('password1')
         pass2 = request.POST.get('password2')
 
-        # Check for existing user/ email
+
         if User.objects.filter(username=userName).exists():
             messages.error(request, 'This username already exists. Please try a different one.')
             return redirect('register')
@@ -55,7 +55,7 @@ def signUp(request):
             messages.error(request, 'This email already exists. Please try a different one.')
             return redirect('register')
 
-        # Some basic checks:
+
         if len(userName) > 10:
             messages.error(request, 'Username must be less than 10 characters.')
             return redirect('register')
@@ -74,7 +74,7 @@ def signUp(request):
                 messages.error(request, error)
             return redirect('register')
 
-        # If we reach here, the password is valid per Django's validators
+
         user = User.objects.create_user(username=userName, email=userEmail, password=pass1)
         user.save()
         messages.success(request, 'Your account has been successfully created')
@@ -92,11 +92,11 @@ def newEntry(request):
     return render(request,'journalApp/journalEntry.html',params)
 def createEntry(request):
     if request.method == 'POST':
-        # 1) Grab title and rich-text HTML from the form
-        title = request.POST.get('title')
-        content = request.POST.get('content')  # This is the raw HTML from the contenteditable div
 
-        # 2) Decide whether to use existing tag or create a new one
+        title = request.POST.get('title')
+        content = request.POST.get('content')  
+
+
         existTagId = request.POST.get('existingTag')
         newTagName = request.POST.get('newTag')
         if newTagName:
@@ -106,15 +106,14 @@ def createEntry(request):
         else:
             tag = None
 
-        # 3) Create the journal entry, storing the HTML
+
         newEnt = JournalEntry.objects.create(
             user=request.user,
             title=title,
-            content=content,  # <--- HTML is saved here
+            content=content,
             tag=tag
         )
 
-        # 4) Handle file uploads (if any)
         if 'attachment' in request.FILES:
             imgFile = request.FILES['attachment']
             Attachment.objects.create(
@@ -122,7 +121,7 @@ def createEntry(request):
                 image=imgFile
             )
 
-        # 5) Redirect or show success message
+
         messages.success(request, "Journal entry created successfully!")
         return redirect('index')
     else:
@@ -132,15 +131,14 @@ def profSetting(request):
     return render(request,'journalApp/settings.html')
 def viewEntry(request, entry_id):
     journal = JournalEntry.objects.get(pk=entry_id)
-    # Pass it to the template
+
     params = {'journal': journal}
     return render(request, 'journalApp/viewJournalEntry.html', params)
 def downloadEntry(request, entry_id):
-    # 1. Get the journal entry or raise 404
+
     journal = JournalEntry.objects.get(pk=entry_id)
 
-    # 2. Render HTML template for PDF content
-    # We'll pass 'journal' as context
+
     attachments = journal.attachments.all()
     attachmentUrl = [
         request.build_absolute_uri(a.image.url) for a in attachments
@@ -153,14 +151,13 @@ def downloadEntry(request, entry_id):
 
     htmlString = render(request, 'journalApp/pdf_template.html', context).content.decode('utf-8')
 
-    # 3. Create a PDF using xhtml2pdf
-    pdfFile = BytesIO()  # We'll write the PDF data into this file-like buffer
+
+    pdfFile = BytesIO() 
     pisa_status = pisa.CreatePDF(src=htmlString, dest=pdfFile)
 
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + htmlString + '</pre>')
     else:
-        # 4. Return the PDF as a download
         pdfFile.seek(0)  # Reset file pointer to start
         response = HttpResponse(pdfFile.read(), content_type='application/pdf')
         filename = f"{journal.title}.pdf"
@@ -168,17 +165,14 @@ def downloadEntry(request, entry_id):
         response['Content-Disposition'] = content_disposition
         return response
 def delEntry(request, entry_id):
-    # Ensure the user is authenticated
     if not request.user.is_authenticated:
         return redirect('logIn')
 
-    # Get the journal entry that belongs to the logged-in user
+
     journal = JournalEntry.objects.get(pk=entry_id)
 
-    # Delete the journal entry
     journal.delete()
 
-    # Show success message and redirect to index
     messages.success(request, "Journal entry deleted successfully.")
     return redirect('index')
 def changePass(request):
@@ -223,8 +217,6 @@ def updateTheme(request):
         tertiary = request.POST.get('tertiary_color')
 
         theme, created = Theme.objects.get_or_create(user=request.user)
-
-        # Update the colors
         theme.primary_color = primary
         theme.secondary_color = secondary
         theme.tertiary_color = tertiary
@@ -285,9 +277,8 @@ def zenQuotes(request):
         response.raise_for_status()
         quoteData = response.json()
 
-        # Ensure we return the correct format
         if isinstance(quoteData, list) and len(quoteData) > 0:
-            return JsonResponse(quoteData[0], safe=False)  # Send first object in array
+            return JsonResponse(quoteData[0], safe=False)
         else:
             return JsonResponse({'error': 'Invalid response format from ZenQuotes API'}, status=500)
 

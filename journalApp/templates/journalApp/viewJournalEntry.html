@@ -1,26 +1,15 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThoughtThread | View Journal Entry</title>
-
-    <!-- stylesheets -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-    <!-- icon -->
     <link rel="icon" href="{% static 'images/logos/thoughtthread-icon.png' %}">
-
 </head>
-
 <body>
-
-    <!-- header -->
     <header>
-
         <div id="header-logo">
             <a href="{% url 'index' %}">
                 <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread." width="35%" class="blink-effect">
@@ -43,11 +32,9 @@
                 {% endif %}
             </nav>
         </div>
-
     </header>
 
     <main id="view-entry-page">
-
         <div id="view-journal-title">
             <h3>{{ journal.title }}</h3>
         </div>
@@ -60,16 +47,12 @@
             {% endif %}
         </div>
         <hr>
-        
 
         <div id="view-journal-entry">
             <p>{{ journal.content|safe }}</p>
         </div>
-
         <br>
-
         <br>
-        <!-- Display attachments (if any) -->
         {% if journal.attachments.all %}
         <div class="attachment-section">
             <div class="attachment-container">
@@ -97,9 +80,7 @@
                 <button>Delete Entry</button>
             </a>
         </div>
-
     </main>
-
     <!-- footer -->
     <footer>
         <div>
@@ -113,20 +94,15 @@
             <a href="mailto:contact@thoughtthread.com">Contact</a>
         </div>
 
-
         <div id="ftr-cp">
             <a>&#169;ThoughtThread 2025</a>
         </div>
     </footer>
-
-    <!-- for customised themes -->
     <script>
 
-        let p_c = "{{user.theme.primary_color}}"; // primary colour from database
-        let s_c = "{{user.theme.secondary_color}}"; // secondary colour from database
-        let t_c = "{{user.theme.tertiary_color}}"; // tertiary colour from database
-
-        // applying the three colours to the entire document's style
+        let p_c = "{{user.theme.primary_color}}";
+        let s_c = "{{user.theme.secondary_color}}"; 
+        let t_c = "{{user.theme.tertiary_color}}";
         document.documentElement.style.setProperty('--primary_color', p_c);
         document.documentElement.style.setProperty('--secondary_color', s_c);
         document.documentElement.style.setProperty('--tertiary_color', t_c);
@@ -134,5 +110,4 @@
     </script>
 
 </body>
-
 </html>

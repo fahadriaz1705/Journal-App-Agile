@@ -1,26 +1,15 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThoughtThread | Journal Entry</title>
-
-    <!-- stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-    <!-- icon -->
     <link rel="icon" href="{% static 'images/logos/thoughtthread-icon.png' %}">
-
 </head>
-
 <body>
-
-
     <main id="main" class="journalentrypage">
-
         <div id="side-nav">
             <a href="{% url 'index' %}">
                 <button title="Dashboard">
@@ -42,29 +31,16 @@
             </a>
             {% endif %}
         </div>
-
-        <!-- Journal Entry Form -->
         <form action="{% url 'createEntry' %}" method="POST" id="journalForm" enctype="multipart/form-data">
-
             {% csrf_token %}
-
-            <!-- Journal Title -->
             <div class="form-group">
                 <input type="text" id="journalTitle" name="title" class="form-control" placeholder="Your Journal Entry Title" required>
             </div>
-
-            <!-- Journal Content (Hidden) -->
-            <!-- We'll store the HTML from the contenteditable div here on submit -->
             <textarea name="content" id="hiddenContent" style="display: none;"></textarea>
-
-            <!-- ContentEditable Div -->
             <div class="form-group">
                 <div id="journalContent" class="journal-content-editable" contenteditable="true" onfocus="clearPlaceholder()" onblur="restorePlaceholder()">Write your thoughts here...</div>
             </div>
             
-
-            <!-- Submit Button -->
-            <!-- We'll intercept the form submission to copy the contenteditable HTML into #hiddenContent -->
             <div class="form-group mt-3" id="save-btn">
                 <button type="submit" class="btn btn-primary" onclick="prepareSubmission(event)">
                     Create Journal Entry
@@ -72,8 +48,6 @@
             </div>
 
             <div id="tags-section">
-    
-                <!-- Centered Tag Selection -->
                 <div class="form-group">
                     <label for="existingTag">Choose a Tag</label>
                     <div class="dropdown-container">
@@ -87,10 +61,8 @@
                         </select>
                     </div>
                 </div>
-            
                 <br>
-            
-                <!-- Centered New Tag Input -->
+
                 <div class="form-group">
                     <label for="newTag">Create a New Tag</label>
                     <div class="new-tag-input">
@@ -98,19 +70,13 @@
                         <button type="button" class="btn-add-tag">+</button>
                     </div>
                 </div>
-            
             </div>
-            
-            
 
             <br>
 
-            <!-- Attachments Section -->
             <div id="attachment-container">
-                
                 {% if journal.attachments.all %}
                     <h4 class="attachment-header">Attachment</h4>
-
                     <div class="attachments-grid">
                         {% for attach in journal.attachments.all %}
                         <div class="attachment-item">
@@ -119,7 +85,6 @@
                         {% endfor %}
                     </div>
 
-                    <!-- Remove Attachment Checkbox -->
                     <div class="remove-attachment">
                         <label for="remove_attachment">
                             <input type="checkbox" id="remove_attachment" name="remove_attachment">
@@ -130,77 +95,51 @@
                     <p class="no-attachments">No attachments.</p>
                 {% endif %}
 
-                <!-- New Attachment Upload -->
                 <div class="form-group upload-container">
                     <label for="new_attachment" class="upload-label">Upload Attachment (optional)</label>
                     <input type="file" id="new_attachment" name="new_attachment" accept="image/*" class="upload-input">
                 </div>
-
             </div>
-
         </form>
 
-        <!-- ToolBar -->
         <div class="toolbar">
-
-            <!-- Increase font size button -->
             <button onclick="changeSize('up')" title="Increase font size">
                 <img src="{% static 'images/toolbar-icons/font-size-up.png' %}" alt="Increase Font Size">
             </button><br>
-
-            <!-- Decrease font size button -->
             <button onclick="changeSize('down')" title="Decrease font size">
                 <img src="{% static 'images/toolbar-icons/font-size-down.png' %}" alt="Decrease Font Size">
             </button><br>
-
-            <!-- Make text bold button -->
             <button onclick="formatText('bold')" title="Bold Font">
                 <img src="{% static 'images/toolbar-icons/bold.png' %}" alt="Bold">
             </button><br>
-
-            <!-- Make text Italic button -->
             <button onclick="formatText('italic')" title="Italic Font">
                 <img src="{% static 'images/toolbar-icons/italic.png' %}" alt="Italic">
             </button><br>
-
-            <!-- Make text Underline button -->
             <button onclick="formatText('underline')" title="Underline Font">
                 <img src="{% static 'images/toolbar-icons/underline.png' %}" alt="Underline">
             </button><br>
-
-            <!-- Insert Bullet Points button -->
             <button onclick="addLists('bullet')" title="Bullet Points">
                 <img src="{% static 'images/toolbar-icons/bullet-points.png' %}" alt="Bullet-Points">
             </button><br>
-
-            <!-- Insert Numbered Points button -->
             <button onclick="addLists('numbered')" title="Numbered Points">
                 <img src="{% static 'images/toolbar-icons/numbered points.png' %}" alt="Numbered-List">
             </button><br>
-
         </div>
 
         <div id="fixed-logo">
             <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread." width="30%">
         </div>
-
     </main>
 
-    <!-- JS Scripts -->
     <script src="{% static 'scripts/text-format.js' %}"></script>
-
-    <!-- Additional inline script for grabbing the content from the contenteditable div -->
     <script>
         function prepareSubmission (event) {
-            // Copy HTML content from the contenteditable div to the hidden textarea
             const editor = document.getElementById('journalContent');
             const hidden = document.getElementById('hiddenContent');
             hidden.value = editor.innerHTML;
-            // Then the form will submit as normal
+
         }
     </script>
-
-    <!-- for customised themes -->
     <script>
 
         let p_c = "{{user.theme.primary_color}}"; // primary colour from database
@@ -219,26 +158,23 @@
         
             function clearPlaceholder() {
                 if (editor.textContent.trim() === "Write your thoughts here...") {
-                    editor.textContent = "";  // Remove placeholder text
-                    editor.style.color = "#fff"; // Change text color to black
+                    editor.textContent = "";
+                    editor.style.color = "#fff";
                 }
             }
         
             function restorePlaceholder() {
                 if (editor.textContent.trim() === "") {
                     editor.textContent = "Write your thoughts here...";
-                    editor.style.color = "#fff"; // Gray placeholder text
+                    editor.style.color = "#fff";
                 }
             }
-        
-            // Ensure placeholder is applied when page loads
+
             restorePlaceholder();
-            
-            // Assign functions globally for inline event listeners
+
             window.clearPlaceholder = clearPlaceholder;
             window.restorePlaceholder = restorePlaceholder;
         });
         </script>
 </body>
-
 </html>

@@ -1,26 +1,15 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
     <title>ThoughtThread | Edit Journal Entry</title>
-
-    <!-- stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-    <!-- icon -->
     <link rel="icon" href="{% static 'images/logos/thoughtthread-icon.png' %}">
-
 </head>
-
 <body>
 
-        
-
     <main id="main" class="journalentrypage">
-
         <div id="side-nav">
             <a href="{% url 'index' %}">
                 <button title="Dashboard">
@@ -42,28 +31,20 @@
             </a>
             {% endif %}
         </div>
-
-        <!-- Edit Journal Entry Form -->
-        <!-- Notice the action points to 'editEntry' with the journal.entry_id -->
+    
         <form action="{% url 'editEntry' journal.entry_id %}" method="POST" id="journalForm" enctype="multipart/form-data">
             {% csrf_token %}
-
-            <!-- Journal Title -->
             <div class="form-group">
                 <input type="text" id="journalTitle" name="title" class="form-control" value="{{ journal.title }}" required>
             </div>
-
-            <!-- Hidden Textarea to Store HTML -->
             <textarea name="content" id="hiddenContent" style="display: none;"></textarea>
 
-            <!-- ContentEditable Div Preloaded with the existing HTML content -->
             <div class="form-group">
                 <div id="journalContent" class="journal-content-editable" contenteditable="true">
                     {{ journal.content|safe }}
                 </div>
             </div>
 
-            <!-- Submit Button -->
             <div class="form-group mt-3" id="save-btn">
                 <button type="submit" class="btn btn-primary" onclick="prepareSubmission(event)">
                     Update Journal
@@ -71,8 +52,6 @@
             </div>
 
             <div id="tags-section">
-    
-                <!-- Centered Tag Selection -->
                 <div class="form-group">
                     <label for="existingTag">Choose a Tag</label>
                     <div class="dropdown-container">
@@ -88,8 +67,7 @@
                 </div>
             
                 <br>
-            
-                <!-- Centered New Tag Input -->
+
                 <div class="form-group">
                     <label for="newTag">Create a New Tag</label>
                     <div class="new-tag-input">
@@ -100,16 +78,11 @@
             
             </div>
             
-            
-
             <br>
 
-            <!-- Attachments Section -->
             <div id="attachment-container">
-                
                 {% if journal.attachments.all %}
                     <h4 class="attachment-header">Attachment</h4>
-
                     <div class="attachments-grid">
                         {% for attach in journal.attachments.all %}
                         <div class="attachment-item">
@@ -118,7 +91,6 @@
                         {% endfor %}
                     </div>
 
-                    <!-- Remove Attachment Checkbox -->
                     <div class="remove-attachment">
                         <label for="remove_attachment">
                             <input type="checkbox" id="remove_attachment" name="remove_attachment">
@@ -129,15 +101,11 @@
                     <p class="no-attachments">No attachments.</p>
                 {% endif %}
 
-                <!-- New Attachment Upload -->
                 <div class="form-group upload-container">
                     <label for="new_attachment" class="upload-label">Upload Attachment (optional)</label>
                     <input type="file" id="new_attachment" name="new_attachment" accept="image/*" class="upload-input">
                 </div>
-
             </div>
-
-
         </form>
 
             <div class="toolbar">
@@ -173,30 +141,23 @@
         <div id="fixed-logo">
             <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread." width="30%">
         </div>
-
     </main>
 
-    <!-- Scripts -->
     <script src="{% static 'scripts/sidenav.js' %}"></script>
     <script src="{% static 'scripts/text-format.js' %}"></script>
     <script>
-        // Just like in your create page, we copy the contenteditable HTML to the hidden textarea on submit
         function prepareSubmission (event) {
             const editor = document.getElementById('journalContent');
             const hidden = document.getElementById('hiddenContent');
             hidden.value = editor.innerHTML;
-            // Then the form will submit normally
+
         }
     </script>
-
-    <!-- for customised themes -->
     <script>
 
-        let p_c = "{{user.theme.primary_color}}"; // primary colour from database
-        let s_c = "{{user.theme.secondary_color}}"; // secondary colour from database
-        let t_c = "{{user.theme.tertiary_color}}"; // tertiary colour from database
-
-        // applying the three colours to the entire document's style
+        let p_c = "{{user.theme.primary_color}}";
+        let s_c = "{{user.theme.secondary_color}}"; 
+        let t_c = "{{user.theme.tertiary_color}}"; 
         document.documentElement.style.setProperty('--primary_color', p_c);
         document.documentElement.style.setProperty('--secondary_color', s_c);
         document.documentElement.style.setProperty('--tertiary_color', t_c);
