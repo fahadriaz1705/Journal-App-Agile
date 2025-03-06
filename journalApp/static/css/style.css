@@ -804,3 +804,21 @@ button {
 button:hover {
     background: var(--secondary_color);
 }
+
+/* Fade-in effect for the logo */
+.fade-in-logo {
+    opacity: 0;            /* Initially hidden */
+    transform: translateY(-60px);  /* Slight upward position */
+    animation: fadeIn 3s ease-out forwards;  /* Apply animation */
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-60px);  /* Start slightly above */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);  /* Return to normal position */
+    }
+}
