@@ -331,22 +331,49 @@ footer img {
     color: white;
 }
 
+/* Side Navigation */
 #side-nav {
     position: fixed;
     top: 4.5%;
     left: 96.5%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Adds spacing between buttons */
 }
 
+/* Button Styling */
 #side-nav button {
     background-color: transparent;
-    max-width: 30px;
+    max-width: 50px; /* Increased size for better visibility */
     border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    transition: background 0.3s ease-in-out;
 }
 
+/* Ensuring Images are Always Visible */
+#side-nav button img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover Effect */
 #side-nav button:hover {
     background-image: radial-gradient(var(--tertiary_color), var(--secondary_color), var(--secondary_color));
+    border-radius: 50%;
     cursor: pointer;
+    padding: 10px; /* Ensures padding does not shrink */
 }
+
+/* Hover Effect for Image - Ensures Visibility */
+#side-nav button:hover img {
+    transform: scale(1.1); /* Slight zoom effect */
+    filter: brightness(1.2); /* Ensures better visibility */
+}
+
 
 #main form input,
 #journalContent {
