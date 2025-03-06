@@ -18,5 +18,7 @@ urlpatterns = [
      path('entry/<int:entry_id>/edit/', views.editEntry, name='editEntry'),
      path('zenQuote/', views.zenQuotes, name='zenQuotes'),
      path('aboutUs/', views.aboutUs, name='aboutUs'),
+     path('entry/<int:entry_id>/delete/', views.delEntry, name='delEntry'),
+
      
 ]

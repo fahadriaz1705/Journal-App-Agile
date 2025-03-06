@@ -852,10 +852,18 @@ footer img {
     background-color: white;
     padding: 3%;
     border-radius: 10px;
-    height: 82%;
-    overflow: hidden;
+    min-height: 50px; /* Ensures it has space but doesn't take up too much */
+    max-height: 82%;
+    overflow-y: auto; /* Enables scrolling only when necessary */
     color: var(--secondary_color);
 }
+
+/* Hide scrollbar when no entries exist */
+#latest-entry:empty {
+    display: none; /* Hides the section when it's empty */
+}
+
+
 
 #latest-entry p {
     font-family: Evolventa;
@@ -872,10 +880,11 @@ footer img {
     color: var(--tertiary_color);
 }
 
+/* Limit the text display area */
 #latest-journal-entry {
     line-height: 1.5;
     max-height: 4em;
-    overflow: hidden;
+    overflow-y: hidden;
 }
 
 /* messages */

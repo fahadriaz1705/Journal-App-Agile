@@ -167,6 +167,20 @@ def downloadEntry(request, entry_id):
         content_disposition = f'attachment; filename="{filename}"'
         response['Content-Disposition'] = content_disposition
         return response
+def delEntry(request, entry_id):
+    # Ensure the user is authenticated
+    if not request.user.is_authenticated:
+        return redirect('logIn')
+
+    # Get the journal entry that belongs to the logged-in user
+    journal = JournalEntry.objects.get(pk=entry_id)
+
+    # Delete the journal entry
+    journal.delete()
+
+    # Show success message and redirect to index
+    messages.success(request, "Journal entry deleted successfully.")
+    return redirect('index')
 def changePass(request):
     if not request.user.is_authenticated:
         return redirect('home')
