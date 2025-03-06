@@ -98,7 +98,7 @@
       <div id="activity">
 
         <div id="greeting">
-          <h2>Welcome <br>{{ user.username }}!</h2>
+          <h2 id="typewriter"></h2>
           <br>
           <p><strong>Today is:</strong> {{ today|date:"M d, Y" }}</p>
         </div>
@@ -214,6 +214,32 @@
     document.documentElement.style.setProperty('--tertiary_color', t_c);
 
   </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const element = document.getElementById("typewriter");
+        const text = "Welcome {{ user.username }}!";
+        let index = 0;
+        
+        function typeEffect() {
+            if (index < text.length) {
+                element.innerHTML = text.substring(0, index + 1);  // Show part of text
+                index++;
+                setTimeout(typeEffect, 100);  // Typing speed
+            } else {
+                setTimeout(resetEffect, 9000);  // Wait before resetting
+            }
+        }
+    
+        function resetEffect() {
+            index = 0;
+            element.innerHTML = "";  // Clear text
+            setTimeout(typeEffect, 500);  // Restart effect
+        }
+    
+        typeEffect();  // Start the typing effect
+    });
+    </script>
+    
 
 </body>
 
