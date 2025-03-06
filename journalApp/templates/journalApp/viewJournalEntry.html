@@ -72,20 +72,16 @@
 
 
         <br>
-        <hr>
         <!-- Display attachments (if any) -->
         {% if journal.attachments.all %}
-        <h3>Attachments:</h3>
-        {% for attachment in journal.attachments.all %}
-        <div>
-            <img src="{{ attachment.image.url }}" alt="Attachment">
+        <div class="attachment-section">
+            <div class="attachment-container">
+                <img src="{{ journal.attachments.first.image.url }}" alt="Attachment">
+            </div>
         </div>
-        {% endfor %}
-        {% else %}
-        <p><em>No attachments.</em></p>
         {% endif %}
 
-        <br>
+
         <div id="journal-dates">
             <span class="date-pill"><strong>Created at:</strong> {{ journal.created_at }}</span>
             <span class="date-pill"><strong>Last updated:</strong> {{ journal.updated_at }}</span>
