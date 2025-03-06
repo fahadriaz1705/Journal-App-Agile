@@ -16,16 +16,6 @@
 </head>
 
 <body>
-    {% if messages %}
-    <div class="message-container">
-        {% for message in messages %}
-        <div class="alert 
-                {% if message.tags %}alert-{{ message.tags }}{% endif %}">
-            {{ message }}
-        </div>
-        {% endfor %}
-    </div>
-    {% endif %}
 
     <main id="main" class="journalentrypage">
 
@@ -87,11 +77,12 @@
                     <select id="existingTag" name="existingTag" class="form-control">
                         <option value="">-- Select a tag --</option>
                         {% for tag in all_tags %}
-                        <option value="{{ tag.tag_id }}" {% if journal.tag and journal.tag.tag_id==tag.tag_id %}selected{% endif %}>
-                            {{ tag.name }}
-                        </option>
+                            <option value="{{ tag.tag_id }}" {% if journal.tag and journal.tag.tag_id == tag.tag_id %}selected{% endif %}>
+                                {{ tag.name }}
+                            </option>
                         {% endfor %}
                     </select>
+
                 </div>
 
                 <br>
