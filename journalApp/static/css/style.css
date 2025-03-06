@@ -585,8 +585,10 @@ footer img {
 }
 
 #prompt-heading button:hover {
-    background-image: radial-gradient(var(--tertiary_color), var(--secondary_color), var(--secondary_color));
-    cursor: pointer;
+    background-image: radial-gradient(farthest-side at 50% 50%, var(--tertiary_color), var(--secondary_color), var(--primary_color));
+    border-radius: 50%;
+    
+    
 }
 
 #prompt {
