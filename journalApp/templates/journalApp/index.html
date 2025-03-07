@@ -184,12 +184,19 @@
       let p_c = "{{user.theme.primary_color}}"; // primary colour from database
       let s_c = "{{user.theme.secondary_color}}"; // secondary colour from database
       let t_c = "{{user.theme.tertiary_color}}"; // tertiary colour from database
-
+  
+      // setting default colours since the strings are empty when a new account is made
+      if (p_c.length == 0 && s_c.length == 0 && t_c.length == 0) {
+        p_c = '#383940';
+        s_c = '#43545b';
+        t_c = '#7b96a2';
+      }
+  
       // applying the three colours to the entire document's style
       document.documentElement.style.setProperty('--primary_color', p_c);
       document.documentElement.style.setProperty('--secondary_color', s_c);
       document.documentElement.style.setProperty('--tertiary_color', t_c);
-
-  </script>
+  
+    </script>
 </body>
 </html>
