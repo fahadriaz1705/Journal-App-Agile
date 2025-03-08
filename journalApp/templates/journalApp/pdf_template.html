@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ journal.title }}</title>
+    
+    <!-- applying basic styles -->
     <style>
        body {
          font-family: sans-serif;
@@ -18,22 +20,28 @@
     </style>
 </head>
 <body>
+
+    <!-- displaying the journal title -->
     <h1>{{ journal.title }}</h1>
 
-    <!-- If your content is HTML, be sure to use the 'safe' filter if it's stored as HTML -->
+    <!-- displaying the journal content -->
+    <!-- using the 'safe' filter to allow rendering of stored html content -->
     <div>
         {{ journal.content|safe }}
     </div>
 
+    <!-- displaying the tag associated with the journal -->
     <p><strong>Tag:</strong> 
        {% if journal.tag %}{{ journal.tag.name }}{% else %}No tag{% endif %}
     </p>
 
+    <!-- displaying the journal attachments if they exist -->
     <p>
       <strong>Attachments:</strong>
       {% if journal.attachments.all %}
         <ul>
             {% for attachUrl in attachmentUrl %}
+            <!-- displaying each attachment with a maximum width constraint -->
             <img src="{{ attachUrl }}" style="max-width: 300px;" />
             {% endfor %}
         </ul>
@@ -42,9 +50,11 @@
       {% endif %}
     </p>
 
+    <!-- displaying journal creation and last updated timestamps -->
     <p>
       <strong>Created at:</strong> {{ journal.created_at }}<br>
       <strong>Last updated:</strong> {{ journal.updated_at }}
     </p>
+
 </body>
 </html>

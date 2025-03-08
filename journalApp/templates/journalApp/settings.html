@@ -5,10 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThoughtThread | Settings</title>
+    
+    <!-- linking the main stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <!-- setting the website favicon -->
     <link rel="icon" href="{% static 'images/logos/thoughtthread-icon.png' %}">
 </head>
 <body>
+
+    <!-- display success or error messages if any -->
     {% if messages %}
     <div class="message-container">
         {% for message in messages %}
@@ -19,18 +25,24 @@
         {% endfor %}
     </div>
     {% endif %}
+
+    <!-- header section -->
     <header>
+        <!-- logo section -->
         <div id="header-logo">
             <a href="{% url 'index' %}">
                 <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread." width="35%">
             </a>
         </div>
 
+        <!-- navigation bar -->
         <div id="header-nav">
             <nav>
+                <!-- dashboard button -->
                 <a href="{% url 'index' %}"><button title="Dashboard"><img
                             src="{% static 'images/button-icons/dashboard.png' %}" alt="Dashboard"></button></a>
 
+                <!-- logout button (only visible if user is authenticated) -->
                 {% if user.is_authenticated %}
                 <a href="{% url 'logOut' %}"><button title="Logout">
                     <img src="{% static 'images/button-icons/logout.png' %}" alt="Logout">
@@ -39,15 +51,21 @@
             </nav>
         </div>
     </header>
+
+    <!-- main settings page -->
     <main id="settings-page">
+
+        <!-- profile settings section -->
         <div id="profile-settings">
             <h2>Profile</h2>
             <hr>
             <div class="box">
+                <!-- profile image -->
                 <div id="profile-img">
                     <img src="{% static 'images/button-icons/profile-icon.png' %}" alt="Profile Image" width="40%">
                 </div>
 
+                <!-- displaying user details -->
                 <div id="profile-details">
                     <a>Username: {{ user.username }}</a><br>
                     <a>Email: {{ user.email }}</a>
@@ -57,28 +75,33 @@
 
         <br><br>
 
+        <!-- theme customization section -->
         <div id="theme-settings">
             <h2>Themes</h2>
             <hr>
             <form action="{% url 'updateTheme' %}" method="POST">
                 {% csrf_token %}
+                
+                <!-- primary color picker -->
                 <div>
                     <label for="primary_color">Primary Colour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-
-                    <!-- Optionally prefill with the user's existing primary_color -->
                     <input type="color" name="primary_color" value="{{ user.theme.primary_color|default:'#383940' }}">
                 </div>
+
+                <!-- secondary color picker -->
                 <div>
                     <label for="secondary_color">Secondary Colour&nbsp;&nbsp;</label>
                     <input type="color" name="secondary_color"
                         value="{{ user.theme.secondary_color|default:'#43545b' }}">
                 </div>
+
+                <!-- tertiary color picker -->
                 <div>
-                    <label for="tertiary_color">Tertiary
-                        Colour&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <label for="tertiary_color">Tertiary Colour&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                     <input type="color" name="tertiary_color" value="{{ user.theme.tertiary_color|default:'#7b96a2' }}">
                 </div>
 
+                <!-- apply theme button -->
                 <div class="settings-btn">
                     <button type="submit" class="btn btn-success w-100">Apply Theme</button>
                 </div>
@@ -88,6 +111,7 @@
 
         <br><br>
 
+        <!-- password reset section -->
         <div id="password-settings">
             <h2>Reset Password</h2>
             <hr>
@@ -96,17 +120,21 @@
                 secure page where you can enter and update your new password. Make sure to choose a strong and unique
                 password to keep your account safe.</a>
 
+            <!-- change password button -->
             <div class="settings-btn">
                 <a href="{% url 'changePass' %}"><button>Change Password</button></a>
             </div>
         </div>
 
-
         <br><br>
+
+        <!-- account management section -->
         <div id="account-settings">
             <h2>Account Settings</h2>
             <hr>
             <br>
+
+            <!-- delete all journal data -->
             <h4>Delete all Journal Entries, Tags, and Attachments</h4>
             <br>
             <a>Warning: Pressing this button will permanently delete all your Journal Entries, Tags, and Attachments.
@@ -122,12 +150,13 @@
                 </div>
             </form>
 
+            <!-- delete account section -->
             <h4>Delete Account</h4>
             <br>
             <a>Warning: Deleting your account will permanently erase all your data, including Journal Entries, Tags,
                 Attachments, and any other associated information. This action cannot be undone. Once deleted, your
-                account and all related data will
-                be gone forever.</a>
+                account and all related data will be gone forever.</a>
+
             <form action="{% url 'delAccount' %}" method="POST">
                 {% csrf_token %}
                 <div class="settings-btn">
@@ -141,25 +170,28 @@
         <br><br><br><br>
     </main>
 
-    <!-- footer -->
+    <!-- footer section -->
     <footer>
         <div>
             <a href="{% url 'index' %}">
                 <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread.">
             </a>
         </div>
+        
+        <!-- footer navigation -->
         <div id="ftr-nav">
             <a href="{% url 'index' %}">Home</a>
             <a href="{% url 'aboutUs' %}">About</a>
             <a href="mailto:contact@thoughtthread.com">Contact</a>
         </div>
 
-
+        <!-- copyright information -->
         <div id="ftr-cp">
-            <a>&#169;ThoughtThread 2025</a>
+            <a>&#169; ThoughtThread 2025</a>
         </div>
     </footer>
 
+    <!-- theme customization script -->
     <script>
 
         let p_c = "{{user.theme.primary_color}}"; // primary colour from database
@@ -178,7 +210,7 @@
         document.documentElement.style.setProperty('--secondary_color', s_c);
         document.documentElement.style.setProperty('--tertiary_color', t_c);
     
-      </script>
+    </script>
 
 </body>
 </html>

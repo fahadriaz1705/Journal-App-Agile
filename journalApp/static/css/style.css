@@ -338,13 +338,13 @@ footer img {
     left: 96.5%;
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Adds spacing between buttons */
+    gap: 15px; 
 }
 
 /* Button Styling */
 #side-nav button {
     background-color: transparent;
-    max-width: 50px; /* Increased size for better visibility */
+    max-width: 50px; 
     border: none;
     display: flex;
     align-items: center;
@@ -365,13 +365,13 @@ footer img {
     background-image: radial-gradient(var(--tertiary_color), var(--secondary_color), var(--secondary_color));
     border-radius: 50%;
     cursor: pointer;
-    padding: 10px; /* Ensures padding does not shrink */
+    padding: 10px; 
 }
 
 /* Hover Effect for Image - Ensures Visibility */
 #side-nav button:hover img {
-    transform: scale(1.1); /* Slight zoom effect */
-    filter: brightness(1.2); /* Ensures better visibility */
+    transform: scale(1.1); 
+    filter: brightness(1.2);
 }
 
 
@@ -402,19 +402,19 @@ footer img {
 
 /* Toolbar Container - Position it to the Left */
 .toolbar {
-    position: fixed; /* Keeps it fixed while scrolling */
-    left: 10px; /* Aligns it close to the left side */
-    top: 50%; /* Centers it vertically */
-    transform: translateY(-50%); /* Ensures it stays centered */
+    position: fixed; 
+    left: 10px; 
+    top: 50%; 
+    transform: translateY(-50%); 
     display: flex;
-    flex-direction: column; /* Stacks buttons vertically */
+    flex-direction: column; 
     align-items: center;
-    gap: 10px; /* Space between buttons */
+    gap: 10px; 
     
     padding: 10px;
     border-radius: 12px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Keeps it above other elements */
+    z-index: 1000;
 }
 
 /* Maintain Button Styles */
@@ -433,7 +433,7 @@ footer img {
     height: 32px;
 }
 
-/* Hover Effect (Maintains Original Style) */
+/* Hover Effect  */
 .toolbar button:hover {
     background-color: var(--tertiary_color);
 }
@@ -461,7 +461,7 @@ footer img {
 
 /* Style the Dropdown */
 .tag-dropdown {
-    width: 250px;  /* Adjust width as needed */
+    width: 250px;
     padding: 10px;
     border-radius: 8px;
     border: 1px solid var(--secondary_color);
@@ -470,14 +470,14 @@ footer img {
     text-align: center;
     cursor: pointer;
     transition: background 0.3s ease-in-out;
-    color: white;
+    color: rgb(255, 255, 255);
 
 }
 
 /* Hover Effect */
 .tag-dropdown:hover {
     background-color: var(--tertiary_color);
-    color: white;
+    color: rgb(black);
 }
 
 /* Centering the New Tag Input */
@@ -519,8 +519,8 @@ footer img {
 
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center items horizontally */
-    justify-content: center; /* Center items vertically */
+    align-items: center;
+    justify-content: center; 
     text-align: center;
     text-align: center;
     margin: 20px;
@@ -681,7 +681,6 @@ footer img {
     max-height: 55%;
     overflow-y: auto;
     overflow-x: hidden;
-    /* overflow-y: scroll; */
     text-align: center;
     flex-grow: 1;
 }
@@ -712,9 +711,9 @@ footer img {
     background: var(--primary_color); 
 }
 
-/* Scrollbar thumb (draggable part) */
+/* Scrollbar thumb  */
 #entries-list::-webkit-scrollbar-thumb {
-    background: var(--tertiary_color); /* Thumb color */
+    background: var(--tertiary_color);
     border-radius: 10px;
 }
 
@@ -852,15 +851,15 @@ footer img {
     background-color: white;
     padding: 3%;
     border-radius: 10px;
-    min-height: 50px; /* Ensures it has space but doesn't take up too much */
+    min-height: 50px;
     max-height: 82%;
-    overflow-y: auto; /* Enables scrolling only when necessary */
+    overflow-y: auto; 
     color: var(--secondary_color);
 }
 
 /* Hide scrollbar when no entries exist */
 #latest-entry:empty {
-    display: none; /* Hides the section when it's empty */
+    display: none; 
 }
 
 
@@ -988,9 +987,9 @@ footer img {
     padding: 12px 18px;
     margin: 8px 0;
     width: 60%;
-    text-align: center; /* Centers text inside */
+    text-align: center; 
     display: flex;
-    justify-content: center; /* Ensures text and icon are centered */
+    justify-content: center; 
     align-items: center;
     gap: 10px;
 }
@@ -1030,19 +1029,19 @@ button:hover {
 
 /* Fade-in effect for the logo */
 .fade-in-logo {
-    opacity: 0;            /* Initially hidden */
-    transform: translateY(-60px);  /* Slight upward position */
-    animation: fadeIn 3s ease-out forwards;  /* Apply animation */
+    opacity: 0;
+    transform: translateY(-60px);  
+    animation: fadeIn 3s ease-out forwards;  
 }
 
 @keyframes fadeIn {
     0% {
         opacity: 0;
-        transform: translateY(-60px);  /* Start slightly above */
+        transform: translateY(-60px); 
     }
     100% {
         opacity: 1;
-        transform: translateY(0);  /* Return to normal position */
+        transform: translateY(0); 
     }
 }
 .scale-fade-in {
@@ -1072,43 +1071,43 @@ button:hover {
 /* Oval Button Style for Tags */
 .tag-pill {
     display: inline-block;
-    background-color: var(--tertiary_color);  /* Use theme color */
-    color: var(--primary_color);  /* Text color */
+    background-color: var(--tertiary_color);  
+    color: var(--primary_color); 
     font-size: 16px;
     font-weight: bold;
-    padding: 6px 20px;  /* Adds padding inside */
-    border-radius: 20px;  /* Creates an oval shape */
+    padding: 6px 20px; 
+    border-radius: 20px;  
     text-align: center;
     margin: 5px;
     margin-top: 0px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Adds a slight shadow */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); 
     
 }
 
 #tagJournal {
     display: flex;
-    justify-content: center;  /* Centers horizontally */
-    align-items: center;  /* Centers vertically if needed */
+    justify-content: center; 
+    align-items: center; 
     margin-top: 0px;
 }
 
 /* Container for date pills */
 #journal-dates {
-    display: flex;  /* Aligns items side by side */
-    justify-content: center;  /* Centers them horizontally */
-    gap: 15px;  /* Space between the two pills */
+    display: flex; 
+    justify-content: center;  
+    gap: 15px; 
     margin-top: 15px;
 }
 
 /* Oval Style for Dates */
 .date-pill {
     display: inline-block;
-    background-color: var(--primary_color);  /* Background from theme */
-    color: var(--tertiary_color);  /* Text color */
+    background-color: var(--primary_color);  
+    color: var(--tertiary_color); 
     font-size: 14px;
     font-weight: bold;
     padding: 8px 16px;
-    border-radius: 30px;  /* Makes it oval */
+    border-radius: 30px;  
     text-align: center;
 }
 /* Attachment Section */
@@ -1119,19 +1118,19 @@ button:hover {
 
 /* Container for the single attachment */
 .attachment-container {
-    width: 100%;  /* Full width */
-    max-width: 700px;  /* Limit max size */
-    height: auto;  /* Maintain aspect ratio */
-    margin: 0 auto;  /* Center the image */
-    overflow: hidden;  /* Prevents overflow */
-    border-radius: 10px;  /* Rounded corners */
+    width: 100%;  
+    max-width: 700px; 
+    height: auto;  
+    margin: 0 auto; 
+    overflow: hidden; 
+    border-radius: 10px;  
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Ensuring the image scales properly */
 .attachment-container img {
-    width: 100%;  /* Full width */
-    height: auto;  /* Maintain aspect ratio */
-    display: block;  /* Removes extra spacing below images */
-    border-radius: 10px;  /* Matches container */
+    width: 100%; 
+    height: auto; 
+    display: block; 
+    border-radius: 10px; 
 }

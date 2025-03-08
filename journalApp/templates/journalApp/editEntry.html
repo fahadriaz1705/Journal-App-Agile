@@ -4,25 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <title>ThoughtThread | Edit Journal Entry</title>
+    <!-- linking main stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- setting the website favicon -->
     <link rel="icon" href="{% static 'images/logos/thoughtthread-icon.png' %}">
 </head>
 <body>
 
     <main id="main" class="journalentrypage">
+
+        <!-- side navigation panel -->
         <div id="side-nav">
+            <!-- button to return to dashboard -->
             <a href="{% url 'index' %}">
                 <button title="Dashboard">
                     <img src="{% static 'images/button-icons/dashboard.png' %}" alt="Dashboard" width="80%">
                 </button>
             </a>
             <br><br>
+
+            <!-- button to open settings page -->
             <a href="{% url 'profSetting' %}">
                 <button title="Settings">
                     <img src="{% static 'images/button-icons/profile.png' %}" alt="Profile" width="95%">
                 </button>
             </a>
             <br><br>
+
+            <!-- logout button, only displayed if user is logged in -->
             {% if user.is_authenticated %}
             <a href="{% url 'logOut' %}">
                 <button title="Logout">
@@ -32,25 +41,33 @@
             {% endif %}
         </div>
     
+        <!-- journal editing form -->
         <form action="{% url 'editEntry' journal.entry_id %}" method="POST" id="journalForm" enctype="multipart/form-data">
             {% csrf_token %}
+
+            <!-- journal title input -->
             <div class="form-group">
                 <input type="text" id="journalTitle" name="title" class="form-control" value="{{ journal.title }}" required>
             </div>
+
+            <!-- hidden textarea to store formatted html content -->
             <textarea name="content" id="hiddenContent" style="display: none;"></textarea>
 
+            <!-- contenteditable div preloaded with journal entry -->
             <div class="form-group">
                 <div id="journalContent" class="journal-content-editable" contenteditable="true">
                     {{ journal.content|safe }}
                 </div>
             </div>
 
+            <!-- update journal entry button -->
             <div class="form-group mt-3" id="save-btn">
                 <button type="submit" class="btn btn-primary" onclick="prepareSubmission(event)">
                     Update Journal
                 </button>
             </div>
 
+            <!-- tag selection section -->
             <div id="tags-section">
                 <div class="form-group">
                     <label for="existingTag">Choose a Tag</label>
@@ -68,6 +85,7 @@
             
                 <br>
 
+                <!-- create a new tag input field -->
                 <div class="form-group">
                     <label for="newTag">Create a New Tag</label>
                     <div class="new-tag-input">
@@ -75,11 +93,11 @@
                         <button type="button" class="btn-add-tag">+</button>
                     </div>
                 </div>
-            
             </div>
             
             <br>
 
+            <!-- attachment upload and display section -->
             <div id="attachment-container">
                 {% if journal.attachments.all %}
                     <h4 class="attachment-header">Attachment</h4>
@@ -91,6 +109,7 @@
                         {% endfor %}
                     </div>
 
+                    <!-- option to remove existing attachments -->
                     <div class="remove-attachment">
                         <label for="remove_attachment">
                             <input type="checkbox" id="remove_attachment" name="remove_attachment">
@@ -101,6 +120,7 @@
                     <p class="no-attachments">No attachments.</p>
                 {% endif %}
 
+                <!-- input field to upload a new attachment -->
                 <div class="form-group upload-container">
                     <label for="new_attachment" class="upload-label">Upload Attachment (optional)</label>
                     <input type="file" id="new_attachment" name="new_attachment" accept="image/*" class="upload-input">
@@ -108,71 +128,74 @@
             </div>
         </form>
 
-            <div class="toolbar">
-                <button onclick="changeSize('up')" title="Increase font size">
-                    <img src="{% static 'images/toolbar-icons/font-size-up.png' %}" alt="Increase Font Size">
-                </button>
+        <!-- text formatting toolbar -->
+        <div class="toolbar">
+            <button onclick="changeSize('up')" title="Increase font size">
+                <img src="{% static 'images/toolbar-icons/font-size-up.png' %}" alt="Increase Font Size">
+            </button>
 
-                <button onclick="changeSize('down')" title="Decrease font size">
-                    <img src="{% static 'images/toolbar-icons/font-size-down.png' %}" alt="Decrease Font Size">
-                </button>
+            <button onclick="changeSize('down')" title="Decrease font size">
+                <img src="{% static 'images/toolbar-icons/font-size-down.png' %}" alt="Decrease Font Size">
+            </button>
 
-                <button onclick="formatText('bold')" title="Bold Font">
-                    <img src="{% static 'images/toolbar-icons/bold.png' %}" alt="Bold">
-                </button>
+            <button onclick="formatText('bold')" title="Bold Font">
+                <img src="{% static 'images/toolbar-icons/bold.png' %}" alt="Bold">
+            </button>
 
-                <button onclick="formatText('italic')" title="Italic Font">
-                    <img src="{% static 'images/toolbar-icons/italic.png' %}" alt="Italic">
-                </button>
+            <button onclick="formatText('italic')" title="Italic Font">
+                <img src="{% static 'images/toolbar-icons/italic.png' %}" alt="Italic">
+            </button>
 
-                <button onclick="formatText('underline')" title="Underline Font">
-                    <img src="{% static 'images/toolbar-icons/underline.png' %}" alt="Underline">
-                </button>
+            <button onclick="formatText('underline')" title="Underline Font">
+                <img src="{% static 'images/toolbar-icons/underline.png' %}" alt="Underline">
+            </button>
 
-                <button onclick="addLists('bullet')" title="Bullet Points">
-                    <img src="{% static 'images/toolbar-icons/bullet-points.png' %}" alt="Bullet-Points">
-                </button>
+            <button onclick="addLists('bullet')" title="Bullet Points">
+                <img src="{% static 'images/toolbar-icons/bullet-points.png' %}" alt="Bullet-Points">
+            </button>
 
-                <button onclick="addLists('numbered')" title="Numbered Points">
-                    <img src="{% static 'images/toolbar-icons/numbered points.png' %}" alt="Numbered-List">
-                </button>
-            </div>
+            <button onclick="addLists('numbered')" title="Numbered Points">
+                <img src="{% static 'images/toolbar-icons/numbered points.png' %}" alt="Numbered-List">
+            </button>
+        </div>
 
+        <!-- fixed logo at bottom of page -->
         <div id="fixed-logo">
             <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread." width="30%">
         </div>
     </main>
 
+    <!-- linking scripts for sidebar navigation and text formatting -->
     <script src="{% static 'scripts/sidenav.js' %}"></script>
     <script src="{% static 'scripts/text-format.js' %}"></script>
+
+    <!-- function to copy contenteditable html into hidden textarea before form submission -->
     <script>
         function prepareSubmission (event) {
             const editor = document.getElementById('journalContent');
             const hidden = document.getElementById('hiddenContent');
             hidden.value = editor.innerHTML;
-
         }
     </script>
+
+    <!-- applying user-selected theme colors -->
     <script>
+    let p_c = "{{user.theme.primary_color}}"; 
+    let s_c = "{{user.theme.secondary_color}}"; 
+    let t_c = "{{user.theme.tertiary_color}}"; 
 
-    let p_c = "{{user.theme.primary_color}}"; // primary colour from database
-    let s_c = "{{user.theme.secondary_color}}"; // secondary colour from database
-    let t_c = "{{user.theme.tertiary_color}}"; // tertiary colour from database
-
-    // setting default colours since the strings are empty when a new account is made
+    // setting default colors if no theme colors are saved
     if (p_c.length == 0 && s_c.length == 0 && t_c.length == 0) {
         p_c = '#383940';
         s_c = '#43545b';
         t_c = '#7b96a2';
     }
 
-    // applying the three colours to the entire document's style
+    // applying colors as css variables for consistent theming
     document.documentElement.style.setProperty('--primary_color', p_c);
     document.documentElement.style.setProperty('--secondary_color', s_c);
     document.documentElement.style.setProperty('--tertiary_color', t_c);
-
     </script>
 
 </body>
-
 </html>

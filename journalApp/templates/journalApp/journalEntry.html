@@ -5,24 +5,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThoughtThread | Journal Entry</title>
+    <!-- linking the main stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- setting the website favicon -->
     <link rel="icon" href="{% static 'images/logos/thoughtthread-icon.png' %}">
 </head>
 <body>
+
     <main id="main" class="journalentrypage">
+        
+        <!-- side navigation bar -->
         <div id="side-nav">
+            <!-- dashboard button -->
             <a href="{% url 'index' %}">
                 <button title="Dashboard">
                     <img src="{% static 'images/button-icons/dashboard.png' %}" alt="Dashboard" width="80%">
                 </button>
             </a>
             <br><br>
+            <!-- profile settings button -->
             <a href="{% url 'profSetting' %}">
                 <button title="Settings">
                     <img src="{% static 'images/button-icons/profile.png' %}" alt="Profile" width="95%">
                 </button>
             </a>
             <br><br>
+            <!-- logout button (only visible if user is authenticated) -->
             {% if user.is_authenticated %}
             <a href="{% url 'logOut' %}">
                 <button title="Logout">
@@ -31,22 +39,32 @@
             </a>
             {% endif %}
         </div>
+
+        <!-- journal entry form -->
         <form action="{% url 'createEntry' %}" method="POST" id="journalForm" enctype="multipart/form-data">
             {% csrf_token %}
+            
+            <!-- input field for journal title -->
             <div class="form-group">
                 <input type="text" id="journalTitle" name="title" class="form-control" placeholder="Your Journal Entry Title" required>
             </div>
+
+            <!-- hidden textarea to store html content before form submission -->
             <textarea name="content" id="hiddenContent" style="display: none;"></textarea>
+
+            <!-- contenteditable div for journal entry -->
             <div class="form-group">
                 <div id="journalContent" class="journal-content-editable" contenteditable="true" onfocus="clearPlaceholder()" onblur="restorePlaceholder()">Write your thoughts here...</div>
             </div>
             
+            <!-- save journal entry button -->
             <div class="form-group mt-3" id="save-btn">
                 <button type="submit" class="btn btn-primary" onclick="prepareSubmission(event)">
                     Create Journal Entry
                 </button>
             </div>
 
+            <!-- tag selection section -->
             <div id="tags-section">
                 <div class="form-group">
                     <label for="existingTag">Choose a Tag</label>
@@ -63,6 +81,7 @@
                 </div>
                 <br>
 
+                <!-- create a new tag input field -->
                 <div class="form-group">
                     <label for="newTag">Create a New Tag</label>
                     <div class="new-tag-input">
@@ -74,6 +93,7 @@
 
             <br>
 
+            <!-- attachment upload section -->
             <div id="attachment-container">
                 {% if journal.attachments.all %}
                     <h4 class="attachment-header">Attachment</h4>
@@ -85,6 +105,7 @@
                         {% endfor %}
                     </div>
 
+                    <!-- option to remove existing attachment -->
                     <div class="remove-attachment">
                         <label for="remove_attachment">
                             <input type="checkbox" id="remove_attachment" name="remove_attachment">
@@ -95,13 +116,15 @@
                     <p class="no-attachments">No attachments.</p>
                 {% endif %}
 
+                <!-- upload new attachment input field -->
                 <div class="form-group upload-container">
-                    <label for="new_attachment" class="upload-label">Upload Attachment (optional)</label>
-                    <input type="file" id="new_attachment" name="new_attachment" accept="image/*" class="upload-input">
+                    <label for="attachment" class="upload-label">Upload Attachment (optional)</label>
+                    <input type="file" id="attachment" name="attachment" accept="image/*" class="upload-input">
                 </div>
             </div>
         </form>
 
+        <!-- text formatting toolbar -->
         <div class="toolbar">
             <button onclick="changeSize('up')" title="Increase font size">
                 <img src="{% static 'images/toolbar-icons/font-size-up.png' %}" alt="Increase Font Size">
@@ -126,6 +149,7 @@
             </button>
         </div>
 
+        <!-- fixed logo at bottom of the page -->
         <div id="fixed-logo">
             <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread." width="30%">
         </div>
@@ -133,55 +157,52 @@
 
     <script src="{% static 'scripts/text-format.js' %}"></script>
     <script>
-        function prepareSubmission (event) {
+        function prepareSubmission(event) {
             const editor = document.getElementById('journalContent');
             const hidden = document.getElementById('hiddenContent');
             hidden.value = editor.innerHTML;
-
         }
     </script>
-    <script>
 
-        let p_c = "{{user.theme.primary_color}}"; // primary colour from database
-        let s_c = "{{user.theme.secondary_color}}"; // secondary colour from database
-        let t_c = "{{user.theme.tertiary_color}}"; // tertiary colour from database
-    
-        // setting default colours since the strings are empty when a new account is made
+    <!-- applying user-selected theme colors -->
+    <script>
+        let p_c = "{{user.theme.primary_color}}";
+        let s_c = "{{user.theme.secondary_color}}";
+        let t_c = "{{user.theme.tertiary_color}}";
+
         if (p_c.length == 0 && s_c.length == 0 && t_c.length == 0) {
         p_c = '#383940';
         s_c = '#43545b';
         t_c = '#7b96a2';
         }
-    
-        // applying the three colours to the entire document's style
+
         document.documentElement.style.setProperty('--primary_color', p_c);
         document.documentElement.style.setProperty('--secondary_color', s_c);
         document.documentElement.style.setProperty('--tertiary_color', t_c);
-    
     </script>
+
+    <!-- placeholder behavior for journal content -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const editor = document.getElementById("journalContent");
-        
+
             function clearPlaceholder() {
                 if (editor.textContent.trim() === "Write your thoughts here...") {
                     editor.textContent = "";
-                    editor.style.color = "#fff";
                 }
             }
-        
+
             function restorePlaceholder() {
                 if (editor.textContent.trim() === "") {
                     editor.textContent = "Write your thoughts here...";
-                    editor.style.color = "#fff";
                 }
             }
 
             restorePlaceholder();
-
             window.clearPlaceholder = clearPlaceholder;
             window.restorePlaceholder = restorePlaceholder;
         });
-        </script>
+    </script>
+
 </body>
 </html>

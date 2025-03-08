@@ -5,51 +5,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThoughtThread | About Us</title>
+    <!-- linking main stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- setting the website favicon -->
     <link rel="icon" href="{% static 'images/logos/thoughtthread-icon.png' %}">
 </head>
 <body>
+
+    <!-- header section -->
     <header>
+        <!-- logo linking to homepage -->
         <div id="header-logo">
           <a href="{% url 'index' %}">
             <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread." width="35%" class="blink-effect">
           </a>
         </div>
     
+        <!-- navigation bar -->
         <div id="header-nav">
           <nav>
+            <!-- button linking to dashboard -->
             <a href="{% url 'index' %}"><button title="Dashboard"><img
                 src="{% static 'images/button-icons/dashboard.png' %}" alt="Dashboard"></button></a>
+            
+            <!-- button linking to profile settings -->
             <a href="{% url 'profSetting' %}"><button title="Settings">
               <img src="{% static 'images/button-icons/profile.png' %}" alt="Profile Settings">
             </button></a>
 
+            <!-- logout button, only displayed if user is logged in -->
             {% if user.is_authenticated %}
             <a href="{% url 'logOut' %}"><button title="Logout"><img src="{% static 'images/button-icons/logout.png' %}" alt="Logout"></button></a>
             {% endif %}
           </nav>
         </div>
-    
       </header>
+
+    <!-- main content section -->
     <main id="about-page">
+        <!-- introductory section -->
         <section id="about-intro">
             <h1>Welcome to ThoughtThread</h1>
             <p>
-                ThoughtThread is more than just a journaling app it's a personalized sanctuary for self reflection,
-                creativity, and emotional well being. Designed with color psychology and user experience in
-                mind,
-                ThoughtThread transforms journaling into a seamless, stress free, and enriching habit.
+                ThoughtThread is more than just a journaling app — it's a personalized sanctuary for self-reflection,
+                creativity, and emotional well-being. Designed with color psychology and user experience in
+                mind, ThoughtThread transforms journaling into a seamless, stress-free, and enriching habit.
             </p>
         </section>
+
+        <!-- mission statement -->
         <section id="about-mission">
             <h2>Our Mission</h2>
             <p>
                 We believe that journaling should be simple, expressive, and empowering.
-                ThoughtThread was created to provide a distraction free, customizable environment where users can
+                ThoughtThread was created to provide a distraction-free, customizable environment where users can
                 organize thoughts, express emotions, and track personal growth—all while feeling completely at ease.
             </p>
         </section>
 
+        <!-- key features section -->
         <section id="about-features">
             <h2>Why ThoughtThread?</h2>
             <div class="features-container">
@@ -58,16 +72,14 @@
                     <h3>Customizable Experience</h3>
                     <p>
                         From color themes to text formatting, ThoughtThread lets you design your journaling
-                        space
-                        to reflect your mood and personality.
+                        space to reflect your mood and personality.
                     </p>
                 </div>
                 <div class="feature-box">
                     <img src="{% static 'images/logos/thoughtthread-icon.png' %}" alt="Customization" class="blink-effect">
                     <h3>Daily Writing Prompts</h3>
                     <p>
-                        Never face writer's block again! Get fresh, inspiring prompts every time you log in or
-                        refresh,
+                        Never face writer's block again! Get fresh, inspiring prompts every time you log in or refresh,
                         helping you stay consistent in your journaling journey.
                     </p>
                 </div>
@@ -76,11 +88,9 @@
                     <h3>Privacy & Security</h3>
                     <p>
                         Your thoughts are yours alone. ThoughtThread ensures that all journal entries are stored
-                        locally,
-                        giving you full control over your data.
+                        locally, giving you full control over your data.
                     </p>
                 </div>
-
                 <div class="feature-box">
                     <img src="{% static 'images/logos/thoughtthread-icon.png' %}" alt="Customization" class="blink-effect">
                     <h3>Export Your Journals</h3>
@@ -90,15 +100,14 @@
                     </p>
                 </div>
             </div>
-
         </section>
 
+        <!-- future plans for the application -->
         <section id="about-future">
             <h2>The Future of ThoughtThread</h2>
             <p>
                 We're just getting started! The first version of ThoughtThread is designed to be simple yet
-                powerful.
-                However, we're already looking ahead to features such as:
+                powerful. However, we're already looking ahead to features such as:
             </p>
             <ul>
                 <li> Mood Tracking to correlate emotions with journal entries</li>
@@ -106,23 +115,23 @@
                 <li>Cloud Syncing for seamless access across devices</li>
             </ul>
             <p>
-                ThoughtThread aims to be more than an app it’s a journey of self discovery.
+                ThoughtThread aims to be more than an app — it’s a journey of self-discovery.
                 We’re committed to evolving with our users, ensuring a meaningful and therapeutic journaling
                 experience.
             </p>
         </section>
 
+        <!-- call to action section -->
         <section id="about-join">
             <h2>Join the ThoughtThread Community</h2>
             <p>
                 Whether you're journaling to reflect, heal, or simply organize your thoughts, ThoughtThread
-                is here
-                to support you. Start your journey today!
+                is here to support you. Start your journey today!
             </p>
             <a href="{% url 'newEntry' %}"><button>Start Journaling</button></a>
         </section>
     </main>
-
+    <!-- footer section -->
     <footer>
         <div>
             <a href="{% url 'index' %}">
@@ -137,24 +146,23 @@
             <a>&#169; ThoughtThread 2025</a>
         </div>
     </footer>
+    <!-- script to apply user-selected theme colors -->
     <script>
-
-        let p_c = "{{user.theme.primary_color}}"; // primary colour from database
-        let s_c = "{{user.theme.secondary_color}}"; // secondary colour from database
-        let t_c = "{{user.theme.tertiary_color}}"; // tertiary colour from database
+        let p_c = "{{user.theme.primary_color}}"; 
+        let s_c = "{{user.theme.secondary_color}}"; 
+        let t_c = "{{user.theme.tertiary_color}}"; 
     
-        // setting default colours since the strings are empty when a new account is made
+        // setting default colors if no theme colors are saved
         if (p_c.length == 0 && s_c.length == 0 && t_c.length == 0) {
           p_c = '#383940';
           s_c = '#43545b';
           t_c = '#7b96a2';
         }
     
-        // applying the three colours to the entire document's style
+        // applying colors as css variables for consistent theming
         document.documentElement.style.setProperty('--primary_color', p_c);
         document.documentElement.style.setProperty('--secondary_color', s_c);
         document.documentElement.style.setProperty('--tertiary_color', t_c);
-    
-      </script>
+    </script>
 </body>
 </html>

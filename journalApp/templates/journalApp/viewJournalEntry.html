@@ -5,70 +5,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThoughtThread | View Journal Entry</title>
+    <!-- linking the main stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- setting the website favicon -->
     <link rel="icon" href="{% static 'images/logos/thoughtthread-icon.png' %}">
 </head>
 <body>
+
+    <!-- header section -->
     <header>
+        <!-- logo section -->
         <div id="header-logo">
             <a href="{% url 'index' %}">
                 <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread." width="35%" class="blink-effect">
             </a>
         </div>
 
+        <!-- navigation buttons -->
         <div id="header-nav">
             <nav>
-                <a href="{% url 'index' %}"><button title="Dashboard">
-                    <img src="{% static 'images/button-icons/dashboard.png' %}" alt="Dashboard">
+                <!-- dashboard button -->
+                <a href="{% url 'index' %}"><button title="dashboard">
+                    <img src="{% static 'images/button-icons/dashboard.png' %}" alt="dashboard">
                 </button></a>
-                <a href="{% url 'profSetting' %}"><button title="Settings">
-                    <img src="{% static 'images/button-icons/profile.png' %}" alt="Profile Settings">
+                <!-- profile settings button -->
+                <a href="{% url 'profSetting' %}"><button title="settings">
+                    <img src="{% static 'images/button-icons/profile.png' %}" alt="profile settings">
                 </button></a>
 
+                <!-- logout button (only visible if user is authenticated) -->
                 {% if user.is_authenticated %}
-                <a href="{% url 'logOut' %}"><button title="Logout">
-                    <img src="{% static 'images/button-icons/logout.png' %}" alt="Logout">
+                <a href="{% url 'logOut' %}"><button title="logout">
+                    <img src="{% static 'images/button-icons/logout.png' %}" alt="logout">
                 </button></a>
                 {% endif %}
             </nav>
         </div>
     </header>
 
+    <!-- main content section -->
     <main id="view-entry-page">
+        <!-- displaying the journal title -->
         <div id="view-journal-title">
             <h3>{{ journal.title }}</h3>
         </div>
+
+        <!-- tag section -->
         <div id="tagJournal">
             {% if journal.tag %}
+            <!-- displaying journal tag if available -->
             <span class="tag-pill">{{ journal.tag.name }}</span>
-            </p>
             {% else %}
-            <p><em>No tag assigned.</em></p>
+            <p><em>No Tag Assigned.</em></p>
             {% endif %}
         </div>
         <hr>
 
+        <!-- displaying the journal content -->
         <div id="view-journal-entry">
             <p>{{ journal.content|safe }}</p>
         </div>
         <br>
         <br>
+
+        <!-- attachment section (only displays if the journal has attachments) -->
         {% if journal.attachments.all %}
         <div class="attachment-section">
             <div class="attachment-container">
-                <img src="{{ journal.attachments.first.image.url }}" alt="Attachment">
+                <img src="{{ journal.attachments.first.image.url }}" alt="attachment">
             </div>
         </div>
         {% endif %}
 
-
+        <!-- displaying the created and last updated dates -->
         <div id="journal-dates">
             <span class="date-pill"><strong>Created at:</strong> {{ journal.created_at }}</span>
             <span class="date-pill"><strong>Last updated:</strong> {{ journal.updated_at }}</span>
         </div>
         
-
         <br>
+
+        <!-- buttons for editing, downloading, or deleting the journal entry -->
         <div id="vep-buttons">
             <a href="{% url 'editEntry' journal.entry_id %}">
                 <button>Edit Entry</button>
@@ -81,42 +98,48 @@
             </a>
         </div>
     </main>
-    <!-- footer -->
+
+    <!-- footer section -->
     <footer>
         <div>
             <a href="{% url 'index' %}">
                 <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread.">
             </a>
         </div>
+
+        <!-- footer navigation -->
         <div id="ftr-nav">
             <a href="{% url 'index' %}">Home</a>
             <a href="{% url 'aboutUs' %}">About</a>
             <a href="mailto:contact@thoughtthread.com">Contact</a>
         </div>
 
+        <!-- copyright text -->
         <div id="ftr-cp">
-            <a>&#169;ThoughtThread 2025</a>
+            <a>&#169; ThoughtThread 2025</a>
         </div>
     </footer>
+
+    <!-- theme customization script -->
     <script>
 
-        let p_c = "{{user.theme.primary_color}}"; // primary colour from database
-        let s_c = "{{user.theme.secondary_color}}"; // secondary colour from database
-        let t_c = "{{user.theme.tertiary_color}}"; // tertiary colour from database
+        let p_c = "{{user.theme.primary_color}}"; // primary color from database
+        let s_c = "{{user.theme.secondary_color}}"; // secondary color from database
+        let t_c = "{{user.theme.tertiary_color}}"; // tertiary color from database
     
-        // setting default colours since the strings are empty when a new account is made
+        // setting default colors if no colors are assigned
         if (p_c.length == 0 && s_c.length == 0 && t_c.length == 0) {
           p_c = '#383940';
           s_c = '#43545b';
           t_c = '#7b96a2';
         }
     
-        // applying the three colours to the entire document's style
+        // applying the theme colors to the document
         document.documentElement.style.setProperty('--primary_color', p_c);
         document.documentElement.style.setProperty('--secondary_color', s_c);
         document.documentElement.style.setProperty('--tertiary_color', t_c);
     
-      </script>
+    </script>
 
 </body>
 </html>

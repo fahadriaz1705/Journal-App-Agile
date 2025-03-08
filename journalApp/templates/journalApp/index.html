@@ -5,24 +5,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ThoughtThread | Dashboard</title>
+  <!-- linking font-awesome for icons -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <!-- linking main stylesheet -->
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <!-- setting the website favicon -->
   <link rel="icon" href="{% static 'images/logos/thoughtthread-icon.png' %}">
 </head>
 <body>
 
+  <!-- header section -->
   <header>
+    <!-- logo linking to homepage -->
     <div id="header-logo">
       <a href="{% url 'index' %}">
         <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread." width="35%" class="blink-effect">
       </a>
     </div>
 
+    <!-- navigation bar with settings and logout -->
     <div id="header-nav">
       <nav>
+        <!-- settings button -->
         <a href="{% url 'profSetting' %}"><button title="Settings">
           <img src="{% static 'images/button-icons/profile.png' %}" alt="Profile Settings">
         </button></a>
+
+        <!-- logout button (only visible if user is authenticated) -->
         {% if user.is_authenticated %}
         <a href="{% url 'logOut' %}"><button title="Logout"><img src="{% static 'images/button-icons/logout.png' %}" alt="Logout"></button></a>
         {% endif %}
@@ -30,10 +39,14 @@
     </div>
   </header>
 
+  <!-- main dashboard content -->
   <main id="dashboard-page">
+    
+    <!-- journal entries section -->
     <div id="entries-side">
       <h3>Journal Entries</h3>
       <div id="entries-list">
+        <!-- looping through all journal entries -->
         {% for journal in allJournals %}
         <a href="{% url 'viewEntry' journal.entry_id %}">
           <button> {{ journal.title }} </button>
@@ -41,6 +54,7 @@
         {% endfor %}
       </div>
 
+      <!-- button to create a new journal entry -->
       <div id="button">
         <a href="{% url 'newEntry' %}">
           <button>
@@ -50,16 +64,20 @@
       </div>
     </div>
 
-
+    <!-- dashboard content area -->
     <div id="dashboard-area">
+      
+      <!-- inspiration section with quotes -->
       <div id="prompts">
         <div id="prompt-heading">
           <h2 padding-top="10px">Inspiration</h2>
+          <!-- refresh quote button -->
           <button id="refresh-quote" title="Refresh Quote" >
             <img src="{% static 'images/button-icons/refresh.png' %}" alt="Refresh" width="50%">
           </button>
         </div>
 
+        <!-- container for displaying the fetched quote -->
         <div id="quote-container">
           <p id="prompt-q">What does this quote make you think of?</p>
           <p id="quote-text">Loading quote...</p>
@@ -67,29 +85,33 @@
         </div>
       </div>
 
-
+      <!-- user activity section -->
       <div id="activity">
         <div id="greeting">
           <h2 id="typewriter"></h2>
           <br>
-          <p><strong>Today is:</strong> {{ today|date:"M d, Y" }}</p>
+          <p><strong>{{ today|date:"M d, Y" }}</strong> </p>
         </div>
 
+        <!-- latest journal entry section -->
         <div id="latest">
           <h2>Latest Entry</h2>
           <div id="latest-entry">
             {% if latestJournal %}
+            <!-- clickable title to view full entry -->
             <a href="{% url 'viewEntry' latestJournal.entry_id %}">
               <strong>{{ latestJournal.title }}</strong>
             </a>
             <br>
 
+            <!-- preview of latest journal content -->
             <div id="latest-journal-entry">
               <p>{{ latestJournal.content|safe }}</p>
             </div>
             <br>
+
+            <!-- display tag associated with the entry -->
             <p class="tag-pill">
-              <strong>Tag:</strong>
               {% if latestJournal.tag %}
               {{ latestJournal.tag.name }}
               {% else %}
@@ -98,6 +120,7 @@
             </p>
             <br>
 
+            <!-- journal creation date -->
             <p><strong>Created at:</strong> {{ latestJournal.created_at }}</p>
             {% else %}
             <p>No entries found.</p>
@@ -108,95 +131,122 @@
     </div>
   </main>
   
+  <!-- footer section -->
   <footer>
     <div>
       <a href="{% url 'index' %}">
         <img src="{% static 'images/logos/thoughtthread-logo-rect.png' %}" alt="thoughtthread.">
       </a>
     </div>
+
+    <!-- footer navigation -->
     <div id="ftr-nav">
       <a href="{% url 'index' %}">Home</a>
       <a href="{% url 'aboutUs' %}">About</a>
       <a href="mailto:contact@thoughtthread.com">Contact</a>
     </div>
 
-
+    <!-- copyright information -->
     <div id="ftr-cp">
       <a>&#169;ThoughtThread 2025</a>
     </div>
   </footer>
 
-  <script>
+  <!-- script to fetch and display random quotes -->
+<script>
     async function fetchQuote () {
       try {
+        // sending a request to the local Django backend API for a random quote
         const response = await fetch("http://127.0.0.1:8000/journal/zenQuote/");
 
+        // checking if the request was successful (HTTP status 200)
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
+        // parsing the JSON response from the server
         const data = await response.json();
+
+        // checking if the response contains valid quote data (both quote text and author)
         if (!data.q || !data.a) {
           throw new Error("Invalid quote data received.");
         }
 
+        // updating the quote text and author on the webpage
         document.getElementById("quote-text").innerText = `"${data.q}"`;
         document.getElementById("quote-author").innerText = `— ${data.a}`;
+      
       } catch (error) {
+        // handling errors, displaying a fallback message in case of failure
         console.error("Failed to fetch quote:", error);
         document.getElementById("quote-text").innerText = "Could not load quote. Please try again.";
         document.getElementById("quote-author").innerText = "";
       }
     }
 
+    // adding event listener to refresh quote when the refresh button is clicked
     document.getElementById("refresh-quote").addEventListener("click", fetchQuote);
+
+    // automatically fetching a new quote when the page loads
     window.addEventListener("load", fetchQuote);
+</script>
 
-  </script>
-
-  <script>
+<!-- script to add typewriter effect to greeting -->
+<script>
     document.addEventListener("DOMContentLoaded", function () {
+        // selecting the element where the typewriter effect will appear
         const element = document.getElementById("typewriter");
+
+        // text that will be typed out in the effect
         const text = "Welcome {{ user.username }}!";
         let index = 0;
         
+        // function to create the typing effect
         function typeEffect() {
             if (index < text.length) {
+                // adding one letter at a time to the element
                 element.innerHTML = text.substring(0, index + 1); 
                 index++;
+                // calling the function recursively with a slight delay for the effect
                 setTimeout(typeEffect, 100);
             } else {
+                // once completed, wait a few seconds and reset the effect
                 setTimeout(resetEffect, 9000);
             }
         }
     
+        // function to clear the text and restart the typing effect
         function resetEffect() {
             index = 0;
             element.innerHTML = "";
             setTimeout(typeEffect, 500);
         }
     
+        // initiating the typewriter effect when the page loads
         typeEffect();
     });
-    </script>
-    <script>
+</script>
 
-      let p_c = "{{user.theme.primary_color}}"; // primary colour from database
-      let s_c = "{{user.theme.secondary_color}}"; // secondary colour from database
-      let t_c = "{{user.theme.tertiary_color}}"; // tertiary colour from database
-  
-      // setting default colours since the strings are empty when a new account is made
-      if (p_c.length == 0 && s_c.length == 0 && t_c.length == 0) {
-        p_c = '#383940';
-        s_c = '#43545b';
-        t_c = '#7b96a2';
-      }
-  
-      // applying the three colours to the entire document's style
-      document.documentElement.style.setProperty('--primary_color', p_c);
-      document.documentElement.style.setProperty('--secondary_color', s_c);
-      document.documentElement.style.setProperty('--tertiary_color', t_c);
-  
-    </script>
+<!-- script to apply user-selected theme colors -->
+<script>
+    // retrieving user-selected theme colors from the backend
+    let p_c = "{{user.theme.primary_color}}"; 
+    let s_c = "{{user.theme.secondary_color}}"; 
+    let t_c = "{{user.theme.tertiary_color}}"; 
+
+    // setting default colors if no theme colors are saved in the database
+    if (p_c.length == 0 && s_c.length == 0 && t_c.length == 0) {
+      p_c = '#383940';
+      s_c = '#43545b';
+      t_c = '#7b96a2';
+    }
+
+    // applying the retrieved colors as CSS variables for consistent theming
+    document.documentElement.style.setProperty('--primary_color', p_c);
+    document.documentElement.style.setProperty('--secondary_color', s_c);
+    document.documentElement.style.setProperty('--tertiary_color', t_c);
+</script>
+
+
 </body>
 </html>
